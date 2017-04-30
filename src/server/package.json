@@ -1,0 +1,29 @@
+{
+  "name": "react-bibliotecha-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/myheritage/react-bibliotheca.git"
+  },
+  "keywords": [
+    "react",
+    "library",
+    "component"
+  ],
+  "author": "MyHeritage",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/myheritage/react-bibliotheca/issues"
+  },
+  "homepage": "https://github.com/myheritage/react-bibliotheca#readme",
+  "dependencies": {
+    "express": "^4.15.2",
+    "express-restful-es6": "^1.0.1"
+  },
+  "devDependencies": {}
+}
