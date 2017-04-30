@@ -1,0 +1,45 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'start' ]
+2 info using npm@3.10.10
+3 info using node@v6.9.5
+4 verbose run-script [ 'prestart', 'start', 'poststart' ]
+5 info lifecycle bibliotheca@0.0.1~prestart: bibliotheca@0.0.1
+6 silly lifecycle bibliotheca@0.0.1~prestart: no script for prestart, continuing
+7 info lifecycle bibliotheca@0.0.1~start: bibliotheca@0.0.1
+8 verbose lifecycle bibliotheca@0.0.1~start: unsafe-perm in lifecycle true
+9 verbose lifecycle bibliotheca@0.0.1~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/noam.elboim/Documents/cool stuff/react-bibliotheca/node_modules/.bin:/Library/Frameworks/Python.framework/Versions/2.7/bin:/usr/local/heroku/bin:/usr/local/php5/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Volumes/mhdev/devutils
+10 verbose lifecycle bibliotheca@0.0.1~start: CWD: /Users/noam.elboim/Documents/cool stuff/react-bibliotheca
+11 silly lifecycle bibliotheca@0.0.1~start: Args: [ '-c', 'npm run gulp:w' ]
+12 silly lifecycle bibliotheca@0.0.1~start: Returned: code: 1  signal: null
+13 info lifecycle bibliotheca@0.0.1~start: Failed to exec start script
+14 verbose stack Error: bibliotheca@0.0.1 start: `npm run gulp:w`
+14 verbose stack Exit status 1
+14 verbose stack     at EventEmitter.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/lifecycle.js:255:16)
+14 verbose stack     at emitTwo (events.js:106:13)
+14 verbose stack     at EventEmitter.emit (events.js:191:7)
+14 verbose stack     at ChildProcess.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/spawn.js:40:14)
+14 verbose stack     at emitTwo (events.js:106:13)
+14 verbose stack     at ChildProcess.emit (events.js:191:7)
+14 verbose stack     at maybeClose (internal/child_process.js:877:16)
+14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
+15 verbose pkgid bibliotheca@0.0.1
+16 verbose cwd /Users/noam.elboim/Documents/cool stuff/react-bibliotheca
+17 error Darwin 15.6.0
+18 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "start"
+19 error node v6.9.5
+20 error npm  v3.10.10
+21 error code ELIFECYCLE
+22 error bibliotheca@0.0.1 start: `npm run gulp:w`
+22 error Exit status 1
+23 error Failed at the bibliotheca@0.0.1 start script 'npm run gulp:w'.
+23 error Make sure you have the latest version of node.js and npm installed.
+23 error If you do, this is most likely a problem with the bibliotheca package,
+23 error not with npm itself.
+23 error Tell the author that this fails on your system:
+23 error     npm run gulp:w
+23 error You can get information on how to open an issue for this project with:
+23 error     npm bugs bibliotheca
+23 error Or if that isn't available, you can get their info via:
+23 error     npm owner ls bibliotheca
+23 error There is likely additional logging output above.
+24 verbose exit [ 1, true ]
