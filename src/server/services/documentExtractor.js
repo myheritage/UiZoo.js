@@ -1,4 +1,4 @@
-import * as fs from "fs";
+var fs = require("fs");
 
 const DOCUMENTATION_REGEXP = /\/\*\*[\s\S]*\*\//gm;
 
@@ -7,7 +7,7 @@ const DOCUMENTATION_REGEXP = /\/\*\*[\s\S]*\*\//gm;
  * @param {String} filePath The file path to read
  * @param {Function} callback Function to invoke on resolve
  */
-export default function documentExtractor(filePath, callback) {
+export default function extract(filePath, callback) {
     fs.readFile(filePath, "utf8", (err, data) => {
         if (err) {
             console.error(err);
