@@ -12,21 +12,20 @@ let gulp = require('gulp'),
 
 
 // Server start
-gulp.task("server:start-server", startServer);
-gulp.task("server:start-client", startClient);
+gulp.task("server:restart-client", restartClient);
 gulp.task("compile:client", bundleClient);
 gulp.task('compile:server', compileServer);
-gulp.task("server:restart-client", restartClient);
+gulp.task("server:start", startServer);
 
-gulp.task("server:start", ["server:start-server", "server:start-client"]);
 gulp.task("compile", ["compile:client", "compile:server"]);
 
 // WATCH
 // =====
-gulp.task("default", ["compile", "server:start-server", "server:start", "watch"]);
+gulp.task("default", ["compile", "server:start", "watch"]);
 
 gulp.task("watch", () => {
-	gulp.watch(["src/client/**/*"], ["compile:client", ["server:restart-client"]]);
+	gulp.watch(["src/client/**/*"], ["compile:client"]);
+	gulp.watch(["src/server/**/*"], ["compile:server"]);
 });
 
 function bundleClient() {
@@ -58,10 +57,6 @@ function compileServer() {
 			.pipe(gulp.dest("./build/server"));
 }
 
-function startClient() {
-	// return server.listen({ path: './build/client', port: 3001});
-};
-
 function startServer() {
 	let nodemonProc = exec("npm run start-server");
 
@@ -75,6 +70,6 @@ function startServer() {
 }
 
 function restartClient() {
-	cconsole.error(chalk.green("Restarting server"));
+	console.error(chalk.green("Restarting server"));
 	server.restart();
 }
