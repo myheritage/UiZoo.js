@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+import {BrowserRouter, Route} from "react-router-dom";
+
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -13,9 +15,13 @@ injectTapEventPlugin();
 
 import MasterPage from "./Components/MasterPage";
 
+window.React = React;
+
 ReactDOM.render(
     <MuiThemeProvider>
-        <MasterPage />
+        <BrowserRouter basename="/">
+            <Route path="/:componentName" component={MasterPage} />
+        </BrowserRouter>
     </MuiThemeProvider>,
     document.getElementById('bibliotecha_root')
 );

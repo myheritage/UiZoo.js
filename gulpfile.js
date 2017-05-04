@@ -10,14 +10,19 @@ let gulp = require('gulp'),
 	exec = require('child_process').exec,
 	babel = require('gulp-babel');
 
+let nodemonStream;
 
-// Server start
-gulp.task("server:restart-client", restartClient);
+
 gulp.task("compile:client", bundleClient);
 gulp.task('compile:server', compileServer);
-gulp.task("server:start", startServer);
+gulp.task('compile:config', compileConfig);
 
-gulp.task("compile", ["compile:client", "compile:server"]);
+gulp.task("server:start", startNodemonServer);
+gulp.task("server:restart", restartNodemonServer);
+
+gulp.task("compile:demo", moveDemo);
+
+gulp.task("compile", ["compile:client", "compile:server", "compile:config"]);
 
 // WATCH
 // =====
@@ -25,7 +30,8 @@ gulp.task("default", ["compile", "server:start", "watch"]);
 
 gulp.task("watch", () => {
 	gulp.watch(["src/client/**/*"], ["compile:client"]);
-	gulp.watch(["src/server/**/*"], ["compile:server"]);
+	gulp.watch(["src/server/**/*"], ["compile:server", "server:restart"]);
+	gulp.watch(["src/demo/config.js"], ["compile:config"]);
 });
 
 function bundleClient() {
@@ -36,7 +42,7 @@ function bundleClient() {
 				dest: 'build/client/index.js',
 				globals: {
 					react: 'React',
-					'react-dom': 'ReactDOM'
+					'react-dom': 'ReactDOM',
 				},
 			});
 		})
@@ -47,29 +53,57 @@ function bundleClient() {
 }
 
 function compileServer() {
-	return gulp
+	var result = gulp
 		.src(['./src/server/**/*.js', '!./node_modules/**/*']) // your ES2015 code 
 		.pipe(babel({
 			presets: ['es2015', "node6"],
-		})) // compile new ones 
-		.pipe(gulp.dest('./build/server')) &&
-		gulp.src(['./src/server/**/*', '!./src/server/**/*.js', '!./node_modules/**/*'])
-			.pipe(gulp.dest("./build/server"));
+		}))
+		.on("error", handleError)
+		.pipe(gulp.dest('./build/server'))
+
+	return result && moveServer();
 }
 
-function startServer() {
-	let nodemonProc = exec("npm run start-server");
-
-	nodemonProc.stdout.on('data', function (data) {
-		console.log(data.toString().replace(/\n$/, ''));
-	});
-
-	nodemonProc.stderr.on('data', function (data) {
-		console.error(data.toString().replace(/\n$/, ''));
-	});
+function moveServer() {
+	return gulp.src(['./src/server/**/*', '!./src/server/**/*.js', '!./node_modules/**/*'])
+		.pipe(gulp.dest("./build/server"));
 }
 
-function restartClient() {
-	console.error(chalk.green("Restarting server"));
-	server.restart();
+function compileConfig() {
+	return gulp
+		.src(['./src/config/*']) // your ES2015 code 
+		.pipe(babel({
+			presets: ['es2015', "node6"],
+		}))
+		.on("error", handleError)
+		.pipe(gulp.dest('./build/config'));
+}
+
+function startNodemonServer() {
+	nodemonStream = nodemon({
+		script: './build/server/app.js',
+		ext: 'js html',
+		watch: false,
+	})
+}
+
+function restartNodemonServer() {
+	if (nodemonStream) {
+		nodemonStream.emit('restart', 0);
+	} else {
+		startNodemonServer();
+	}
+}
+
+function moveDemo() {
+	return gulp
+		.src(["./demo/**/*"])
+		.pipe(gulp.dest("./build/data"));
+}
+
+function handleError(error) {
+	console.error(chalk.red(error.message));
+	console.error(chalk.grey(error.formatted && err.formatted.replace('Error: ' + error.message + '\n', '')));
+
+	this.emit('end')
 }
