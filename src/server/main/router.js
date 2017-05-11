@@ -7,8 +7,9 @@ export default function (app) {
 }
 
 function registerViewRoute(app) {
-    app.get('/', (req, res) => {
-        res.render('index.ejs');
+    app.all("/:component?", (req, res) => {
+        res.locals.configuration = libraryConfigExecuter(libraryConfig);
+        res.render("index.ejs");
     });
 }
 
