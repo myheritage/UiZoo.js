@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 
-export const COMPONENT_FOLDER = "/Users/lior.greenberg/Documents/dev/react-bibliotheca/src/client/Components";
+export const COMPONENT_FOLDER = "/Users/noam.elboim/Documents/cool stuff/react-bibliotheca/react-bibliotheca/src/client/Components";
 
 const libraryConfig = {
     componentNameListFetcher: function () {

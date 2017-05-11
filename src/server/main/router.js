@@ -10,7 +10,8 @@ export default function (app) {
 
 function registerViewRoute(app) {
     app.all("/:component?", (req, res) => {
-        res.locals.configuration = libraryConfigExecuter(libraryConfig);
+        res.locals.configuration = {components: [{name: 'Card'}]};
+        // res.locals.configuration = libraryConfigExecuter(libraryConfig);
         res.render("index.ejs");
     });
 }
