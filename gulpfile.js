@@ -50,11 +50,13 @@ function compileServer() {
 	return gulp
 		.src(['./src/server/**/*.js', '!./node_modules/**/*']) // your ES2015 code 
 		.pipe(babel({
-			presets: ['es2015', "node6"],
+			presets: ['es2015', 'node6'],
 		})) // compile new ones 
-		.pipe(gulp.dest('./build/server')) &&
+		.pipe(gulp.dest('./build/server'))
+		.on('error', e => console.error('server compiliation error', e)) &&
 		gulp.src(['./src/server/**/*', '!./src/server/**/*.js', '!./node_modules/**/*'])
-			.pipe(gulp.dest("./build/server"));
+		.pipe(gulp.dest("./build/server"))
+		.on('error', e => console.error('server compiliation error', e));
 }
 
 function startServer() {
