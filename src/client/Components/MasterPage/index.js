@@ -1,11 +1,10 @@
-import React from "react";
+import "./index.scss";
+
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
-
 import { Link } from "react-router-dom";
-
-import "./index.scss";
+import MenuItem from 'material-ui/MenuItem';
+import React from "react";
 
 export default class MasterPage extends React.Component {
     constructor(props) {
@@ -33,6 +32,7 @@ export default class MasterPage extends React.Component {
 
     render() {
         const drawerMenuItems = this.state.components.map(component => this.renderComponentMenuItem(component.name));
+        const Component = window.libraryData ? window.libraryData[this.props.match.params.componentName] : "div";
 
         return (
             <div className="master_page_container">
@@ -44,6 +44,7 @@ export default class MasterPage extends React.Component {
                     <AppBar title="Bibliotecha" onLeftIconButtonTouchTap={() => this.toggleDrawer()} />
                     <div className="master_page_component_view">
                         <h1>{this.props.match.params.componentName}</h1>
+                        <Component/>
                     </div>
                 </div>
             </div>

@@ -12,7 +12,6 @@ let gulp = require('gulp'),
 
 let nodemonStream;
 
-
 gulp.task("compile:client", bundleClient);
 gulp.task('compile:server', compileServer);
 gulp.task('compile:config', compileConfig);
@@ -31,7 +30,7 @@ gulp.task("default", ["compile", "server:start", "watch"]);
 gulp.task("watch", () => {
 	gulp.watch(["src/client/**/*"], ["compile:client"]);
 	gulp.watch(["src/server/**/*"], ["compile:server", "server:restart"]);
-	gulp.watch(["src/demo/config.js"], ["compile:config"]);
+	gulp.watch(["config/user.config.js"], ["compile:config"]);
 });
 
 function bundleClient() {
@@ -54,7 +53,7 @@ function bundleClient() {
 
 function compileServer() {
 	var result = gulp
-		.src(['./src/server/**/*.js', '!./node_modules/**/*']) // your ES2015 code 
+		.src(['./src/server/**/*.js', '!./node_modules/**/*'])
 		.pipe(babel({
 			presets: ['es2015', "node6"],
 		}))
@@ -71,7 +70,7 @@ function moveServer() {
 
 function compileConfig() {
 	return gulp
-		.src(['./src/config/*']) // your ES2015 code 
+		.src(['./config/*'])
 		.pipe(babel({
 			presets: ['es2015', "node6"],
 		}))
