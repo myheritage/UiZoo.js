@@ -2,6 +2,7 @@ import React from "react";
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
+import ComponentReview from '../ComponentReview';
 
 export default class MasterPage extends React.Component {
     constructor(props) {
@@ -28,6 +29,8 @@ export default class MasterPage extends React.Component {
                         <MenuItem>Demo Component</MenuItem>
                         <MenuItem>Demo Component 2</MenuItem>
                     </Drawer>
+
+                    <ComponentReview />
                 </div>
             </div>
         )
