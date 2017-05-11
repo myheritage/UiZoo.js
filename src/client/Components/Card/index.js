@@ -1,3 +1,7 @@
+import "./index.scss";
+
+import PropTypes from "prop-types";
+
 /**
  * @description
  * Card with border and box-shadow
@@ -38,6 +42,5 @@ export default function Card({variant, children, className}) {
 }
 
 Card.propTypes = {
-    variant: PropTypes.oneOf(VARIANTS),
     className: PropTypes.string,
 };

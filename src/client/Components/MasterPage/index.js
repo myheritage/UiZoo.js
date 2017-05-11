@@ -1,6 +1,8 @@
+import "./index.scss";
 import React from "react";
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
+import { Link } from "react-router-dom";
 import MenuItem from 'material-ui/MenuItem';
 import ComponentReview from '../ComponentReview';
 
@@ -10,6 +12,7 @@ export default class MasterPage extends React.Component {
 
         this.state = {
             isDrawerOpen: true,
+            components: window.libraryConfiguration.components,
         }
     }
 
@@ -19,17 +22,26 @@ export default class MasterPage extends React.Component {
         });
     }
 
+    renderComponentMenuItem(componentName) {
+        return (
+            <Link key={componentName} to={`/${componentName}`}>
+                <MenuItem primaryText={componentName}/>
+            </Link>
+        );
+    }
+
     render() {
+        const drawerMenuItems = this.state.components.map(component => this.renderComponentMenuItem(component.name));
+
         return (
             <div className="master_page_container">
-                <div className="master_page_content">
+                <Drawer className="component_menu" open={this.state.isDrawerOpen} width="30%">
+                    <AppBar showMenuIconButton={false} />
+                    {drawerMenuItems}
+                </Drawer>
+                <div className={`"master_page_content${this.state.isDrawerOpen ? ' component_drawer_open' : ''}`}>
                     <AppBar title="Bibliotecha" onLeftIconButtonTouchTap={() => this.toggleDrawer()} />
-                    <Drawer open={this.state.isDrawerOpen}>
-                        <AppBar title="Bibliotecha" onLeftIconButtonTouchTap={() => this.toggleDrawer()} />
-                        <MenuItem>Demo Component</MenuItem>
-                        <MenuItem>Demo Component 2</MenuItem>
-                    </Drawer>
-
+                        
                     <ComponentReview />
                 </div>
             </div>
