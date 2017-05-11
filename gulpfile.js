@@ -81,7 +81,7 @@ function compileConfig() {
 
 function startNodemonServer() {
 	nodemonStream = nodemon({
-		script: './build/server/app.js',
+		script: './build/server/bootstrap.js',
 		ext: 'js html',
 		watch: false,
 	})
