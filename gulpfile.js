@@ -55,12 +55,13 @@ function compileServer() {
 	var result = gulp
 		.src(['./src/server/**/*.js', '!./node_modules/**/*'])
 		.pipe(babel({
-			presets: ['es2015', "node6"],
-		}))
-		.on("error", handleError)
+			presets: ['es2015', 'node6'],
+		})) // compile new ones 
 		.pipe(gulp.dest('./build/server'))
-
-	return result && moveServer();
+		.on('error', handleError) &&
+		gulp.src(['./src/server/**/*', '!./src/server/**/*.js', '!./node_modules/**/*'])
+		.pipe(gulp.dest("./build/server"))
+		.on('error', handleError);
 }
 
 function moveServer() {
@@ -105,4 +106,8 @@ function handleError(error) {
 	console.error(chalk.grey(error.formatted && err.formatted.replace('Error: ' + error.message + '\n', '')));
 
 	this.emit('end')
+}
+function restartClient() {
+	console.error(chalk.green("Restarting server"));
+	server.restart();
 }
