@@ -1,8 +1,10 @@
-import React from 'react';
-import Card from '../Card';
-import CodeCard from '../CodeCard';
-import Separator from '../Separator';
 import './index.scss';
+
+import { Card, CardActions, CardHeader, CardMedia, CardText, CardTitle } from 'material-ui/Card';
+
+import CodeCard from '../CodeCard';
+import React from 'react';
+import Separator from '../Separator';
 
 /**
  * @export
@@ -12,12 +14,12 @@ import './index.scss';
  * 
  */
 export default class ComponentReview extends React.Component {
-    render () {
+    render() {
         const documentation = {
             name: 'Separator',
             description: 'Separator description',
             section: 'Common/Separators',
-            params: [{name: 'blah', type: 'boolean'}]
+            params: [{ name: 'blah', type: 'boolean' }]
         };
         const components = {
             'Common/Separators/Separator': Separator,
@@ -27,18 +29,26 @@ export default class ComponentReview extends React.Component {
                 <p className="component-section">{documentation.section.replace('/', ' > ')}</p>
                 <h1 className="component-name">{documentation.name}</h1>
                 <h3 className="component-description">{documentation.description}</h3>
-                <Separator/>
+                <Separator />
 
                 <Card className="component-content">
-                    component content
+                    <CardHeader title="Content"/>
+                    <CardText>
+                        component content
+                    </CardText>
                 </Card>
-                <Separator/>
                 
-                <div className="component-params">
-                    <p className="section-header">Params:</p>
-                    the params
-                </div>
-                <Separator/>
+                <Separator />
+
+
+                <Card className="component-params">
+                    <CardHeader title="Params"/>
+                    <CardText>
+                        the params
+                    </CardText>
+                </Card>
+
+                <Separator />
 
                 <div className="component-examples">
                     <p className="section-header">Examples:</p>
@@ -46,7 +56,7 @@ export default class ComponentReview extends React.Component {
                         <pre>code</pre>
                     </CodeCard>
                 </div>
-                <Separator/>
+                <Separator />
 
                 <div className="component-source-code">
                     <p className="section-header">Code:</p>

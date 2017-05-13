@@ -1,6 +1,4 @@
 import documentExtractor from '../services/documentExtractor';
-import libraryConfigExecuter from '../services/libraryConfigExecuter';
-import libraryConfig from '../config/user.config';
 
 export default function (app) {
     registerViewRoute(app);

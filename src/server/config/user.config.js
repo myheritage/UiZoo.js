@@ -15,7 +15,7 @@ const libraryConfig = {
             }));
     },
     JSFilesGlob: `${COMPONENT_FOLDER}/index.js`,
-    entryFile: '/Users/lior.greenberg/Documents/dev/react-bibliotheca/src/client/index.js',
+    entryFile: '/Users/lior.greenberg/Documents/dev/react-bibliotheca/build/userdata/container.js',
     SCSSFilesGlob: `${COMPONENT_FOLDER}/**/*.scss`,
 };
 

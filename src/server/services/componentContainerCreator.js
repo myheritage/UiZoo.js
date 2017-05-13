@@ -1,17 +1,22 @@
 import * as fs from "fs";
+import * as path from "path";
+
+const USER_DATA_FOLDER = path.resolve(__dirname  + "/../../userdata");
 
 export default function createComponentContainer(componentsData) {
     let containerContent = "";
     let componentNameList = [];
 
-
-
     componentsData.forEach(({path, name}) => {
-        containerContent += `import ${name} from ${path}\n`;
+        containerContent += `import ${name} from "${path}";\n`;
         componentNameList.push(name);
     });
 
-    containerContent += `export default {${componentNameList.join()}};`;
+    containerContent += `window.libraryData = {${componentNameList.join()}};`;
 
-    fs.writeFileSync(__dirname  + "/../../client/libraryDataContainer.js", containerContent, { flag: "w+" });
+    if (!fs.existsSync(USER_DATA_FOLDER)) {
+        fs.mkdirSync(USER_DATA_FOLDER);
+    }
+
+    fs.writeFileSync(USER_DATA_FOLDER + "/container.js", containerContent, { flag: "w+" });
 };
