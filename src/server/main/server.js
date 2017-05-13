@@ -17,11 +17,10 @@ export const ROOT_PATH = path.resolve(__dirname);;
 /**
  * @export
  * @param {Express} app 
+ * @param {object} options
  * @returns Express
-
- * 
  */
-export default function (app) {
+export default function (app, options) {
     useDependencies(app);
     start(app);
     return app;
