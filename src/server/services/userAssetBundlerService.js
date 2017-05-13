@@ -17,7 +17,7 @@ export default function bundleUserAssets({entryFile, JSFilesGlob, SCSSFilesGlob}
 		.then(bundle => {
 			bundle.write({
 				format: 'cjs',
-				dest: "/Users/lior.greenberg/Documents/dev/react-bibliotheca/build/userdata/index.js",
+				dest: __dirname + "/userdata/index.js",
 				moduleName: "libraryModule"
 			});
 		})

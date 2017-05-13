@@ -1,12 +1,15 @@
-import express from 'express';
-import http from 'http';
-import path from 'path';
-import cors from 'cors';
-import {
-    json
-} from 'body-parser';
 import compression from 'compression';
+import cors from 'cors';
+import createComponentContainer from "../services/componentContainerCreator";
+import express from 'express';
 import helmet from 'helmet';
+import http from 'http';
+import {
+    json,
+} from 'body-parser';
+import libraryConfig from '../config/user.config';
+import libraryConfigExecuter from '../services/libraryConfigExecuter';
+import path from 'path';
 
 /**
  * @export
@@ -42,6 +45,8 @@ function start(app) {
     app.set('port', (process.env.PORT || 5000));
     app.set('views', path.join(rootDir, '/html'));
     app.use('/client', express.static(path.join(rootDir, '/../client')));
+
+    createComponentContainer(libraryConfigExecuter(libraryConfig).components);
     
     let server = http.createServer(app)
         .listen(app.get('port'));

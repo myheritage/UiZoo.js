@@ -14,22 +14,23 @@ let nodemonStream;
 
 gulp.task("compile:client", bundleClient);
 gulp.task('compile:server', compileServer);
+gulp.task('compile:server-assets', moveServerAssets);
 gulp.task('compile:config', compileConfig);
 
-gulp.task("server:start", startNodemonServer);
-gulp.task("server:restart", restartNodemonServer);
+gulp.task("server:start", ["compile"], startNodemonServer);
+gulp.task("server:restart", ["compile:server", "compile:server-assets"], restartNodemonServer);
 
 gulp.task("compile:demo", moveDemo);
 
-gulp.task("compile", ["compile:client", "compile:server", "compile:config"]);
+gulp.task("compile", ["compile:client", "compile:server", "compile:server-assets", "compile:config"]);
 
 // WATCH
 // =====
-gulp.task("default", ["compile", "server:start", "watch"]);
+gulp.task("default", ["server:start", "watch"]);
 
 gulp.task("watch", () => {
 	gulp.watch(["src/client/**/*"], ["compile:client"]);
-	gulp.watch(["src/server/**/*"], ["compile:server", "server:restart"]);
+	gulp.watch(["src/server/**/*"], ["server:restart"]);
 	gulp.watch(["config/user.config.js"], ["compile:config"]);
 });
 
@@ -52,17 +53,21 @@ function bundleClient() {
 }
 
 function compileServer() {
-	var result = gulp
+	return gulp
 		.src(['./src/server/**/*.js', '!./node_modules/**/*'])
 		.pipe(babel({
 			presets: ['es2015', 'node6'],
 		})) // compile new ones 
 		.pipe(gulp.dest('./build/server'))
-		.on('error', handleError) &&
-		gulp.src(['./src/server/**/*', '!./src/server/**/*.js', '!./node_modules/**/*'])
+		.on('error', handleError);
+}
+
+function moveServerAssets() {
+	return gulp.src(['./src/server/**/*', '!./src/server/**/*.js', '!./node_modules/**/*'])
 		.pipe(gulp.dest("./build/server"))
 		.on('error', handleError);
 }
+
 
 function moveServer() {
 	return gulp.src(['./src/server/**/*', '!./src/server/**/*.js', '!./node_modules/**/*'])
