@@ -3,6 +3,7 @@ import './index.scss';
 import { Card, CardActions, CardHeader, CardMedia, CardText, CardTitle } from 'material-ui/Card';
 
 import CodeCard from '../CodeCard';
+import ComponentPreview from "../ComponentPreview";
 import React from 'react';
 import Separator from '../Separator';
 
@@ -34,7 +35,7 @@ export default class ComponentReview extends React.Component {
                 <Card className="component-content">
                     <CardHeader title="Content"/>
                     <CardText>
-                        component content
+                        <ComponentPreview componentName={documentation.name}/>
                     </CardText>
                 </Card>
                 

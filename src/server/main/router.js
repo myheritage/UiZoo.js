@@ -1,8 +1,4 @@
 import documentExtractor from '../services/documentExtractor';
-<<<<<<< HEAD
-=======
-import libraryConfigExecuter from '../services/libraryConfigExecuter';
->>>>>>> a45b2627b8844fe048fc5185558d767c16004915
 
 /**
  * @export
