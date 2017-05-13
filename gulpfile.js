@@ -2,26 +2,25 @@
 
 let gulp = require('gulp'),
 	spawn = require('child_process').spawn,
-	server = require('gulp-develop-server'),
 	rollup = require('rollup'),
 	rConfig = require('./rollup.config'),
 	chalk = require('chalk'),
 	nodemon = require("gulp-nodemon"),
 	exec = require('child_process').exec,
-	babel = require('gulp-babel');
+	babel = require('gulp-babel'),
+	livereload = require('gulp-livereload');
 
 let nodemonStream;
 
 gulp.task("compile:client", bundleClient);
 gulp.task('compile:server', compileServer);
-gulp.task('compile:config', compileConfig);
 
 gulp.task("server:start", startNodemonServer);
 gulp.task("server:restart", restartNodemonServer);
 
 gulp.task("compile:demo", moveDemo);
 
-gulp.task("compile", ["compile:client", "compile:server", "compile:config"]);
+gulp.task("compile", ["compile:client", "compile:server"]);
 
 // WATCH
 // =====
@@ -30,7 +29,10 @@ gulp.task("default", ["compile", "server:start", "watch"]);
 gulp.task("watch", () => {
 	gulp.watch(["src/client/**/*"], ["compile:client"]);
 	gulp.watch(["src/server/**/*"], ["compile:server", "server:restart"]);
-	gulp.watch(["config/user.config.js"], ["compile:config"]);
+	
+	// live reload
+	livereload.listen();
+	gulp.watch(["build/client/**/*"], (file) => {livereload.changed(file)})
 });
 
 function bundleClient() {
@@ -59,24 +61,10 @@ function compileServer() {
 		})) // compile new ones 
 		.pipe(gulp.dest('./build/server'))
 		.on('error', handleError) &&
+		// move rest of the files to build
 		gulp.src(['./src/server/**/*', '!./src/server/**/*.js', '!./node_modules/**/*'])
 		.pipe(gulp.dest("./build/server"))
 		.on('error', handleError);
-}
-
-function moveServer() {
-	return gulp.src(['./src/server/**/*', '!./src/server/**/*.js', '!./node_modules/**/*'])
-		.pipe(gulp.dest("./build/server"));
-}
-
-function compileConfig() {
-	return gulp
-		.src(['./config/*'])
-		.pipe(babel({
-			presets: ['es2015', "node6"],
-		}))
-		.on("error", handleError)
-		.pipe(gulp.dest('./build/config'));
 }
 
 function startNodemonServer() {
@@ -106,8 +94,4 @@ function handleError(error) {
 	console.error(chalk.grey(error.formatted && err.formatted.replace('Error: ' + error.message + '\n', '')));
 
 	this.emit('end')
-}
-function restartClient() {
-	console.error(chalk.green("Restarting server"));
-	server.restart();
 }
