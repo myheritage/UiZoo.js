@@ -10,12 +10,13 @@ export default function initData(callback) {
     bundleUserAssets(libraryConfig);
 
     configData.documentation = configData.components.reduce((docMap, currComp) => {
-        let currDoc = extractDocumentation(currComp.path);
+        let currDoc = extractDocumentation(currComp.path) || { };
+
         let sectionParts = currComp.name.split("/");
 
         currDoc.name = sectionParts.splice(-1);
         currDoc.section = sectionParts.join("/");
-        
+
         docMap[currComp.name] = currDoc;
         return docMap;
     }, {});

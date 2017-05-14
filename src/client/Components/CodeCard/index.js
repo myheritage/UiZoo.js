@@ -3,7 +3,6 @@ import './index.scss';
 import PropTypes from 'prop-types';
 
 /**
- * @name CodeCard
  * @description
  * CodeCard with border and inset box-shadow
  *

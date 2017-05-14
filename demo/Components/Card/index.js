@@ -9,8 +9,8 @@ import PropTypes from 'prop-types';
  * @example
  * <Card></Card>
  *
- * @param {String} [className]
- * @param {React.Children} [children]
+ * @param {String} [className] Append class name to container
+ * @param {React.Children} [children] Children elements
  *
  */
 export default function Card({children, className}) {

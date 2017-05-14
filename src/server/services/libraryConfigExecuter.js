@@ -6,5 +6,5 @@ function libraryConfigExecuter(config) {
     }
 }
 
-export default _.memoize(libraryConfigExecuter);
+export default libraryConfigExecuter;
 
