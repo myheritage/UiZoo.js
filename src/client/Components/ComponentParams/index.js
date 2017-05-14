@@ -12,11 +12,13 @@ export default class ComponentParams extends React.Component {
     }
     
     openParamDescription(popoverAnchorEl, popoverContent) {
-        this.setState({
-            popoverOpen: true,
-            popoverAnchorEl,
-            popoverContent,
-        });
+        if (popoverContent) {
+            this.setState({
+                popoverOpen: true,
+                popoverAnchorEl,
+                popoverContent,
+            });
+        }
     }
 
     closeParamDescription () {
@@ -30,11 +32,11 @@ export default class ComponentParams extends React.Component {
                     onTouchTap={e => this.openParamDescription(e.currentTarget, paramObj.description)}
                 >
                     {paramObj.name}
-                    {!!paramObj.optional && <span>*</span>}
+                    {!!paramObj.isOptional && <span>*</span>}
                 </p>
                 <ParamSelector 
                     type={paramObj.type}
-                    options={paramObj.options}
+                    values={paramObj.values}
                     selectedValue={undefined}
                     onChange={(e) => console.log(e)} />
                 
@@ -43,12 +45,13 @@ export default class ComponentParams extends React.Component {
     }
 
     render() {
-        const selectors = this.props.params.map(paramObj => this.renderSelector(paramObj));
-
+        const selectors = (this.props.params || []).map(paramObj => this.renderSelector(paramObj));
+        
         return (
             <div className="component-params">
 
                 {selectors}
+                {selectors.length === 0 && 'None'}
 
                 <Popover
                     open={this.state.popoverOpen}

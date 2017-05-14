@@ -1,6 +1,12 @@
-var fs = require("fs");
+import * as fs from "fs";
 
-const DOCUMENTATION_REGEXP = /\/\*\*[\s\S]*\*\//gm;
+import { parseSingleDoc } from "./documentationParser";
+
+const DOCUMENTATION_REGEXP = /\/\*\*[\s\S]*\*\//gm
+
+const DESCRIPTION_SECTION = "description";
+const EXAMPLE_SECTION = "example";
+const PARAMS = "params";
 
 /**
  * Extracts JSDoc from files
@@ -8,12 +14,9 @@ const DOCUMENTATION_REGEXP = /\/\*\*[\s\S]*\*\//gm;
  * @param {Function} callback Function to invoke on resolve
  */
 export default function extract(filePath, callback) {
-    fs.readFile(filePath, "utf8", (err, data) => {
-        if (err) {
-            console.error(err);
-        }
+    var data = fs.readFileSync(filePath, "utf8");
+    let matches = data.match(DOCUMENTATION_REGEXP);
 
-        let matches = DOCUMENTATION_REGEXP.exec(data);
-        callback(matches && matches[0]);
-    });
+    let parsedDoc = matches && parseSingleDoc(matches[0]);
+    return parsedDoc;
 }

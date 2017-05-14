@@ -5,11 +5,9 @@ import Separator from '../Separator';
 import './index.scss';
 
 /**
- * @export
- * @class ComponentReview
- * @extends {React.Component}
-
- * 
+ * @name ComponentReview
+ * @description this is super meta dude
+ * @example
  */
 export default class ComponentReview extends React.Component {
     render () {
