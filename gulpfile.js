@@ -14,7 +14,6 @@ let nodemonStream;
 
 gulp.task("compile:client", bundleClient);
 gulp.task('compile:server', compileServer);
-gulp.task('compile:config', compileConfig);
 
 gulp.task("server:start", ["compile"], startNodemonServer);
 gulp.task("server:restart", ["compile:server"], restartNodemonServer);
@@ -66,16 +65,6 @@ function compileServer() {
 		gulp.src(['./src/server/**/*', '!./src/server/**/*.js', '!./node_modules/**/*'])
 		.pipe(gulp.dest("./build/server"))
 		.on('error', handleError);
-}
-
-function compileConfig() {
-	return gulp
-		.src(['./config/*'])
-		.pipe(babel({
-			presets: ['es2015', "node6"],
-		}))
-		.on("error", handleError)
-		.pipe(gulp.dest('./build/config'));
 }
 
 function startNodemonServer() {

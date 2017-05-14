@@ -1,0 +1,19 @@
+.component-params {
+    display: flex;
+    flex-wrap: wrap;
+    .param-name {
+        margin: 0 0 10px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+    .component-params-selector {
+        margin-right: 15px;
+    }
+}
+
+.component-params-popover-content {
+    padding: 10px 20px;
+    p {
+        margin: 0;
+    }
+}

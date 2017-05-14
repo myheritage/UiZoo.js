@@ -5,7 +5,7 @@ export default class ComponentPreview extends React.Component {
         const ComponentNode = this.props.componentName ? window.libraryData[this.props.componentName] : null;
 
         return (
-            <ComponentNode/>
+            <ComponentNode {...this.props.params}/>
         )
     }
 }
