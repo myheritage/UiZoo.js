@@ -11,31 +11,26 @@ import Separator from '../Separator';
  * @export
  * @class ComponentReview
  * @extends {React.Component}
-
- * 
  */
 export default class ComponentReview extends React.Component {
     render() {
-        const documentation = {
-            name: 'Separator',
-            description: 'Separator description',
-            section: 'Common/Separators',
-            params: [{ name: 'blah', type: 'boolean' }]
-        };
-        const components = {
-            'Common/Separators/Separator': Separator,
-        }
+        const componentDoc = this.props.documentation;
+
+        const sectionParts = componentDoc.section.split("/");
+        const componentName = componentDoc.name;
+
         return (
             <div className="component-review">
-                <p className="component-section">{documentation.section.replace('/', ' > ')}</p>
-                <h1 className="component-name">{documentation.name}</h1>
-                <h3 className="component-description">{documentation.description}</h3>
+                <p className="component-section">{sectionParts.join(" > ")}</p>
+                <h1 className="component-name">{componentName}</h1>
+                <h3 className="component-description">{this.props.documentation.description}</h3>
+                
                 <Separator />
 
                 <Card className="component-content">
                     <CardHeader title="Content"/>
                     <CardText>
-                        <ComponentPreview componentName={documentation.name}/>
+                        <ComponentPreview componentName={componentName}/>
                     </CardText>
                 </Card>
                 

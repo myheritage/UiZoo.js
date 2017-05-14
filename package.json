@@ -53,6 +53,7 @@
     "gulp-livereload": "~3.8.1",
     "gulp-nodemon": "~2.2.1",
     "material-ui": "~0.18.0",
+    "node-glob": "^1.2.0",
     "nodemon": "~1.11.0",
     "postcss": "~5.2.6",
     "postcss-cssnext": "~2.9.0",
@@ -71,6 +72,7 @@
     "rollup-plugin-node-resolve": "~2.0.0",
     "rollup-plugin-postcss": "~0.2.0",
     "rollup-plugin-replace": "~1.1.1",
-    "rollup-plugin-scss": "~0.1.0"
+    "rollup-plugin-scss": "~0.1.0",
+    "underscore": "^1.8.3"
   }
 }

@@ -7,16 +7,14 @@ import documentExtractor from '../services/documentExtractor';
  * @returns 
  */
 export default function (app, options) {
-    registerViewRoute(app, options);
+    registerViewRoute(app, options, options);
     registerDocumentationRoute(app, options);
     return app;
 }
 
 function registerViewRoute(app, options) {
     app.all("/:component?", (req, res) => {
-        res.locals.configuration = {components: [{name: 'Card'}]};
-        // TODO: replace mock with real data
-        // res.locals.configuration = libraryConfigExecuter(options);
+        res.locals.configuration = options;
         res.render("index.ejs");
     });
 }

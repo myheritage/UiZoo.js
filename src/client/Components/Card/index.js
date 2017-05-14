@@ -3,6 +3,7 @@ import './index.scss';
 import PropTypes from 'prop-types';
 
 /**
+ * @name Card
  * @description
  * Card with border and box-shadow
  *

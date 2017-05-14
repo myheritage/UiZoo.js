@@ -1,15 +1,11 @@
-import bundleUserAssets from "../services/userAssetBundlerService";
 import compression from 'compression';
 import cors from 'cors';
-import createComponentContainer from "../services/componentContainerCreator";
 import express from 'express';
 import helmet from 'helmet';
 import http from 'http';
 import {
     json,
 } from 'body-parser';
-import libraryConfig from '../config/user.config';
-import libraryConfigExecuter from '../services/libraryConfigExecuter';
 import path from 'path';
 
 export const ROOT_PATH = path.resolve(__dirname);;
@@ -48,11 +44,6 @@ function start(app) {
     app.set('views', path.join(rootDir, '/html'));
     app.use('/client', express.static(path.join(rootDir, '/../client')));
     app.use('/userdata', express.static(path.join(rootDir, '/../userdata')));
-
-
-    let configData = libraryConfigExecuter(libraryConfig);
-    createComponentContainer(configData.components);
-    bundleUserAssets(libraryConfig);
     
     let server = http.createServer(app)
         .listen(app.get('port'));
