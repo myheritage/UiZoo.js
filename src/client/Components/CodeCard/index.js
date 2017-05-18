@@ -14,16 +14,17 @@ import PropTypes from 'prop-types';
  *
  */
 export default function CodeCard({children, className}) {
-    const additionalClassName = className ? ` ${className}` : '';
+    const additionalClassName = className
+        ? ` ${className}`
+        : '';
+
     return (
         <div className={`code-card-wrapper${additionalClassName}`}>
-            <pre>
-                {children}
-            </pre>
+            <pre>{children}</pre>
         </div>
     );
 }
 
 CodeCard.propTypes = {
-    className: PropTypes.string,
+    className: PropTypes.string
 };

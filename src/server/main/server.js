@@ -44,6 +44,7 @@ function start(app) {
     app.set('views', path.join(rootDir, '/html'));
     app.use('/client', express.static(path.join(rootDir, '/../client')));
     app.use('/userdata', express.static(path.join(rootDir, '/../userdata')));
+    app.use('/vendors', express.static(path.join(rootDir, '/../../node_modules')));
     
     let server = http.createServer(app)
         .listen(app.get('port'));

@@ -1,6 +1,6 @@
 import './index.scss';
 
-import { Card, CardText } from 'material-ui/Card';
+import {Card, CardText} from 'material-ui/Card';
 import {previewFrameStyle} from './previewFrameStyle';
 
 import CodeCard from '../CodeCard';
@@ -17,12 +17,22 @@ import Separator from '../Separator';
 export default class ComponentReview extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {componentParams: {}};
+        this.state = {
+            componentParams: {}
+        };
     }
+
+    updateParam(paramName, value) {
+        let componentParams = _.extend({}, this.state.componentParams, {[paramName]: value});
+        this.setState({componentParams});
+    }
+
     render() {
         const componentDoc = this.props.documentation;
 
-        const sectionParts = componentDoc.section.split("/");
+        const sectionParts = componentDoc
+            .section
+            .split("/");
         const componentName = componentDoc.name;
 
         return (
@@ -30,22 +40,25 @@ export default class ComponentReview extends React.Component {
                 <p className="component-section">{sectionParts.join(" > ")}</p>
                 <h1 className="component-name">{componentName}</h1>
                 <h3 className="component-description">{this.props.documentation.description}</h3>
-                
-                <Separator />
+
+                <Separator/>
 
                 <Card className="component-content" style={previewFrameStyle}>
                     <CardText>
-                        <ComponentPreview componentName={componentName}/>
+                        <ComponentPreview
+                            componentName={componentName}
+                            params={this.state.componentParams}/>
                     </CardText>
                 </Card>
-                <Separator />
-
+                <Separator/>
 
                 <div className="component-params-section">
                     <p className="section-header">Params:</p>
-                    <ComponentParams params={this.props.documentation.params}/>
+                    <ComponentParams
+                        params={this.props.documentation.params}
+                        onChange={(e, paramName, value) => this.updateParam(paramName, value)}/>
                 </div>
-                <Separator />
+                <Separator/>
 
                 <div className="component-examples">
                     <p className="section-header">Examples:</p>
@@ -53,7 +66,7 @@ export default class ComponentReview extends React.Component {
                         <pre>code</pre>
                     </CodeCard>
                 </div>
-                <Separator />
+                <Separator/>
 
                 <div className="component-source-code">
                     <p className="section-header">Code:</p>
