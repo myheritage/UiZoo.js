@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import equal from 'deep-equal';
 
 import Popover from 'material-ui/Popover/Popover';
 import ParamSelector from './ParamSelector';
@@ -24,7 +25,7 @@ export default class ComponentParams extends React.Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        return this.props.params !== nextProps.params;
+        return !equal(this.props.params, nextProps.params, {strict:true});
     }
 
     openParamDescription(popoverAnchorEl, popoverContent) {
