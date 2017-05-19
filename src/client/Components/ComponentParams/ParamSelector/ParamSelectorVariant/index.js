@@ -5,7 +5,7 @@ import MenuItem from 'material-ui/MenuItem';
 import Paper from 'material-ui/Paper';
 import {menuStyle} from '../menuStyle';
 
-export default class ParamSelectorBoolean extends React.Component {
+export default class ParamSelectorVariant extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -24,22 +24,27 @@ export default class ParamSelectorBoolean extends React.Component {
         this.props.onChange && this.props.onChange(e, newValue);
     }
 
+    renderValueItem(val) {
+        return <MenuItem key={`values-item-${val}`} primaryText={val} value={val}/>;
+    }
+
     render() {
+        const valueItems = (this.props.values || []).map(val => this.renderValueItem(val));
         return (
             <Menu
                 {...menuStyle}
-                key={`boolean-field-for-${this.props.name}`}
+                key={`variant-field-for-${this.props.name}`}
                 onChange={(e, newValue) => this.onChange(e, newValue)}
                 value={this.state.value}>
                 <MenuItem primaryText="default" value={undefined}/>
-                <MenuItem primaryText="true" value={true}/>
-                <MenuItem primaryText="false" value={false}/>
+                {valueItems}
             </Menu>
         );
     }
 }
 
-ParamSelectorBoolean.PropTypes = {
-    selectedValue: PropTypes.oneOf([true, false]),
-    onChange: PropTypes.func,
+ParamSelectorVariant.PropTypes = {
+    selectedValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    values: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
+    onChange: PropTypes.func
 };

@@ -23,6 +23,10 @@ export default class ComponentParams extends React.Component {
         };
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        return this.props.params !== nextProps.params;
+    }
+
     openParamDescription(popoverAnchorEl, popoverContent) {
         if (popoverContent) {
             this.setState({popoverOpen: true, popoverAnchorEl, popoverContent});
@@ -47,6 +51,8 @@ export default class ComponentParams extends React.Component {
                     {!!paramObj.isOptional && <span>*</span>}
                 </p>
                 <ParamSelector
+                    key={`selector-for-${paramObj.name}`}
+                    name={paramObj.name}
                     type={paramObj.type}
                     values={paramObj.values}
                     selectedValue={undefined}

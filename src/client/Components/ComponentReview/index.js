@@ -30,16 +30,14 @@ export default class ComponentReview extends React.Component {
     render() {
         const componentDoc = this.props.documentation;
 
-        const sectionParts = componentDoc
-            .section
-            .split("/");
+        const sectionParts = componentDoc.section.split("/");
         const componentName = componentDoc.name;
 
         return (
             <div className="component-review">
                 <p className="component-section">{sectionParts.join(" > ")}</p>
                 <h1 className="component-name">{componentName}</h1>
-                <h3 className="component-description">{this.props.documentation.description}</h3>
+                <h3 className="component-description">{componentDoc.description}</h3>
 
                 <Separator/>
 
@@ -55,7 +53,7 @@ export default class ComponentReview extends React.Component {
                 <div className="component-params-section">
                     <p className="section-header">Params:</p>
                     <ComponentParams
-                        params={this.props.documentation.params}
+                        params={componentDoc.params}
                         onChange={(e, paramName, value) => this.updateParam(paramName, value)}/>
                 </div>
                 <Separator/>

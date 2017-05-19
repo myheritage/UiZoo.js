@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
  * @example
  * <CodeCard></CodeCard>
  *
- * @param {String} [className]
+ * @param {"other-class"|"more-class"} [className]
  * @param {React.Children} [children]
  *
  */
