@@ -2,9 +2,13 @@ import "./index.scss";
 import React from "react";
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import MenuItem from 'material-ui/MenuItem';
 import ComponentReview from '../ComponentReview';
+
+const titleStyle = {
+    cursor: "pointer"
+};
 
 export default class MasterPage extends React.Component {
     constructor(props) {
@@ -12,7 +16,7 @@ export default class MasterPage extends React.Component {
 
         this.state = {
             isDrawerOpen: true,
-            components: window.libraryConfiguration.components,
+            components: window.libraryConfiguration.components
         }
     }
 
@@ -31,18 +35,26 @@ export default class MasterPage extends React.Component {
     }
 
     render() {
-        const drawerMenuItems = this.state.components.map(component => this.renderComponentMenuItem(component.name));
+        const drawerMenuItems = this.state.components
+            .map(component => this.renderComponentMenuItem(component.name));
 
         return (
             <div className="master_page_container">
                 <Drawer className="component_menu" open={this.state.isDrawerOpen} width="30%">
-                    <AppBar showMenuIconButton={false} />
-                    {drawerMenuItems}
+                    <AppBar showMenuIconButton={false}/> {drawerMenuItems}
                 </Drawer>
-                <div className={`"master_page_content${this.state.isDrawerOpen ? ' component_drawer_open' : ''}`}>
-                    <AppBar title="Bibliotecha" onLeftIconButtonTouchTap={() => this.toggleDrawer()} />
-                        
-                    <ComponentReview documentation={window.libraryConfiguration.documentation[this.props.match.params.componentName]}/>
+                <div
+                    className={`"master_page_content${this.state.isDrawerOpen
+                    ? ' component_drawer_open'
+                    : ''}`}>
+                    <AppBar
+                        title="Bibliotheca"
+                        titleStyle={titleStyle}
+                        onLeftIconButtonTouchTap={() => this.toggleDrawer()}
+                        onTitleTouchTap={() => this.props.history.push('/')}/>
+
+                    <ComponentReview
+                        documentation={window.libraryConfiguration.documentation[this.props.match.params.componentName]}/>
                 </div>
             </div>
         )

@@ -40,7 +40,7 @@ export default class MasterPage extends React.Component {
                     {drawerMenuItems}
                 </Drawer>
                 <div className={`"master_page_content${this.state.isDrawerOpen ? ' component_drawer_open' : ''}`}>
-                    <AppBar title="Bibliotecha" onLeftIconButtonTouchTap={() => this.toggleDrawer()} />
+                    <AppBar title="Bibliotheca" onLeftIconButtonTouchTap={() => this.toggleDrawer()} />
                         
                     <ComponentReview />
                 </div>

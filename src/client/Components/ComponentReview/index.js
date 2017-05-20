@@ -28,24 +28,28 @@ export default class ComponentReview extends React.Component {
     }
 
     render() {
-        const componentDoc = this.props.documentation;
-
-        const sectionParts = componentDoc.section.split("/");
-        const componentName = componentDoc.name;
-
+        const componentDoc = this.props.documentation || {};
+        const {name, params = [], section = '', description} = componentDoc;
+        const sectionParts = section.split("/"); // TODO: Support "windows" paths
+        
         return (
             <div className="component-review">
                 <p className="component-section">{sectionParts.join(" > ")}</p>
-                <h1 className="component-name">{componentName}</h1>
-                <h3 className="component-description">{componentDoc.description}</h3>
-
+                <h1 className="component-name">
+                    {!!name && name}
+                    {!name && 'Welcome to Bibliotheca!'}
+                </h1>
+                <h3 className="component-description">
+                    {description}
+                    {!name && 'please select a component to view'}
+                </h3>
                 <Separator/>
 
                 <Card className="component-content" style={previewFrameStyle}>
                     <CardText>
-                        <ComponentPreview
-                            componentName={componentName}
-                            params={this.state.componentParams}/>
+                        {!!name && <ComponentPreview
+                            componentName={name}
+                            params={this.state.componentParams}/>}
                     </CardText>
                 </Card>
                 <Separator/>
@@ -53,7 +57,7 @@ export default class ComponentReview extends React.Component {
                 <div className="component-params-section">
                     <p className="section-header">Params:</p>
                     <ComponentParams
-                        params={componentDoc.params}
+                        params={params}
                         onChange={(e, paramName, value) => this.updateParam(paramName, value)}/>
                 </div>
                 <Separator/>

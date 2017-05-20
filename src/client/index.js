@@ -21,6 +21,6 @@ ReactDOM.render(
             <Route path="/:componentName?" component={MasterPage} />
         </BrowserRouter>
     </MuiThemeProvider>,
-    document.getElementById('bibliotecha_root')
+    document.getElementById('bibliotheca_root')
 );
 
