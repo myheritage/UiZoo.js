@@ -1,7 +1,8 @@
 import './index.scss';
 
-import {Card, CardText} from 'material-ui/Card';
+import {Card, CardText} from 'material-ui';
 import {previewFrameStyle} from './previewFrameStyle';
+import _ from 'underscore';
 
 import CodeCard from '../CodeCard';
 import ComponentPreview from '../ComponentPreview';

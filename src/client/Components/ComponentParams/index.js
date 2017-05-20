@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import equal from 'deep-equal';
 
-import Popover from 'material-ui/Popover/Popover';
+import {Popover} from 'material-ui';
 import ParamSelector from './ParamSelector';
 
 import './index.scss';

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/MenuItem';
-import Paper from 'material-ui/Paper';
+import {Menu} from 'material-ui';
+import {MenuItem} from 'material-ui';
+import {Paper} from 'material-ui';
 import {menuStyle} from '../menuStyle';
 
 export default class ParamSelectorBoolean extends React.Component {

@@ -1,10 +1,10 @@
-import "./index.scss";
-import React from "react";
-import AppBar from 'material-ui/AppBar';
-import Drawer from 'material-ui/Drawer';
-import {Link} from "react-router-dom";
-import MenuItem from 'material-ui/MenuItem';
+import React from 'react';
+import {AppBar} from 'material-ui';
+import {Drawer} from 'material-ui';
+import {Link} from 'react-router-dom';
+import {MenuItem} from 'material-ui';
 import ComponentReview from '../ComponentReview';
+import './index.scss';
 
 const titleStyle = {
     cursor: "pointer"

@@ -1,4 +1,5 @@
 'use strict';
+
 let fs = require('fs'),
   alias = require('rollup-plugin-alias'),
   postcss = require('postcss'),
@@ -12,10 +13,12 @@ let fs = require('fs'),
   cssnext = require('postcss-cssnext'),
   replace = require("rollup-plugin-replace");
 
-module.exports = {
-  entry: 'src/client/index.js',
-  plugins: [
-    scss({
+const defaultExternal = [];
+
+function getPlugins({
+  external
+}, withScss = true) {
+  const scssPlugins = [scss({
       output(styles, styleNodes) {
         postcss([cssnext, comments, dupes])
           .process(styles)
@@ -23,20 +26,41 @@ module.exports = {
             fs.writeFile('./build/client/index.css', result.css);
           });
       }
-    }),
+    })];
+  const defaultPlugins = [
     babel({
       presets: [
-        "es2015-rollup",
-        "react"
+        "es2015-rollup", "react"
       ],
-      exclude: "./node_modules/**/*",
+      exclude: "./node_modules/**/*"
     }),
-    
-    nodeResolve({ browser: true, jsnext: true, main: true}),
+
+    nodeResolve({
+      browser: true,
+      jsnext: true,
+      main: true,
+      skip: defaultExternal.concat(external)
+    }),
     commonjs(),
     replace({
       'process.env.NODE_ENV': JSON.stringify('development')
     })
-  ],
-  sourceMap: true,
-};
+  ];
+
+  return withScss
+    ? scssPlugins.concat(defaultPlugins)
+    : defaultPlugins;
+}
+
+function getConfig({
+  external = [],
+  entry = 'src/client/index.js'
+}, withScss = true) {
+  return {
+    entry,
+    external: defaultExternal.concat(external),
+    plugins: getPlugins({external}, withScss),
+  };
+}
+
+module.exports = getConfig;

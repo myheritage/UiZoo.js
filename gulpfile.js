@@ -3,7 +3,7 @@
 let gulp = require('gulp'),
 	spawn = require('child_process').spawn,
 	rollup = require('rollup'),
-	rConfig = require('./rollup.config'),
+	getRollupConfig = require('./rollup.config'),
 	chalk = require('chalk'),
 	nodemon = require("gulp-nodemon"),
 	exec = require('child_process').exec,
@@ -36,14 +36,13 @@ gulp.task("watch", () => {
 });
 
 function bundleClient() {
-	return rollup.rollup(rConfig)
+	return rollup.rollup(getRollupConfig({external: ['underscore']}))
 		.then(bundle => {
 			bundle.write({
 				format: 'iife',
 				dest: 'build/client/index.js',
 				globals: {
-					react: 'React',
-					'react-dom': 'ReactDOM',
+					'underscore': '_',
 				},
 			});
 		})
@@ -93,5 +92,7 @@ function handleError(error) {
 	console.error(chalk.red(error.message));
 	console.error(chalk.grey(error.formatted && err.formatted.replace('Error: ' + error.message + '\n', '')));
 
-	this.emit('end')
+	if (this && this.emit) {
+		this.emit('end');
+	}
 }
