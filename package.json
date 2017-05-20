@@ -30,6 +30,7 @@
     "express": "~4.14.0",
     "glob": "7.0.6",
     "helmet": "~3.1.0",
+    "jsx-to-string": "~1.1.0",
     "lodash": "4.17.2",
     "react": "~15.5.4",
     "react-dom": "~15.5.4"

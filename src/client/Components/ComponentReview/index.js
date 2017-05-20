@@ -1,10 +1,10 @@
 import React from 'react';
 import _ from 'underscore';
+import jsxToString from 'jsx-to-string';
 import {Card, CardText} from 'material-ui';
 import {previewFrameStyle} from './previewFrameStyle';
 import Separator from '../Separator';
 import CodeCard from '../CodeCard';
-import ComponentPreview from '../ComponentPreview';
 import ComponentParams from '../ComponentParams';
 import ComponentExamples from '../ComponentExamples';
 import './index.scss';
@@ -12,6 +12,7 @@ import './index.scss';
 /**
  * @description
  * Review the current component
+ * Choose props, example of see the source code
  */
 export default class ComponentReview extends React.Component {
     constructor(props) {
@@ -23,22 +24,35 @@ export default class ComponentReview extends React.Component {
         this.updateExample = this.updateExample.bind(this);
     }
 
+    /**
+     * Update when one of the params has changed
+     * @param {event} e
+     * @param {string} paramName
+     * @param {any} value
+     */
     updateParam(e, paramName, value) {
         let componentParams = _.extend({}, this.state.componentParams, {[paramName]: value});
+        // clean undefined values
+        _.keys(componentParams).forEach(key => typeof componentParams[key] === 'undefined' && delete componentParams[key]);
         this.setState({componentParams});
     }
 
+    /**
+     * Update the params by the example
+     * @param {string} example
+     */
     updateExample(example) {
-        console.log(example);
+        console.log(example); // TODO: parse example to JSX and load to view
     }
 
-    render() {
-        const componentDoc = this.props.documentation || {};
-        const {name, params = [], examples = [], section = '', description} = componentDoc;
+    /**
+     * Metadata - title, description, etc.
+     * @param {object}
+     */
+    renderComponentMetadata({name, description, section = ''}) {
         const sectionParts = section.split("/"); // TODO: Support "windows" paths
-        
         return (
-            <div className="component-review">
+            <div>
                 <p className="component-section">{sectionParts.join(" > ")}</p>
                 <h1 className="component-name">
                     {!!name && name}
@@ -48,39 +62,86 @@ export default class ComponentReview extends React.Component {
                     {description}
                     {!name && 'please select a component to view'}
                 </h3>
-                <Separator/>
+            </div>
+        );
+    }
 
-                <Card className="component-content" style={previewFrameStyle}>
-                    <CardText>
-                        {!!name && <ComponentPreview
-                            componentName={name}
-                            params={this.state.componentParams}/>}
-                    </CardText>
-                </Card>
-                <Separator/>
+    /**
+     * Content - the actual rendered component on review
+     * @param {object}
+     */
+    renderComponentContent(componentContent) {
+        return (
+            <Card className="component-content" style={previewFrameStyle}>
+                <CardText>
+                    {componentContent}
+                </CardText>
+            </Card>
+        );
+    }
 
-                <div className="component-params-section">
-                    <p className="section-header">Params:</p>
-                    <ComponentParams
-                        params={params}
-                        onChange={this.updateParam}/>
-                </div>
-                <Separator/>
+    /**
+     * Possible params of the component on review
+     * @param {object}
+     */
+    renderComponentParams({params = []}) {
+        return (
+            <div className="component-params-section">
+                <p className="section-header">Params:</p>
+                <ComponentParams params={params} onChange={this.updateParam}/>
+            </div>
+        );
+    }
 
-                <div className="component-examples-section">
-                    <p className="section-header">Examples:</p>
-                    <ComponentExamples
-                        examples={examples}
-                        onChange={this.updateExample}/>
-                </div>
-                <Separator/>
+    /**
+     * Possible examples of the component on review
+     * @param {object}
+     */
+    renderComponentExamples({examples = []}) {
+        return (
+            <div className="component-examples-section">
+                <p className="section-header">Examples:</p>
+                <ComponentExamples examples={examples} onChange={this.updateExample}/>
+            </div>
+        );
+    }
 
-                <div className="component-source-code">
-                    <p className="section-header">Code:</p>
-                    <CodeCard>
-                        source code
-                    </CodeCard>
-                </div>
+    /**
+     * Source code of the component on review with chosen props
+     * @param {object}
+     */
+    renderComponentSourceCode(componentContent) {
+        const componentSourceCode = jsxToString(componentContent);
+        return (
+            <div className="component-source-code">
+                <p className="section-header">Source code:</p>
+                <CodeCard>
+                    {componentSourceCode}
+                </CodeCard>
+            </div>
+        );
+    }
+
+    /**
+     * Render the component by the provided documentation
+     */
+    render() {
+        const componentDoc = this.props.documentation || {};
+        // TODO: window namespace should be declared in server
+        const ComponentNode = componentDoc.name
+            ? window.libraryData[componentDoc.name]
+            : null;
+        const componentContent = componentDoc.name
+            ? <ComponentNode {...this.state.componentParams}/>
+            : null;
+
+        return (
+            <div className="component-review">
+                {this.renderComponentMetadata(componentDoc)}
+                <Separator/> {this.renderComponentContent(componentContent)}
+                <Separator/> {this.renderComponentParams(componentDoc)}
+                <Separator/> {this.renderComponentExamples(componentDoc)}
+                <Separator/> {this.renderComponentSourceCode(componentContent)}
             </div>
         );
     }
