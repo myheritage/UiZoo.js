@@ -5,6 +5,13 @@ import {MenuItem} from 'material-ui';
 import {Paper} from 'material-ui';
 import {menuStyle} from '../menuStyle';
 
+/**
+ * @description
+ * selector for boolean values
+ * 
+ * @param {boolean} [selectedValue]
+ * @param {function} onChange
+ */
 export default class ParamSelectorBoolean extends React.Component {
     constructor(props) {
         super(props);
@@ -13,17 +20,29 @@ export default class ParamSelectorBoolean extends React.Component {
         };
     }
 
+    /**
+     * Updated state.value if props.selectedValue has changed
+     * @param {object} nextProps 
+     */
     componentWillReceiveProps(nextProps) {
         if (nextProps.selectedValue !== this.props.selectedValue) {
             this.setState({value: nextProps.selectedValue});
         }
     }
 
+    /**
+     * Update state and report to parent onChange
+     * @param {event} e 
+     * @param {boolean|undefined} newValue 
+     */
     onChange(e, newValue) {
         this.setState({value: newValue});
         this.props.onChange && this.props.onChange(e, newValue);
     }
 
+    /**
+     * render the selector
+     */
     render() {
         return (
             <Menu

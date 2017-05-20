@@ -16,6 +16,12 @@ const targetOrigin = {
     vertical: 'bottom'
 };
 
+/**
+ * @description
+ * a list of selectors to choose params
+ * 
+ * @param {array} params list of param objects to show a selector
+ */
 export default class ComponentParams extends React.Component {
     constructor(props) {
         super(props);
@@ -24,24 +30,50 @@ export default class ComponentParams extends React.Component {
         };
     }
 
+    /**
+     * Checks if the params has changed or the state has changed for rendering
+     * @param {object} nextProps 
+     * @param {object} nextState 
+     * @return {boolean}
+     */
     shouldComponentUpdate(nextProps, nextState) {
-        return !equal(this.props.params, nextProps.params, {strict:true});
+        const paramsAreEquals = equal(this.props.params, nextProps.params, {strict:true});
+        const stateAreEquals = equal(this.state, nextState, {strict:true});
+        return !paramsAreEquals || !stateAreEquals;
     }
 
+    /**
+     * Update the state for opening a popover with the param description
+     * @param {element} popoverAnchorEl 
+     * @param {string} popoverContent will not open the popover if content is empty
+     */
     openParamDescription(popoverAnchorEl, popoverContent) {
         if (popoverContent) {
             this.setState({popoverOpen: true, popoverAnchorEl, popoverContent});
         }
     }
 
+    /**
+     * close the popover
+     */
     closeParamDescription() {
         this.setState({popoverOpen: false});
     }
 
+    /**
+     * report change to parent with the name of the param
+     * @param {event|null} e not all selectors can provide the event of the tap
+     * @param {string} paramName 
+     * @param {any} newValue 
+     */
     onChange(e, paramName, newValue) {
         this.props.onChange && this.props.onChange(e, paramName, newValue);
     }
 
+    /**
+     * Render a single selector from the list
+     * @param {object} paramObj 
+     */
     renderSelector(paramObj) {
         return (
             <div className="component-params-selector" key={`param-name-${paramObj.name}`}>
@@ -62,6 +94,9 @@ export default class ComponentParams extends React.Component {
         );
     }
 
+    /**
+     * render the list of params as selectors
+     */
     render() {
         const selectors = (this.props.params || []).map(paramObj => this.renderSelector(paramObj));
         return (

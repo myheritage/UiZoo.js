@@ -1,19 +1,17 @@
-import './index.scss';
-
+import React from 'react';
+import _ from 'underscore';
 import {Card, CardText} from 'material-ui';
 import {previewFrameStyle} from './previewFrameStyle';
-import _ from 'underscore';
-
+import Separator from '../Separator';
 import CodeCard from '../CodeCard';
 import ComponentPreview from '../ComponentPreview';
-import ComponentParams from '../ComponentParams'
-import React from 'react';
-import Separator from '../Separator';
+import ComponentParams from '../ComponentParams';
+import ComponentExamples from '../ComponentExamples';
+import './index.scss';
 
 /**
- * @export
- * @class ComponentReview
- * @extends {React.Component}
+ * @description
+ * Review the current component
  */
 export default class ComponentReview extends React.Component {
     constructor(props) {
@@ -21,16 +19,22 @@ export default class ComponentReview extends React.Component {
         this.state = {
             componentParams: {}
         };
+        this.updateParam = this.updateParam.bind(this);
+        this.updateExample = this.updateExample.bind(this);
     }
 
-    updateParam(paramName, value) {
+    updateParam(e, paramName, value) {
         let componentParams = _.extend({}, this.state.componentParams, {[paramName]: value});
         this.setState({componentParams});
     }
 
+    updateExample(example) {
+        console.log(example);
+    }
+
     render() {
         const componentDoc = this.props.documentation || {};
-        const {name, params = [], section = '', description} = componentDoc;
+        const {name, params = [], examples = [], section = '', description} = componentDoc;
         const sectionParts = section.split("/"); // TODO: Support "windows" paths
         
         return (
@@ -59,22 +63,22 @@ export default class ComponentReview extends React.Component {
                     <p className="section-header">Params:</p>
                     <ComponentParams
                         params={params}
-                        onChange={(e, paramName, value) => this.updateParam(paramName, value)}/>
+                        onChange={this.updateParam}/>
                 </div>
                 <Separator/>
 
-                <div className="component-examples">
+                <div className="component-examples-section">
                     <p className="section-header">Examples:</p>
-                    <CodeCard>
-                        <pre>code</pre>
-                    </CodeCard>
+                    <ComponentExamples
+                        examples={examples}
+                        onChange={this.updateExample}/>
                 </div>
                 <Separator/>
 
                 <div className="component-source-code">
                     <p className="section-header">Code:</p>
                     <CodeCard>
-                        <pre>code</pre>
+                        source code
                     </CodeCard>
                 </div>
             </div>

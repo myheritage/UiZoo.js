@@ -1,4 +1,5 @@
 /**
+ * Will try to parse string as JSON, will fallback to defaultValue if failed
  * @export
  * @param {string} codeToParse 
  * @param {any} defaultValue 
@@ -6,6 +7,7 @@
  */
 export default function tryToParseJson(codeToParse, defaultValue) {
     let parsedValue;
+    
     if (typeof defaultValue === 'undefined') {
         defaultValue = codeToParse;
     }

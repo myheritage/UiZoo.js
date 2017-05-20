@@ -6,8 +6,12 @@ import './index.scss';
  * A generic separator to be used between components
  *
  * @example
+ * 1) default
  * <Separator/>
  *
+ * 2) isBig
+ * <Separator isBig={true}/>
+ * 
  * @param {boolean} [isBig] more margin on top & bottom
  *
  */

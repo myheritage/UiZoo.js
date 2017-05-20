@@ -7,7 +7,10 @@ import PropTypes from 'prop-types';
  * Card with border and box-shadow
  *
  * @example
- * <Card></Card>
+ * card with children
+ * <Card>
+ *  1123
+ * </Card>
  *
  * @param {String} [className] Append class name to container
  * @param {React.Children} [children] Children elements
