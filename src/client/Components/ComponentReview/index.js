@@ -111,7 +111,7 @@ export default class ComponentReview extends React.Component {
      * @param {object}
      */
     renderComponentSourceCode(componentContent) {
-        const componentSourceCode = jsxToString(componentContent);
+        const componentSourceCode = !!componentContent ? jsxToString(componentContent) : null;
         return (
             <div className="component-source-code">
                 <p className="section-header">Source code:</p>
