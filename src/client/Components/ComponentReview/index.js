@@ -18,12 +18,26 @@ export default class ComponentReview extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            componentParams: {}
+            componentProps: {}
         };
         this.updateParam = this.updateParam.bind(this);
         this.updateExample = this.updateExample.bind(this);
     }
 
+    /**
+     * Reset componentProps if component has changed
+     * @param {object} nextProps 
+     */
+    componentWillReceiveProps(nextProps) {
+        const componentDoc = this.props.documentation || {};
+        const nextComponentDoc = nextProps.documentation || {};
+        if (componentDoc.name !== nextComponentDoc.name) {
+            this.setState({
+                componentProps: {}
+            });
+        }
+    }
+    
     /**
      * Update when one of the params has changed
      * @param {event} e
@@ -31,10 +45,10 @@ export default class ComponentReview extends React.Component {
      * @param {any} value
      */
     updateParam(e, paramName, value) {
-        let componentParams = _.extend({}, this.state.componentParams, {[paramName]: value});
+        let componentProps = _.extend({}, this.state.componentProps, {[paramName]: value});
         // clean undefined values
-        _.keys(componentParams).forEach(key => typeof componentParams[key] === 'undefined' && delete componentParams[key]);
-        this.setState({componentParams});
+        _.keys(componentProps).forEach(key => typeof componentProps[key] === 'undefined' && delete componentProps[key]);
+        this.setState({componentProps});
     }
 
     /**
@@ -132,7 +146,7 @@ export default class ComponentReview extends React.Component {
             ? window.libraryData[componentDoc.name]
             : null;
         const componentContent = componentDoc.name
-            ? <ComponentNode {...this.state.componentParams}/>
+            ? <ComponentNode {...this.state.componentProps}/>
             : null;
 
         return (
