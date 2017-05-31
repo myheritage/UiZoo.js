@@ -1,25 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {RaisedButton} from 'material-ui';
+import RaisedButton from '../../MaterialSlim/RaisedButton';
 import CodeCard from '../../CodeCard';
 import extractExample from './extractExample';
 import './index.scss';
-
-const style = {
-    minWidth: 0,
-};
-
-const buttonStyle = {
-    height: "24px",
-    lineHeight: "24px",
-}
-
-const labelStyle = {
-    fontSize: "13px",
-    paddingLeft: "12px",
-    paddingRight: "12px",
-    textTransform: "none",
-};
 
 /**
  * @description
@@ -46,14 +30,10 @@ export default class ComponentExample extends React.Component {
             <div className="component-example">
                 {!!title && <p className="example-title">{title}</p>}
                 <div className="code-card-frame">
-                    <a className="try-it-button"
-                        onTouchTap={e => this.loadExample(code)}>
-                        <RaisedButton
-                            label="Try it!"
-                            primary
-                            style={style}
-                            buttonStyle={buttonStyle}
-                            labelStyle={labelStyle}/>
+                    <a className="try-it-button">
+                        <RaisedButton onClick={e => this.loadExample(code)}>
+                            Try it!
+                        </RaisedButton>
                     </a>
                     <CodeCard>
                         {code}

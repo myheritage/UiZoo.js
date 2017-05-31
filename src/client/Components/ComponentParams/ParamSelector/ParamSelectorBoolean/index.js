@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Menu} from 'material-ui';
-import {MenuItem} from 'material-ui';
-import {Paper} from 'material-ui';
-import {menuStyle} from '../menuStyle';
+
+import MenuItem from '../../../MaterialSlim/MenuItem';
+import Menu from '../../../MaterialSlim/Menu';
 
 /**
  * @description
@@ -45,14 +44,12 @@ export default class ParamSelectorBoolean extends React.Component {
      */
     render() {
         return (
-            <Menu
-                {...menuStyle}
-                key={`boolean-field-for-${this.props.name}`}
+            <Menu 
                 onChange={(e, newValue) => this.onChange(e, newValue)}
                 value={this.state.value}>
-                <MenuItem primaryText="default" value={undefined}/>
-                <MenuItem primaryText="true" value={true}/>
-                <MenuItem primaryText="false" value={false}/>
+                <MenuItem>default</MenuItem>
+                <MenuItem value={true}>true</MenuItem>
+                <MenuItem value={false}>false</MenuItem>
             </Menu>
         );
     }

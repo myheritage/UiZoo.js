@@ -1,0 +1,11 @@
+.menu-wrapper {
+    .menu-item-wrapped {
+        transition: all 450ms ease;
+        &:not(.selected) {
+            cursor: pointer;
+        }
+        &.selected {
+            opacity: 0.5;
+        }
+    }
+}

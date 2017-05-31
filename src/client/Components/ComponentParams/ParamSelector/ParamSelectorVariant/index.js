@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Menu} from 'material-ui';
-import {MenuItem} from 'material-ui';
-import {Paper} from 'material-ui';
-import {menuStyle} from '../menuStyle';
+import MenuItem from '../../../MaterialSlim/MenuItem';
+import Menu from '../../../MaterialSlim/Menu';
 
 /**
  * @description
@@ -45,7 +43,7 @@ export default class ParamSelectorVariant extends React.Component {
      * @param {string|number} val 
      */
     renderValueItem(val) {
-        return <MenuItem key={`values-item-${val}`} primaryText={val} value={val}/>;
+        return <MenuItem key={`values-item-${val}`} value={val}>{val}</MenuItem>;
     }
 
     /**
@@ -56,11 +54,9 @@ export default class ParamSelectorVariant extends React.Component {
         const valueItems = (this.props.values || []).map(val => this.renderValueItem(val));
         return (
             <Menu
-                {...menuStyle}
-                key={`variant-field-for-${this.props.name}`}
                 onChange={(e, newValue) => this.onChange(e, newValue)}
                 value={this.state.value}>
-                <MenuItem primaryText="default" value={undefined}/>
+                <MenuItem value={undefined}>default</MenuItem>
                 {valueItems}
             </Menu>
         );
