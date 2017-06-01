@@ -1,0 +1,43 @@
+.text-field {
+    position: relative;
+    padding-bottom: 7px;
+    textarea {
+        font-size: 15px;
+        line-height: 24px;
+        outline: none;
+        border: none;
+        width: 130px;
+        height: 24px;
+        resize: none;
+        letter-spacing: -0.04em;
+        color: #646362;
+        overflow: hidden;
+        &::-webkit-input-placeholder {
+            opacity: 0.5;
+        }
+    }
+    &:before {
+        content: '';
+        position: absolute;
+        height: 1px;
+        background: rgba(#646362, 0.2);
+        width: 100%;
+        bottom: 0;
+        left: 0;
+    }
+    &:after {
+        content: '';
+        position: absolute;
+        height: 2px;
+        background: #00bcd4;
+        width: 0;
+        bottom: 0;
+        left: 50%;
+        transition: all .3s ease;
+    }
+
+    &.is-focused:after {
+        width: 100%;
+        left: 0;
+    }
+}

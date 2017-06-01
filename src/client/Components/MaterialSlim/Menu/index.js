@@ -27,6 +27,7 @@ export default class Menu extends React.Component {
     render () {
         const items = React.Children.map(this.props.children, child => (
             <div
+                tabIndex="1"
                 onClick={e => this.onChange(e, child.props.value)}
                 className={this.getItemClassName(child.props.value)}>
                 {child}

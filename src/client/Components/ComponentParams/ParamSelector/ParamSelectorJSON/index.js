@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {TextField} from 'material-ui';
+import TextField from '../../../MaterialSlim/TextField';
 import tryToParseJson from './tryToParseJson';
 
 const textFieldStyle = {height: "48px", width: "130px", fontSize: "15px", marginTop: "-18px"};
@@ -61,12 +61,9 @@ export default class ParamSelectorJSON extends React.Component {
         return (
             <div className="json-selector-wrapper">
                 <TextField
-                    style={textFieldStyle}
-                    multiLine={true}
-                    rowsMax={4}
-                    id={`json-text-field-for-${this.props.name}`}
-                    hintText="string, array, etc"
-                    onChange={this.onChange}/>
+                    value={this.state.value}
+                    onChange={this.onChange}
+                    placeholder="string, array, etc" /> 
             </div>
         );
     }

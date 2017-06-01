@@ -10,7 +10,9 @@ export default class RaisedButton extends React.Component {
     const {children, onClick} = this.props;
     return (
       <div className="raised-button">
-        <button onClick={e => onClick && onClick(e)}>
+        <button 
+          tabIndex="1"
+          onClick={e => onClick && onClick(e)}>
           <span>{children}</span>
         </button>
       </div>
