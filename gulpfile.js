@@ -36,13 +36,17 @@ gulp.task("watch", () => {
 });
 
 function bundleClient() {
-	return rollup.rollup(getRollupConfig({external: ['underscore']}))
+	return rollup.rollup(getRollupConfig({external: ['underscore', 'react', 'react-dom', 'react-router-dom', 'prop-types']}))
 		.then(bundle => {
 			bundle.write({
 				format: 'iife',
 				dest: 'build/client/index.js',
 				globals: {
 					'underscore': '_',
+					'react': 'React',
+					'react-dom': 'ReactDOM',
+					'react-router-dom':'ReactRouterDOM',
+					'prop-types': 'PropTypes',
 				},
 			});
 		})

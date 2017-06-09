@@ -1,11 +1,23 @@
 .menu-wrapper {
     .menu-item-wrapped {
         transition: all 450ms ease;
+        outline: 0;
+        display: block;
+        border: 0;
+        background: rgba(white, 0);
+        width: 100%;
+        padding: 0;
+        &:focus {
+            opacity: 0.3;
+        }
         &:not(.selected) {
             cursor: pointer;
         }
         &.selected {
             opacity: 0.5;
+            &:focus {
+                opacity: 0.3;
+            }
         }
     }
 }
