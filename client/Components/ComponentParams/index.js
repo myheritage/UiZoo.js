@@ -31,7 +31,7 @@ export default class ComponentParams extends React.Component {
         const type = paramObj.type.name || paramObj.type.expression.name;
         
         return (
-            <div className="bibliotheca-component-params-selector" key={`param-name-${paramObj.name}`}>
+            <div className="bibliotheca-component-params-selector" key={`param-name-${paramObj.name}-${this.props.componentName}`}>
                 <Tooltip tooltip={paramObj.description}>
                     <p className="bibliotheca-param-name">
                         {paramObj.name}

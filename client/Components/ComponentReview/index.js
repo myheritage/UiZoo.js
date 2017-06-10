@@ -25,14 +25,38 @@ export default class ComponentReview extends React.Component {
     }
 
     /**
+     * Component mount, set default example
+     */
+    componentDidMount() {
+        const componentDoc = this.props.documentations[this.props.componentName] || {};
+        this.setDefaultExample(componentDoc);
+    }
+
+    /**
+     * Set the default example, which is the first example
+     * @return {boolean} if setting the example was a success
+     */
+    setDefaultExample(componentDoc) {
+        if (componentDoc.example && componentDoc.example.length) {
+            this.updateExample(componentDoc.example[0].description);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Reset componentProps if component has changed
      * @param {object} nextProps 
      */
     componentWillReceiveProps(nextProps) {
         if (this.props.componentName !== nextProps.componentName) {
-            this.setState({
-                componentProps: {}
-            });
+            const componentDoc = nextProps.documentations[nextProps.componentName] || {};
+            if(!this.setDefaultExample(componentDoc)) {
+                this.setState({
+                    componentProps: {}
+                });
+            }
         }
     }
     
