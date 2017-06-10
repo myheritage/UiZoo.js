@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import equal from 'deep-equal';
-
 import Tooltip from '../AutoLocationTooltip';
 import ParamSelector from './ParamSelector';
 
@@ -20,11 +18,6 @@ export default class ComponentParams extends React.Component {
      * @param {object} nextState 
      * @return {boolean}
      */
-    shouldComponentUpdate(nextProps, nextState) {
-        const paramsAreEquals = equal(this.props.params, nextProps.params, {strict:true});
-        const stateAreEquals = equal(this.state, nextState, {strict:true});
-        return !paramsAreEquals || !stateAreEquals;
-    }
 
     /**
      * report change to parent with the name of the param
@@ -50,11 +43,11 @@ export default class ComponentParams extends React.Component {
                     </p>
                 </Tooltip>
                 <ParamSelector
-                    key={`selector-for-${paramObj.name}`}
+                    key={`selector-for-${paramObj.name}-${this.props.componentName}`}
                     name={paramObj.name}
                     type={paramObj.type}
                     values={paramObj.values}
-                    selectedValue={undefined}
+                    selectedValue={paramObj.value}
                     onChange={(e, newValue) => this.onChange(e, paramObj.name, newValue)}/>
             </div>
         );
