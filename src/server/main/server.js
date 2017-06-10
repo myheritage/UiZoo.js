@@ -44,6 +44,7 @@ function start(app) {
     app.set('views', path.join(rootDir, '/html'));
     app.use('/client', express.static(path.join(rootDir, '/../client')));
     app.use('/userdata', express.static(path.join(rootDir, '/../userdata')));
+    app.use('/vendors', express.static(path.join(rootDir, '/../../vendors')));
     app.use('/vendors', express.static(path.join(rootDir, '/../../node_modules')));
     app.use('/favicon.ico', express.static(path.join(rootDir, '/../../favicon.ico')));
     
