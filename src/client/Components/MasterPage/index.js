@@ -10,13 +10,20 @@ const titleStyle = {
     cursor: "pointer"
 };
 
+/**
+ * @description
+ * Master Page
+ *
+ * @example
+ * <MasterPage />
+ *
+ */
 export default class MasterPage extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             isDrawerOpen: true,
-            components: window.libraryConfiguration.components
         }
     }
 
@@ -35,8 +42,10 @@ export default class MasterPage extends React.Component {
     }
 
     render() {
-        const drawerMenuItems = this.state.components
-            .map(component => this.renderComponentMenuItem(component.name));
+        let drawerMenuItems = [];
+        for (let name in window.libraryDocs) {
+            drawerMenuItems.push(this.renderComponentMenuItem(name))
+        }
 
         return (
             <div className="master_page_container">
@@ -54,7 +63,7 @@ export default class MasterPage extends React.Component {
                         onTitleTouchTap={() => this.props.history.push('/')}/>
 
                     <ComponentReview
-                        documentation={window.libraryConfiguration.documentation[this.props.match.params.componentName]}/>
+                        documentation={window.libraryDocs[this.props.match.params.componentName]}/>
                 </div>
             </div>
         )
