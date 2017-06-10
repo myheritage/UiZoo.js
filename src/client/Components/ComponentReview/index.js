@@ -29,9 +29,7 @@ export default class ComponentReview extends React.Component {
      * @param {object} nextProps 
      */
     componentWillReceiveProps(nextProps) {
-        const componentDoc = this.props.documentation || {};
-        const nextComponentDoc = nextProps.documentation || {};
-        if (componentDoc.name !== nextComponentDoc.name) {
+        if (this.props.componentName !== nextProps.componentName) {
             this.setState({
                 componentProps: {}
             });
@@ -79,18 +77,17 @@ export default class ComponentReview extends React.Component {
     /**
      * Metadata - title, description, etc.
      * @param {object}
+     * @param {string} name
      */
-    renderComponentMetadata({name, description, section = ''}) {
-        const sectionParts = section.split("/"); // TODO: Support "windows" paths
+    renderComponentMetadata({description}, name) {
         return (
             <div>
-                <p className="component-section">{sectionParts.join(" > ")}</p>
                 <h1 className="component-name">
                     {!!name && name}
                     {!name && 'Welcome to Bibliotheca!'}
                 </h1>
                 <h3 className="component-description">
-                    {description}
+                    {_.pluck(description, "description").join(". ")}
                     {!name && 'please select a component to view'}
                 </h3>
             </div>
@@ -113,7 +110,7 @@ export default class ComponentReview extends React.Component {
      * Possible params of the component on review
      * @param {object}
      */
-    renderComponentParams({name, params = []}) {
+    renderComponentParams({param: params = []}, name) {
         params.forEach(param => {
             param.value = this.state.componentProps[param.name];
         });
@@ -129,11 +126,11 @@ export default class ComponentReview extends React.Component {
      * Possible examples of the component on review
      * @param {object}
      */
-    renderComponentExamples({examples = []}) {
+    renderComponentExamples({example = []}) {
         return (
             <div className="component-examples-section">
                 <p className="section-header">Examples:</p>
-                <ComponentExamples examples={examples} onChange={this.updateExample}/>
+                <ComponentExamples examples={example} onChange={this.updateExample}/>
             </div>
         );
     }
@@ -158,20 +155,14 @@ export default class ComponentReview extends React.Component {
      * Render the component by the provided documentation
      */
     render() {
-        const componentDoc = this.props.documentation || {};
-        // TODO: window namespace should be declared in server
-        const ComponentNode = componentDoc.name
-            ? window.libraryData[componentDoc.name]
-            : null;
-        const componentContent = componentDoc.name
-            ? <ComponentNode {...this.state.componentProps}/>
-            : null;
-
+        const componentDoc = this.props.documentations[this.props.componentName] || {};
+        const ComponentNode = this.props.components[this.props.componentName] || null;
+        const componentContent = ComponentNode ? <ComponentNode {...this.state.componentProps}/> : null;
         return (
             <div className="component-review">
-                {this.renderComponentMetadata(componentDoc)}
+                {this.renderComponentMetadata(componentDoc, this.props.componentName)}
                 <Separator/> {this.renderComponentContent(componentContent)}
-                <Separator/> {this.renderComponentParams(componentDoc)}
+                <Separator/> {this.renderComponentParams(componentDoc, this.props.componentName)}
                 <Separator/> {this.renderComponentExamples(componentDoc)}
                 <Separator/> {this.renderComponentSourceCode(componentContent)}
             </div>

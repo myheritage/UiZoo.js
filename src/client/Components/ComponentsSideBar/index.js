@@ -17,22 +17,28 @@ export default class ComponentsSideBar extends Component {
     renderComponentsLinks() {
         const {
             components,
-            currentComponentName,
+            componentName,
             goToUrl
         } = this.props;
 
-        let componentsLinks = components
-            .filter(component => component.name.toLowerCase().indexOf(this.state.searchValue.toLowerCase()) !== -1)
-            .map(component => (
-                <div
-                    className={`component-link${currentComponentName === component.name ? ' selected' : ''}`}
-                    key={`link-for-${component.name}`}>
-                    <button onClick={() => goToUrl(component.name)} tabIndex="1">
-                        {component.name}
-                    </button>
-                </div>
-            ));
-        if (!componentsLinks.length) {
+        let componentsLinks = [];
+
+        for (let name in components) {
+            let component = components[name];
+            if (name.toLowerCase().indexOf(this.state.searchValue.toLowerCase()) !== -1) {
+                componentsLinks.push(
+                    <div
+                        className={`component-link${componentName === name ? ' selected' : ''}`}
+                        key={`link-for-${name}`}>
+                        <button onClick={() => goToUrl(name)} tabIndex="1">
+                            {name}
+                        </button>
+                    </div>
+                );
+            }
+        }
+        
+        if (componentsLinks.length === 0) {
             componentsLinks.push(
                 <div className="component-no-links">
                     No matches for "{this.state.searchValue}"

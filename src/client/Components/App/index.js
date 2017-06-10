@@ -5,20 +5,23 @@ import './index.scss';
 
 export default class App extends React.Component {
     render() {
-        const {documentation, components, match, compiler} = this.props;
-        const currentComponentName = match.params.componentName;
-        const currentDocumentation = documentation[currentComponentName];
+        const {documentations, components, match, compiler} = this.props;
+        const componentName = match.params.componentName;
 
         return (
             <div className="bibliotheca-app">
                 <div className="bibliotheca-side-bar">
                     <ComponentsSideBar
                         components={components}
-                        currentComponentName={currentComponentName}
+                        componentName={componentName}
                         goToUrl={this.props.history.push}/>
                 </div>
                 <div className="bibliotheca-review">
-                    <ComponentReview documentation={currentDocumentation} compiler={compiler}/>
+                    <ComponentReview 
+                        components={components}
+                        documentations={documentations}
+                        componentName={componentName}
+                        compiler={compiler}/>
                 </div>
             </div>
         )

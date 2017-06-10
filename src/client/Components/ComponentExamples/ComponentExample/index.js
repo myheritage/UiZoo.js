@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import RaisedButton from '../../MaterialSlim/RaisedButton';
 import CodeCard from '../../CodeCard';
-import extractExample from './extractExample';
 import './index.scss';
 
 /**
@@ -24,11 +23,10 @@ export default class ComponentExample extends React.Component {
      * Render the example
      */
     render () {
-        const {title, code} = extractExample(this.props.example);
-
+        const code = this.props.example.description;
+        
         return (
             <div className="component-example">
-                {!!title && <p className="example-title">{title}</p>}
                 <div className="code-card-frame">
                     <a className="try-it-button">
                         <RaisedButton onClick={e => this.loadExample(code)}>

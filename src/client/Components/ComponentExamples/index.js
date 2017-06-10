@@ -43,8 +43,3 @@ export default class ComponentExamples extends React.Component {
         );
     }
 }
-
-ComponentExamples.PropTypes = {
-    examples: PropTypes.arrayOf(PropTypes.string),
-    onChange: PropTypes.func
-};

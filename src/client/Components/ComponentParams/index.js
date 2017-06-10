@@ -13,13 +13,6 @@ import './index.scss';
  */
 export default class ComponentParams extends React.Component {
     /**
-     * Checks if the params has changed or the state has changed for rendering
-     * @param {object} nextProps 
-     * @param {object} nextState 
-     * @return {boolean}
-     */
-
-    /**
      * report change to parent with the name of the param
      * @param {event|null} e not all selectors can provide the event of the tap
      * @param {string} paramName 
@@ -34,18 +27,22 @@ export default class ComponentParams extends React.Component {
      * @param {object} paramObj 
      */
     renderSelector(paramObj) {
+        const isOptional = paramObj.type.type === "OptionalType";
+        // TODO parse the type more precisely.
+        const type = paramObj.type.name || paramObj.type.expression.name;
+        
         return (
             <div className="component-params-selector" key={`param-name-${paramObj.name}`}>
                 <Tooltip tooltip={paramObj.description}>
                     <p className="param-name">
                         {paramObj.name}
-                        {!!paramObj.isOptional && <span>*</span>}
+                        {isOptional && <span>*</span>}
                     </p>
                 </Tooltip>
                 <ParamSelector
                     key={`selector-for-${paramObj.name}-${this.props.componentName}`}
                     name={paramObj.name}
-                    type={paramObj.type}
+                    type={type}
                     values={paramObj.values}
                     selectedValue={paramObj.value}
                     onChange={(e, newValue) => this.onChange(e, paramObj.name, newValue)}/>

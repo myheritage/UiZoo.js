@@ -11,11 +11,12 @@ export function parseDocumentation(libraryDocs) {
     return docs;
 }
 
-function getDoc(ast) {
+function getDoc({tags}) {
     let doc = {};
     for (let i in tags) {
         let tag = tags[i];
-        doc[tag.title] = tag;
+        doc[tag.title] = doc[tag.title] || [];
+        doc[tag.title].push(tag);
     }
     return doc;
 }

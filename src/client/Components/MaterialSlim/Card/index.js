@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
  * Card with border and box-shadow
  *
  * @example
- * card with children
+ * // card with children
  * <Card>
  *  1123
  * </Card>

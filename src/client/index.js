@@ -11,14 +11,14 @@ import App from './Components/App';
 
 const {libraryDocs = {}, libraryData = {}} = window;
 const compiler = createCompiler(libraryData); // JSX compiler
-const documentation = parseDocumentation(libraryDocs);
+const documentations = parseDocumentation(libraryDocs);
 
 ReactDOM.render(
     <BrowserRouter basename="/">
         <Route path="/:componentName?" render={routeProps => (
             <App {...routeProps}
                 components={libraryData}
-                documentation={documentation}
+                documentations={documentations}
                 compiler={compiler} />
         )}/>
     </BrowserRouter>,
