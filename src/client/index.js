@@ -6,17 +6,18 @@ import "./components.js";
 import "./documentation.js";
 
 import {createCompiler} from './services/compileWithContext';
+import {parseDocumentation} from './services/parseDocumentation';
 import App from './Components/App';
 
-const {libraryConfiguration = {}, libraryData = {}} = window; // server-side rendered data
-const {components, documentation} = libraryConfiguration;
+const {libraryDocs = {}, libraryData = {}} = window;
 const compiler = createCompiler(libraryData); // JSX compiler
+const documentation = parseDocumentation(libraryDocs);
 
 ReactDOM.render(
     <BrowserRouter basename="/">
         <Route path="/:componentName?" render={routeProps => (
             <App {...routeProps}
-                components={components}
+                components={libraryData}
                 documentation={documentation}
                 compiler={compiler} />
         )}/>

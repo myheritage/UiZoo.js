@@ -4,7 +4,6 @@ import {Drawer} from 'material-ui';
 import {Link} from 'react-router-dom';
 import {MenuItem} from 'material-ui';
 import ComponentReview from '../ComponentReview';
-import doctrine  from "doctrine";
 import './index.scss';
 
 const titleStyle = {
