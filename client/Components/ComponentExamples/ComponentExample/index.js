@@ -1,6 +1,6 @@
 import React from 'react';
 import RaisedButton from '../../BibliothecaUI/RaisedButton';
-import CodeCard from '../../CodeCard';
+import CodeCard from '../../BibliothecaUI/CodeCard';
 import './index.scss';
 
 /**
@@ -25,9 +25,9 @@ export default class ComponentExample extends React.Component {
         const code = this.props.example.description;
         
         return (
-            <div className="component-example">
-                <div className="code-card-frame">
-                    <a className="try-it-button">
+            <div className="bibliotheca-component-example">
+                <div className="bibliotheca-code-card-frame">
+                    <a className="bibliotheca-try-it-button">
                         <RaisedButton onClick={e => this.loadExample(code)}>
                             Try it!
                         </RaisedButton>

@@ -4,8 +4,6 @@ import ParamSelectorBoolean from './ParamSelectorBoolean';
 import ParamSelectorVariant from './ParamSelectorVariant';
 import ParamSelectorJSON from './ParamSelectorJSON';
 
-import './index.scss';
-
 const paramTypeToComponent = {
     'boolean': ParamSelectorBoolean,
     'variant': ParamSelectorVariant,

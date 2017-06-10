@@ -87,13 +87,13 @@ export default class Tooltip extends React.Component {
         // tooltip must be wrapped in padded element for the hiding function (e.g onBlur) to not happen when moving the cursor
         // from outside the children to the tooltip_text
         const tooltip = this.state.showTooltip && this.props.tooltip ? (
-            <div className={`tooltip_spacing_wrapper side_${tooltipSide} alignment_${tooltipAlignment}${extraClasses}`}>
-                <div className='tooltip_body'>{this.props.tooltip}</div>
+            <div className={`bibliotheca-tooltip_spacing_wrapper side_${tooltipSide} alignment_${tooltipAlignment}${extraClasses}`}>
+                <div className='bibliotheca-tooltip_body'>{this.props.tooltip}</div>
             </div>) : null;
         const eventHandlers = this.getEventHandlers();
 
         return ( // tab index is needed for the onBlur event to work
-            <div className="tooltip_wrapper" {...eventHandlers} tabIndex="0">
+            <div className="bibliotheca-tooltip_wrapper" {...eventHandlers} tabIndex="0">
                 {tooltip}
                 {this.props.children}
             </div>

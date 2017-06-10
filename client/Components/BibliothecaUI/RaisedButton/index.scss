@@ -1,7 +1,7 @@
-.raised-button {
+.bibliotheca-raised-button {
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
     border-radius: 2px;
-    button {
+    > button {
         border: 0;
         border-radius: 2px;
         display: inline-block;
@@ -16,7 +16,7 @@
         &:focus {
             background-color: rgba(0, 188, 212, 0.4);
         }
-        span {
+        > span {
             font-size: 13px;
             font-weight: 500;
             user-select: none;

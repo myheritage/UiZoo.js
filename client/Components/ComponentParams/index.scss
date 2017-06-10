@@ -1,20 +1,13 @@
-.component-params {
+.bibliotheca-component-params {
     display: flex;
     flex-wrap: wrap;
-    .param-name {
+    .bibliotheca-param-name {
         margin: 0 0 10px;
         font-size: 15px;
         font-weight: 600;
     }
-    .component-params-selector {
+    .bibliotheca-component-params-selector {
         margin-right: 15px;
         margin-bottom: 15px;
-    }
-}
-
-.component-params-popover-content {
-    padding: 10px 20px;
-    p {
-        margin: 0;
     }
 }

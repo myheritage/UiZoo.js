@@ -1,5 +1,5 @@
 import React from 'react';
-import Tooltip from '../AutoLocationTooltip';
+import Tooltip from '../BibliothecaUI/AutoLocationTooltip';
 import ParamSelector from './ParamSelector';
 
 import './index.scss';
@@ -31,9 +31,9 @@ export default class ComponentParams extends React.Component {
         const type = paramObj.type.name || paramObj.type.expression.name;
         
         return (
-            <div className="component-params-selector" key={`param-name-${paramObj.name}`}>
+            <div className="bibliotheca-component-params-selector" key={`param-name-${paramObj.name}`}>
                 <Tooltip tooltip={paramObj.description}>
-                    <p className="param-name">
+                    <p className="bibliotheca-param-name">
                         {paramObj.name}
                         {isOptional && <span>*</span>}
                     </p>
@@ -55,7 +55,7 @@ export default class ComponentParams extends React.Component {
     render() {
         const selectors = (this.props.params || []).map(paramObj => this.renderSelector(paramObj));
         return (
-            <div className="component-params">
+            <div className="bibliotheca-component-params">
                 {selectors}
                 {selectors.length === 0 && 'None'}
             </div>

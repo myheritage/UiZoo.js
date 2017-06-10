@@ -3,8 +3,8 @@ import _ from 'underscore';
 import jsxToString from './jsx-to-string.js';
 import Card from '../BibliothecaUI/Card';
 import {previewFrameStyle} from './previewFrameStyle';
-import Separator from '../Separator';
-import CodeCard from '../CodeCard';
+import Separator from '../BibliothecaUI/Separator';
+import CodeCard from '../BibliothecaUI/CodeCard';
 import ComponentParams from '../ComponentParams';
 import ComponentExamples from '../ComponentExamples';
 import './index.scss';
@@ -82,11 +82,11 @@ export default class ComponentReview extends React.Component {
     renderComponentMetadata({description}, name) {
         return (
             <div>
-                <h1 className="component-name">
+                <h1 className="bibliotheca-component-name">
                     {!!name && name}
                     {!name && 'Welcome to Bibliotheca!'}
                 </h1>
-                <h3 className="component-description">
+                <h3 className="bibliotheca-component-description">
                     {_.pluck(description, "description").join(". ")}
                     {!name && 'please select a component to view'}
                 </h3>
@@ -100,7 +100,7 @@ export default class ComponentReview extends React.Component {
      */
     renderComponentContent(componentContent) {
         return (
-            <Card className="component-content">
+            <Card className="bibliotheca-component-content">
                 {componentContent}
             </Card>
         );
@@ -115,8 +115,8 @@ export default class ComponentReview extends React.Component {
             param.value = this.state.componentProps[param.name];
         });
         return (
-            <div className="component-params-section">
-                <p className="section-header">Params:</p>
+            <div className="bibliotheca-component-params-section">
+                <p className="bibliotheca-section-header">Params:</p>
                 <ComponentParams componentName={name} params={params} onChange={this.updateParam}/>
             </div>
         );
@@ -128,8 +128,8 @@ export default class ComponentReview extends React.Component {
      */
     renderComponentExamples({example = []}) {
         return (
-            <div className="component-examples-section">
-                <p className="section-header">Examples:</p>
+            <div className="bibliotheca-component-examples-section">
+                <p className="bibliotheca-section-header">Examples:</p>
                 <ComponentExamples examples={example} onChange={this.updateExample}/>
             </div>
         );
@@ -142,8 +142,8 @@ export default class ComponentReview extends React.Component {
     renderComponentSourceCode(componentContent) {
         const componentSourceCode = !!componentContent ? jsxToString(componentContent) : null;
         return (
-            <div className="component-source-code">
-                <p className="section-header">Source code:</p>
+            <div className="bibliotheca-component-source-code">
+                <p className="bibliotheca-section-header">Source code:</p>
                 <CodeCard>
                     {componentSourceCode}
                 </CodeCard>
@@ -159,7 +159,7 @@ export default class ComponentReview extends React.Component {
         const ComponentNode = this.props.components[this.props.componentName] || null;
         const componentContent = ComponentNode ? <ComponentNode {...this.state.componentProps}/> : null;
         return (
-            <div className="component-review">
+            <div className="bibliotheca-component-review">
                 {this.renderComponentMetadata(componentDoc, this.props.componentName)}
                 <Separator/> {this.renderComponentContent(componentContent)}
                 <Separator/> {this.renderComponentParams(componentDoc, this.props.componentName)}

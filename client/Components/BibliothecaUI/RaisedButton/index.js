@@ -12,7 +12,7 @@ export default class RaisedButton extends React.Component {
   render() {
     const {children, onClick} = this.props;
     return (
-      <div className="raised-button">
+      <div className="bibliotheca-raised-button">
         <button 
           tabIndex="1"
           onClick={e => onClick && onClick(e)}>

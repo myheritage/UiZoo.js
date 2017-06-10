@@ -48,7 +48,7 @@ export default class Menu extends React.Component {
     }
 
     getItemClassName(val) {
-        return `menu-item-wrapped${val === this.state.selectedValue ? ' selected' : ''}`;
+        return `bibliotheca-menu-item-wrapped${val === this.state.selectedValue ? ' selected' : ''}`;
     }
 
     render () {
@@ -62,7 +62,7 @@ export default class Menu extends React.Component {
         ));
 
         return (
-            <div className="menu-wrapper">
+            <div className="bibliotheca-menu-wrapper">
                 {items}
             </div>
         );

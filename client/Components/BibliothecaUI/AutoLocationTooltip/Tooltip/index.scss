@@ -3,12 +3,12 @@ $border_transparent: 8px solid rgba(255,255,255,0);
 $border_visible: 8px solid white;
 $constants-border: 1px solid rgba(black, 0.15);
   
-.tooltip_wrapper {
+.bibliotheca-tooltip_wrapper {
   position: relative;
   &:focus {
     outline: none;
   }
-  .tooltip_spacing_wrapper {
+  .bibliotheca-tooltip_spacing_wrapper {
     position: absolute;
     padding: 10px;
     z-index: $zindex-tooltip;
@@ -81,14 +81,14 @@ $constants-border: 1px solid rgba(black, 0.15);
       }
     }
   }
-  .tooltip_body {
+  .bibliotheca-tooltip_body {
     background: white;
     border-radius: 4px;
     padding: 10px 15px;
     box-shadow: 0 3px 14px rgba(#dad7d0, 0.8);
     border: $constants-border;
-    min-width: 150px;
-    max-width: 250px;
+    min-width: 200px;
+    max-width: 300px;
 
     &.callout {
       max-width: none;

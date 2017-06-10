@@ -36,7 +36,7 @@ export default class ComponentExamples extends React.Component {
             ));
         
         return (
-            <div className="component-examples">
+            <div className="bibliotheca-component-examples">
                 {examples}
             </div>
         );

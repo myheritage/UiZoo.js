@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import {getLocationForElementAroundZone} from './autoLocationDetector/autoLocationDetector';
-import {SIDE_TOP, ALIGNMENT_CENTER} from './locationConstants';
+import {SIDE_TOP, ALIGNMENT_START} from './locationConstants';
 import Tooltip from './Tooltip';
 
 const SPACING = 5;
@@ -30,7 +30,7 @@ export default class AutoLocationTooltip extends React.Component {
         super(props);
         this.state = {
             side: props.side || SIDE_TOP,
-            alignment: props.alignment || ALIGNMENT_CENTER,
+            alignment: props.alignment || ALIGNMENT_START,
         };
     }
 

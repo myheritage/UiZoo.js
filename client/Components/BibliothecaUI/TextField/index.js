@@ -16,7 +16,7 @@ export default class TextField extends React.Component {
     }
     render() {
         return (
-            <div className={`text-field${this.state.className}`}>
+            <div className={`bibliotheca-text-field${this.state.className}`}>
                 <textarea
                     onFocus={() => this.setState({className:' is-focused'})}
                     onBlur={() => this.setState({className:''})}

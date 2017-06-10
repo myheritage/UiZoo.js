@@ -67,7 +67,7 @@ export default class ParamSelectorJSON extends React.Component {
      */
     render() {
         return (
-            <div className="json-selector-wrapper">
+            <div className="bibliotheca-json-selector-wrapper">
                 <TextField
                     value={this.state.value}
                     onChange={this.onChange}

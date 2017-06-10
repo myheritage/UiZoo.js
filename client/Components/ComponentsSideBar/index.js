@@ -28,7 +28,7 @@ export default class ComponentsSideBar extends Component {
             if (name.toLowerCase().indexOf(this.state.searchValue.toLowerCase()) !== -1) {
                 componentsLinks.push(
                     <div
-                        className={`component-link${componentName === name ? ' selected' : ''}`}
+                        className={`bibliotheca-component-link${componentName === name ? ' selected' : ''}`}
                         key={`link-for-${name}`}>
                         <button onClick={() => goToUrl(name)} tabIndex="1">
                             {name}
@@ -40,7 +40,7 @@ export default class ComponentsSideBar extends Component {
         
         if (componentsLinks.length === 0) {
             componentsLinks.push(
-                <div className="component-no-links">
+                <div className="bibliotheca-component-no-links">
                     No matches for "{this.state.searchValue}"
                 </div>
             )
@@ -55,14 +55,14 @@ export default class ComponentsSideBar extends Component {
                     Bibliotheca
                 </h1>
                 <div className="bibliotheca-icon"/>
-                <div className="components-search-bar">
+                <div className="bibliotheca-components-search-bar">
                     <TextField 
                         value={this.state.searchValue}
                         onChange={this.onSearchChange}
                         placeholder="> Search"
                     />
                 </div>
-                <div className="components-links">
+                <div className="bibliotheca-components-links">
                     {this.renderComponentsLinks()}
                 </div>
             </div>

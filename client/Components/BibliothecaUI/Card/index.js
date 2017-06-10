@@ -20,5 +20,5 @@ import './index.scss';
  */
 export default function Card({children, className}) {
     const additionalClassName = className ? ` ${className}` : '';
-    return <div className={`card-wrapper${additionalClassName}`}>{children}</div>;
+    return <div className={`bibliotheca-card-wrapper${additionalClassName}`}>{children}</div>;
 }

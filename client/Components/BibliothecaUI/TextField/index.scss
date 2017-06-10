@@ -1,7 +1,7 @@
-.text-field {
+.bibliotheca-text-field {
     position: relative;
     padding-bottom: 7px;
-    textarea {
+    > textarea {
         font-size: 15px;
         line-height: 24px;
         outline: none;

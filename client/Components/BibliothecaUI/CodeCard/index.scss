@@ -1,4 +1,4 @@
-.code-card-wrapper {
+.bibliotheca-code-card-wrapper {
   position: relative;
   font-family: monospace;
   border-radius: 4px;
@@ -7,7 +7,7 @@
   box-shadow: inset 1px 1px 9px -4px rgba(0, 0, 0, .55);
   letter-spacing: 0.03em;
 
-  pre {
+  > pre {
     margin: 0;
     word-break: break-word;
     white-space: pre-wrap;

@@ -1,20 +1,20 @@
-.component-example {
-    .example-title {
+.bibliotheca-component-example {
+    .bibliotheca-example-title {
         margin: 0 0 10px;
         font-size: 14px;
         font-weight: 500;
         display: inline-block;
     }
-    .code-card-frame {
+    .bibliotheca-code-card-frame {
         position: relative;
     }
-    .try-it-button {
+    .bibliotheca-try-it-button {
         position: absolute;
         top: 0;
         right: 0;
         z-index: 1;
     }
-    .code-card-wrapper {
+    .bibliotheca-code-card-wrapper {
         padding-right: 60px;
     }
 }
