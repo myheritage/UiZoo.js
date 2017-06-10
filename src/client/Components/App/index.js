@@ -5,7 +5,7 @@ import './index.scss';
 
 export default class App extends React.Component {
     render() {
-        const {documentation, components, match} = this.props;
+        const {documentation, components, match, compiler} = this.props;
         const currentComponentName = match.params.componentName;
         const currentDocumentation = documentation[currentComponentName];
 
@@ -18,7 +18,7 @@ export default class App extends React.Component {
                         goToUrl={this.props.history.push}/>
                 </div>
                 <div className="bibliotheca-review">
-                    <ComponentReview documentation={currentDocumentation}/>
+                    <ComponentReview documentation={currentDocumentation} compiler={compiler}/>
                 </div>
             </div>
         )

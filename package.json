@@ -23,10 +23,10 @@
   "homepage": "https://github.com/myheritage/react-bibliotheca#readme",
   "dependencies": {
     "babel-preset-node6": "~11.0.0",
+    "babel-standalone": "~6.25.0",
     "body-parser": "~1.15.2",
     "compression": "~1.6.2",
     "cors": "~2.8.3",
-    "deep-equal": "~1.0.1",
     "express": "~4.14.0",
     "glob": "7.0.6",
     "helmet": "~3.1.0",

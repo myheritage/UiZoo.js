@@ -17,7 +17,7 @@ export default class ParamSelectorJSON extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: props.selectedValue || ''
+            value: props.selectedValue
         };
         this.onChange = this.onChange.bind(this);
         this.reportChangeBounced = _.debounce(val => this.reportChange(val), 150);
@@ -30,7 +30,17 @@ export default class ParamSelectorJSON extends React.Component {
     componentWillReceiveProps(nextProps) {
         const nextStringifiedValue = JSON.stringify(nextProps.selectedValue);
         if (nextStringifiedValue !== JSON.stringify(this.props.selectedValue)) {
-            this.setState({value: nextStringifiedValue || ''});
+            // Check if should ignore React children, will be fixed with Live Coding feature
+            if (typeof nextProps.selectedValue === 'object' && nextProps.selectedValue.hasOwnProperty('ref')
+                && nextProps.selectedValue.hasOwnProperty('type') && nextProps.selectedValue.hasOwnProperty('props')) {
+                this.setState({value: ''});
+            } else {
+                if (typeof nextProps.selectedValue === 'string') {
+                    this.setState({value: nextProps.selectedValue});
+                } else  {
+                    this.setState({value: nextStringifiedValue});
+                }
+            }
         }
     }
 

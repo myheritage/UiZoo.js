@@ -56,7 +56,10 @@ export default class ComponentReview extends React.Component {
      * @param {string} example
      */
     updateExample(example) {
-        console.log(example); // TODO: parse example to JSX and load to view
+        const CompiledNode = this.props.compiler(example);
+        this.setState({
+            componentProps: CompiledNode.props
+        });
     }
 
     /**
@@ -96,11 +99,14 @@ export default class ComponentReview extends React.Component {
      * Possible params of the component on review
      * @param {object}
      */
-    renderComponentParams({params = []}) {
+    renderComponentParams({name, params = []}) {
+        params.forEach(param => {
+            param.value = this.state.componentProps[param.name];
+        });
         return (
             <div className="component-params-section">
                 <p className="section-header">Params:</p>
-                <ComponentParams params={params} onChange={this.updateParam}/>
+                <ComponentParams componentName={name} params={params} onChange={this.updateParam}/>
             </div>
         );
     }
