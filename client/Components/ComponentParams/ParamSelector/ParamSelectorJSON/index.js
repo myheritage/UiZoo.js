@@ -1,8 +1,7 @@
 import React from 'react';
 import TextField from '../../../MaterialSlim/TextField';
 import tryToParseJson from './tryToParseJson';
-
-const textFieldStyle = {height: "48px", width: "130px", fontSize: "15px", marginTop: "-18px"};
+import './index.scss';
 
 /**
  * @description

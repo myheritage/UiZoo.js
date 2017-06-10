@@ -4,7 +4,28 @@ import './index.scss';
 /**
  * @name
  * Menu 
- *
+ * @description
+ * Menu to select items
+ * 
+ * @example
+ * <Menu value="red" onChange={(e, val) => console.log(val)}>
+ *    <MenuItem value="red"
+ *          style={{backgroundColor:"#f59a9a"}}>
+ *          Color red
+ *    </MenuItem>
+ *    <MenuItem value="blue"
+ *          style={{backgroundColor:"#2196f3"}}>
+ *          Color blue
+ *    </MenuItem>
+ *    <MenuItem value="yellow"
+ *          style={{backgroundColor:"#ffeb3b"}}>
+ *          Color yellow
+ *    </MenuItem>
+ * </Menu>
+ * 
+ * @param {any} value
+ * @param {function} [onChange]
+ * @param {node} children
  */
 export default class Menu extends React.Component {
     constructor(props) {
@@ -21,6 +42,7 @@ export default class Menu extends React.Component {
     
     onChange(e, val) {
         if (val !== this.state.selectedValue) {
+            this.setState({selectedValue: val});
             this.props.onChange && this.props.onChange(e, val);
         }
     }

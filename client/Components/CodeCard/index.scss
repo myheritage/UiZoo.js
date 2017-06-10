@@ -9,5 +9,7 @@
 
   pre {
     margin: 0;
+    word-break: break-word;
+    white-space: pre-wrap;
   }
 }
