@@ -1,26 +1,21 @@
+import './index.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter, Route} from 'react-router-dom';
-import {MuiThemeProvider} from 'material-ui';
-import MasterPage from './Components/MasterPage'; 
-import injectTapEventPlugin from 'react-tap-event-plugin';
 import "./components.js";
 import "./documentation.js";
 
-import './index.scss';
-// Needed for onTouchTap 
-// http://stackoverflow.com/a/34015469/988941 
-injectTapEventPlugin();
+import App from './Components/App';
 
-// TODO: this is horrible
-window.React = React;
+const {libraryConfiguration = {}} = window; // server-side rendered data
+const {components, documentation} = libraryConfiguration;
 
 ReactDOM.render(
-    <MuiThemeProvider>
-        <BrowserRouter basename="/">
-            <Route path="/:componentName?" component={MasterPage} />
-        </BrowserRouter>
-    </MuiThemeProvider>,
+    <BrowserRouter basename="/">
+        <Route path="/:componentName?" render={routeProps => (
+            <App {...routeProps} components={components} documentation={documentation} />
+        )}/>
+    </BrowserRouter>,
     document.getElementById('bibliotheca_root')
 );
 

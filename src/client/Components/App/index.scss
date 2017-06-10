@@ -1,0 +1,15 @@
+.bibliotheca-app {
+    $side-bar-width: 210px;
+    .bibliotheca-side-bar {
+        width: $side-bar-width;
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100%;
+        z-index: 1000;
+    }
+    .bibliotheca-review {
+        width: calc(100% - $side-bar-width);
+        margin-left: $side-bar-width;
+    }
+}

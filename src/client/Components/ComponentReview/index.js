@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'underscore';
-import jsxToString from 'jsx-to-string';
-import {Card, CardText} from 'material-ui';
+import jsxToString from './jsx-to-string.js';
+import Card from '../MaterialSlim/Card';
 import {previewFrameStyle} from './previewFrameStyle';
 import Separator from '../Separator';
 import CodeCard from '../CodeCard';
@@ -86,10 +86,8 @@ export default class ComponentReview extends React.Component {
      */
     renderComponentContent(componentContent) {
         return (
-            <Card className="component-content" style={previewFrameStyle}>
-                <CardText>
-                    {componentContent}
-                </CardText>
+            <Card className="component-content">
+                {componentContent}
             </Card>
         );
     }
