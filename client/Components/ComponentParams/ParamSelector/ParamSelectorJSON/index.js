@@ -1,5 +1,5 @@
 import React from 'react';
-import TextField from '../../../MaterialSlim/TextField';
+import TextField from '../../../BibliothecaUI/TextField';
 import tryToParseJson from './tryToParseJson';
 import './index.scss';
 

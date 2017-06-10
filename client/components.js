@@ -1,8 +1,8 @@
-import Card from "./Components/MaterialSlim/Card";
-import Menu from "./Components/MaterialSlim/Menu";
-import RaisedButton from "./Components/MaterialSlim/RaisedButton";
-import MenuItem from "./Components/MaterialSlim/MenuItem";
-import TextField from "./Components/MaterialSlim/TextField";
+import Card from "./Components/BibliothecaUI/Card";
+import Menu from "./Components/BibliothecaUI/Menu";
+import RaisedButton from "./Components/BibliothecaUI/RaisedButton";
+import MenuItem from "./Components/BibliothecaUI/MenuItem";
+import TextField from "./Components/BibliothecaUI/TextField";
 
 window.libraryData = window.libraryData || {
     Card,

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import MenuItem from '../../../MaterialSlim/MenuItem';
-import Menu from '../../../MaterialSlim/Menu';
+import MenuItem from '../../../BibliothecaUI/MenuItem';
+import Menu from '../../../BibliothecaUI/Menu';
 
 /**
  * @description

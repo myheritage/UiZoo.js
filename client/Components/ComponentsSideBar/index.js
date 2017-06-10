@@ -1,5 +1,5 @@
 import {Component} from 'react';
-import TextField from '../MaterialSlim/TextField';
+import TextField from '../BibliothecaUI/TextField';
 import './index.scss';
 
 export default class ComponentsSideBar extends Component {

@@ -1,5 +1,5 @@
 import React from 'react';
-import RaisedButton from '../../MaterialSlim/RaisedButton';
+import RaisedButton from '../../BibliothecaUI/RaisedButton';
 import CodeCard from '../../CodeCard';
 import './index.scss';
 
