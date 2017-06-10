@@ -1,6 +1,11 @@
 import React from 'react';
 import './index.scss';
 
+/**
+ * @name
+ * Menu 
+ *
+ */
 export default class Menu extends React.Component {
     constructor(props) {
         super(props);

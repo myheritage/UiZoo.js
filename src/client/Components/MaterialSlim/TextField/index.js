@@ -1,6 +1,14 @@
 import React from 'react';
 import './index.scss';
 
+/**
+ * @name 
+ * TextField
+ * 
+ * @description
+ * Text Field
+ *
+ */
 export default class TextField extends React.Component {
     constructor(props) {
         super(props);

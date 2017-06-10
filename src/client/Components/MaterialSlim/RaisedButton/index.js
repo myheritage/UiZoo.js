@@ -2,6 +2,9 @@ import React from 'react';
 import './index.scss';
 
 /**
+ * @name 
+ * RaisedButton
+ * 
  * @param {any} children
  * @param {function} [onClick]
  */
