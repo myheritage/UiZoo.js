@@ -56,10 +56,24 @@ export default class ComponentReview extends React.Component {
      * @param {string} example
      */
     updateExample(example) {
-        const CompiledNode = this.props.compiler(example);
-        this.setState({
-            componentProps: CompiledNode.props
-        });
+        let error = null,
+            CompiledNode = null;
+        try {
+            CompiledNode = this.props.compiler(example);
+        } catch(e) {
+            error = e;
+        }
+        // TODO: add name CompiledNode.type.name === this.props.documentation.name
+        if (!error && CompiledNode && CompiledNode.type) {
+            this.setState({
+                componentProps: CompiledNode.props
+            });
+        } else {
+            let errorMessage = error
+                ? error
+                : 'error in example';
+            console.error(errorMessage);
+        }
     }
 
     /**

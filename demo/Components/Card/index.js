@@ -9,9 +9,9 @@ import PropTypes from 'prop-types';
  * @example
  * card with children
  * <Card>
- *  <CodeCard className="more-class">
+ *  <div val="123" className="more-class">
  *     1234
- *  </CodeCard>
+ *  </div>
  * </Card>
  *
  * @param {String} [className] Append class name to container
