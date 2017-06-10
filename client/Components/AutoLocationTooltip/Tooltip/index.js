@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {SIDES, SIDE_TOP, ALIGNMENTS, ALIGNMENT_CENTER, TRIGGER_EVENTS, TRIGGER_EVENT_HOVER} from './constants';
 import './index.scss';
 /**
@@ -101,12 +100,3 @@ export default class Tooltip extends React.Component {
         );
     }
 }
-
-Tooltip.propTypes = {
-    tooltip: PropTypes.node,
-    side: PropTypes.oneOf(SIDES),
-    alignment: PropTypes.oneOf(ALIGNMENTS),
-    trigger: PropTypes.oneOf(TRIGGER_EVENTS),
-    onTooltipOpen: PropTypes.func,
-    onAfterTooltipOpen: PropTypes.func,
-};

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import MenuItem from '../../../MaterialSlim/MenuItem';
 import Menu from '../../../MaterialSlim/Menu';
 
@@ -62,9 +61,3 @@ export default class ParamSelectorVariant extends React.Component {
         );
     }
 }
-
-ParamSelectorVariant.PropTypes = {
-    selectedValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    values: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
-    onChange: PropTypes.func
-};

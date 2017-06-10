@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
 
 import {getLocationForElementAroundZone} from './autoLocationDetector/autoLocationDetector';
 import {SIDE_TOP, ALIGNMENT_CENTER} from './locationConstants';
@@ -84,5 +83,3 @@ export default class AutoLocationTooltip extends React.Component {
         );
     }
 }
-
-AutoLocationTooltip.propTypes = Tooltip.propTypes;

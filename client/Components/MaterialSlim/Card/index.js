@@ -1,6 +1,5 @@
 import './index.scss';
 
-import PropTypes from 'prop-types';
 
 /**
  * @name 
@@ -23,7 +22,3 @@ export default function Card({children, className}) {
     const additionalClassName = className ? ` ${className}` : '';
     return <div className={`card-wrapper${additionalClassName}`}>{children}</div>;
 }
-
-Card.propTypes = {
-    className: PropTypes.string,
-};

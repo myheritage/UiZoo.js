@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import ParamSelectorBoolean from './ParamSelectorBoolean';
 import ParamSelectorVariant from './ParamSelectorVariant';
@@ -44,11 +43,3 @@ export default class ParamSelector extends React.Component {
         return (<Selector {...this.props}/>);
     }
 }
-
-ParamSelector.PropTypes = {
-    type: PropTypes.string,
-    name: PropTypes.string,
-    values: PropTypes.array,
-    selectedValue: PropTypes.any,
-    onChange: PropTypes.func
-};

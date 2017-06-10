@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import TextField from '../../../MaterialSlim/TextField';
 import tryToParseJson from './tryToParseJson';
 
@@ -78,9 +77,3 @@ export default class ParamSelectorJSON extends React.Component {
         );
     }
 }
-
-ParamSelectorJSON.PropTypes = {
-    name: PropTypes.string,
-    selectedValue: PropTypes.any,
-    onChange: PropTypes.func
-};

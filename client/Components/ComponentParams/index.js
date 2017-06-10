@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Tooltip from '../AutoLocationTooltip';
 import ParamSelector from './ParamSelector';
 
@@ -63,7 +62,3 @@ export default class ComponentParams extends React.Component {
         );
     }
 }
-
-ComponentParams.propTypes = {
-    params: PropTypes.arrayOf(PropTypes.shape({name: PropTypes.string, description: PropTypes.string, isOptional: PropTypes.bool, values: PropTypes.array}))
-};

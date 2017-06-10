@@ -27,7 +27,7 @@ gulp.task("watch", () => {
 });
 
 function bundleClient() {
-	return rollup.rollup(getRollupConfig({external: ['underscore', 'react', 'react-dom', 'react-router-dom', 'prop-types', 'doctrine']}))
+	return rollup.rollup(getRollupConfig({external: ['underscore', 'react', 'react-dom', 'react-router-dom', 'doctrine']}))
 		.then(bundle => {
 			bundle.write({
 				format: 'iife',
@@ -37,7 +37,6 @@ function bundleClient() {
 					'react': 'React',
 					'react-dom': 'ReactDOM',
 					'react-router-dom':'ReactRouterDOM',
-					'prop-types': 'PropTypes',
                     'doctrine': 'doctrine',
 				},
 			});

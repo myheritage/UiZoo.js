@@ -1,7 +1,5 @@
 import './index.scss';
 
-import PropTypes from 'prop-types';
-
 /**
  * @description
  * CodeCard with border and inset box-shadow
@@ -24,7 +22,3 @@ export default function CodeCard({children, className}) {
         </div>
     );
 }
-
-CodeCard.propTypes = {
-    className: PropTypes.string
-};

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import RaisedButton from '../../MaterialSlim/RaisedButton';
 import CodeCard from '../../CodeCard';
 import './index.scss';
@@ -41,7 +40,3 @@ export default class ComponentExample extends React.Component {
         );
     }
 }
-
-ComponentExample.PropTypes = {
-    example: PropTypes.string
-};
