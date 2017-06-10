@@ -1,38 +1,29 @@
-'use strict';
-
 let gulp = require('gulp'),
-	spawn = require('child_process').spawn,
 	rollup = require('rollup'),
 	getRollupConfig = require('./rollup.config'),
 	chalk = require('chalk'),
 	nodemon = require("gulp-nodemon"),
-	exec = require('child_process').exec,
-	babel = require('gulp-babel'),
 	livereload = require('gulp-livereload');
 
 let nodemonStream;
 
-gulp.task("compile:client", bundleClient);
-gulp.task('compile:server', compileServer);
+gulp.task("compile", bundleClient);
 
 gulp.task("server:start", ["compile"], startNodemonServer);
-gulp.task("server:restart", ["compile:server"], restartNodemonServer);
+gulp.task("server:restart", restartNodemonServer);
 
-gulp.task("compile:demo", moveDemo);
-
-gulp.task("compile", ["compile:client", "compile:server"]);
 
 // WATCH
 // =====
 gulp.task("default", ["server:start", "watch"]);
 
 gulp.task("watch", () => {
-	gulp.watch(["src/client/**/*"], ["compile:client"]);
-	gulp.watch(["src/server/**/*"], ["compile:server", "server:restart"]);
+	gulp.watch(["client/**/*"], ["compile"]);
+	gulp.watch(["server/**"], ["server:restart"]);
 	
 	// live reload
 	livereload.listen();
-	gulp.watch(["build/client/**/*"], (file) => {livereload.changed(file)})
+	gulp.watch(["dist/**/*"], (file) => {livereload.changed(file)})
 });
 
 function bundleClient() {
@@ -40,7 +31,7 @@ function bundleClient() {
 		.then(bundle => {
 			bundle.write({
 				format: 'iife',
-				dest: 'build/client/index.js',
+				dest: 'dist/index.js',
 				globals: {
 					'underscore': '_',
 					'react': 'React',
@@ -57,23 +48,9 @@ function bundleClient() {
 		});
 }
 
-function compileServer() {
-	return gulp
-		.src(['./src/server/**/*.js', '!./node_modules/**/*'])
-		.pipe(babel({
-			presets: ['es2015', 'node6'],
-		})) // compile new ones 
-		.pipe(gulp.dest('./build/server'))
-		.on('error', handleError) &&
-		// move rest of the files to build
-		gulp.src(['./src/server/**/*', '!./src/server/**/*.js', '!./node_modules/**/*'])
-		.pipe(gulp.dest("./build/server"))
-		.on('error', handleError);
-}
-
 function startNodemonServer() {
 	nodemonStream = nodemon({
-		script: './build/server/bootstrap.js',
+		script: './server/main.js',
 		ext: 'js html',
 		watch: false,
 	})
@@ -85,12 +62,6 @@ function restartNodemonServer() {
 	} else {
 		startNodemonServer();
 	}
-}
-
-function moveDemo() {
-	return gulp
-		.src(["./demo/**/*"])
-		.pipe(gulp.dest("./build/data"));
 }
 
 function handleError(error) {

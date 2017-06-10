@@ -1,22 +1,17 @@
-import compression from 'compression';
-import cors from 'cors';
-import express from 'express';
-import helmet from 'helmet';
-import http from 'http';
-import {
-    json,
-} from 'body-parser';
-import path from 'path';
-
-export const ROOT_PATH = path.resolve(__dirname);;
+let compression = require('compression');
+let cors = require('cors');
+let express = require('express');
+let helmet = require('helmet');
+let http = require('http');
+let {json} = require('body-parser');
+let path = require('path');
 
 /**
  * @export
  * @param {Express} app 
- * @param {object} options
  * @returns Express
  */
-export default function (app, options) {
+module.exports = function (app) {
     useDependencies(app);
     start(app);
     return app;
@@ -39,14 +34,17 @@ function useDependencies(app) {
  */
 function start(app) {
     let rootDir = getRootDir(__dirname);
-    app.set('view engine', 'ejs');
+    // app.set('view engine', 'jade');
     app.set('port', (process.env.PORT || 5000));
-    app.set('views', path.join(rootDir, '/html'));
-    app.use('/client', express.static(path.join(rootDir, '/../client')));
-    app.use('/userdata', express.static(path.join(rootDir, '/../userdata')));
-    app.use('/vendors', express.static(path.join(rootDir, '/../../vendors')));
-    app.use('/vendors', express.static(path.join(rootDir, '/../../node_modules')));
-    app.use('/favicon.ico', express.static(path.join(rootDir, '/../../favicon.ico')));
+    
+    app.use('/client', express.static(path.join(rootDir, 'dist')));
+    app.use('/vendors', express.static(path.join(rootDir, 'vendors')));
+    app.use('/vendors', express.static(path.join(rootDir, 'node_modules')));
+    app.use('/favicon.ico', express.static(path.join(rootDir, 'favicon.ico')));
+
+    app.all("/:component?", (req, res) => {
+        res.sendFile("index.html", {root: rootDir});
+    });
     
     let server = http.createServer(app)
         .listen(app.get('port'));

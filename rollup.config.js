@@ -23,7 +23,7 @@ function getPlugins({
         postcss([cssnext, comments, dupes])
           .process(styles)
           .then(result => {
-            fs.writeFile('./build/client/index.css', result.css);
+            fs.writeFile('./dist/index.css', result.css);
           });
       }
     })];
@@ -54,7 +54,7 @@ function getPlugins({
 
 function getConfig({
   external = [],
-  entry = 'src/client/index.js'
+  entry = 'client/index.js'
 }, withScss = true) {
   return {
     entry,

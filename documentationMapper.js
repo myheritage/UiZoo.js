@@ -1,7 +1,7 @@
 // TODO this service should be in a different NPM package and be optional
 
 function howToUse() {
-    explanation = 'How to use: Run `node documentationMapper.js "./src/client/Components/*/index.js" "./src/client/Components/(.+)/index.js" "./src/client/documentation.js"`';
+    explanation = 'How to use: Run `node documentationMapper.js "./client/Components/*/index.js" "./client/Components/(.+)/index.js" "./client/documentation.js"`';
     console.info(explanation);
     process.exit(1);
 }
