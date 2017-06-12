@@ -7,8 +7,13 @@ import './index.scss';
  * 
  * @description
  * Menu Item
+ * 
+ * @example 
+ * <MenuItem>
+ *   Menu Item
+ * </MenuItem>
  *
- *
+ * @param {node} children
  */
 export default class MenuItem extends React.Component {
     render() {

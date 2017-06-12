@@ -1,6 +1,9 @@
 import './index.scss';
 
 /**
+ * @name
+ * Separator
+ * 
  * @description
  * Separator
  * A generic separator to be used between components
