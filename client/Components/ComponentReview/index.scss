@@ -13,6 +13,9 @@
     .bibliotheca-component-description {
         margin: 10px 0;
         font-weight: 400;
+        white-space: normal;
+        word-break: break-word;
+        word-wrap: break-word;
     }
     .bibliotheca-component-content {
         min-height: 150px;

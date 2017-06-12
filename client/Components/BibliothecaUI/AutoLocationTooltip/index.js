@@ -8,6 +8,9 @@ import Tooltip from './Tooltip';
 const SPACING = 5;
 
 /**
+ * @name
+ * AutoLocationTooltip
+ * 
  * @description
  * An auto-location version of the Tooltip. Responsive solution to the tooltip.
  * See Tooltip for more information - it uses the same props
@@ -15,15 +18,15 @@ const SPACING = 5;
  * @example
  * <AutoLocationTooltip tooltip={'tooltip inner text!'} side="top" alignment="start" trigger="hover">
  *     <span>Text to open the tooltip upon</span>
- * </Tooltip>
+ * </AutoLocationTooltip>
  *
  * @param {*} [tooltip] tooltip inner content, can be text or elements
  * @param {"top"|"bottom"} [side="top"] preferred placement of the tooltip relative to the element
  * @param {"center"|"start"|"end"} [alignment="center"] preferred alignment of the tooltip relative to the element
  * @param {"click"|"hover"} [trigger="click"] trigger event, on mobile you should stick with click
- * @param {Function} [onTooltipOpen] callback for when the tooltip is opened
- * @param {Function} [onAfterTooltipOpen] callback for after the tooltip is opened
- * @param {Object} [children] the element/s to be triggering the tooltip appearance
+ * @param {function} [onTooltipOpen] callback for when the tooltip is opened
+ * @param {function} [onAfterTooltipOpen] callback for after the tooltip is opened
+ * @param {node} [children] the element/s to be triggering the tooltip appearance
  */
 export default class AutoLocationTooltip extends React.Component {
     constructor(props) {

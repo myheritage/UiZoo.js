@@ -1,12 +1,13 @@
 import React from 'react';
 import _ from 'underscore';
+import Babel from 'babel-standalone';
 
 export function createCompiler(context) {
     const iframe = createIframe();
     return createEvalWithContext(iframe, context);
 }
 
-function createIframe(_document = document) {
+export function createIframe(_document = document) {
     let iframe = _document.createElement('iframe');
     if (!iframe.style) iframe.style = {};
     iframe.style.display = 'none';
@@ -14,6 +15,10 @@ function createIframe(_document = document) {
     _document.body.appendChild(iframe);
 
     return iframe;
+}
+
+export function removeIframe(iframe) {
+    iframe && iframe.parent && iframe.parent.removeChild(iframe);
 }
 
 function createEvalWithContext(iframe, context = {}) {

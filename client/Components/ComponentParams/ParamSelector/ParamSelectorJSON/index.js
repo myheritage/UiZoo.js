@@ -1,14 +1,12 @@
 import React from 'react';
 import TextField from '../../../BibliothecaUI/TextField';
 import tryToParseJson from './tryToParseJson';
-import './index.scss';
 
 /**
  * @description
  * open input for JSON/string values. will try to parse as JSON and fallback to string.
  * 
  * @param {any} [selectedValue]
- * @param {string} name to use as the unique id for the input
  * @param {function} onChange
  */
 export default class ParamSelectorJSON extends React.Component {

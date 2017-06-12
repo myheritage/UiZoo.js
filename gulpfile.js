@@ -27,7 +27,7 @@ gulp.task("watch", () => {
 });
 
 function bundleClient() {
-	return rollup.rollup(getRollupConfig({external: ['underscore', 'react', 'react-dom', 'react-router-dom', 'doctrine']}))
+	return rollup.rollup(getRollupConfig({external: ['underscore', 'react', 'react-dom', 'react-router-dom', 'doctrine', 'babel-standalone']}))
 		.then(bundle => {
 			bundle.write({
 				format: 'iife',
@@ -38,6 +38,7 @@ function bundleClient() {
 					'react-dom': 'ReactDOM',
 					'react-router-dom':'ReactRouterDOM',
                     'doctrine': 'doctrine',
+					'babel-standalone': 'Babel',
 				},
 			});
 		})
