@@ -1,18 +1,22 @@
 .bibliotheca-text-field {
     position: relative;
     padding-bottom: 7px;
-    > textarea {
+    > .bibliotecha-text-field-input {
+        width: 100%;
+        min-height: 26px;
+        max-height: 150px;
+
         font-size: 15px;
         line-height: 24px;
+        letter-spacing: -0.04em;
+
+        overflow: auto;
         outline: none;
         border: none;
-        width: 100%;
-        height: 26px;
-        resize: none;
-        letter-spacing: -0.04em;
+        
         color: #646362;
-        overflow: hidden;
         background: rgba(white, 0);
+
         &::-webkit-input-placeholder {
             opacity: 0.5;
         }
