@@ -40,6 +40,7 @@ function bundleClient() {
                     'doctrine': 'doctrine',
 					'babel-standalone': 'Babel',
 				},
+				moduleName: 'Bibliotheca',
 			});
 		})
 		.catch(err => {
