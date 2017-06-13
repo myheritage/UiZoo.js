@@ -27,19 +27,32 @@ import './index.scss';
 export default class TextField extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {className: ''};
+        this.state = { className: '' };
+        this.textAreaChanged = this.textAreaChanged.bind(this);
+    }
+
+    /**
+     * Change the text area to the actual text size
+     * @param {*} e 
+     */
+    textAreaChanged(e) {
+        this.textarea.style.height = "auto";
+        this.textarea.style.height = this.textarea.scrollHeight;
+        
+        this.props.onChange(e);
     }
 
     render() {
         return (
             <div className={`bibliotheca-text-field${this.state.className}`}>
-                <div className="bibliotecha-text-field-input"
-                    contentEditable="true"
-                    onFocus={() => this.setState({className:' is-focused'})}
-                    onBlur={() => this.setState({className:''})}
+                <textarea
+                    className="bibliotecha-text-field-input"
+                    ref={textarea => this.textarea = textarea}
+                    onFocus={() => this.setState({ className: ' is-focused' })}
+                    onBlur={() => this.setState({ className: '' })}
+                    onChange={this.textAreaChanged}
                     placeholder={this.props.placeholder}
-                    value={this.props.value}
-                    onChange={e => this.props.onChange(e)}/>
+                    value={this.props.value} />
             </div>
         );
     }
