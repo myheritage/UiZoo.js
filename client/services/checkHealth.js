@@ -1,5 +1,6 @@
+import _ from 'underscore';
+
 /**
- * 
  * Go through the dependencies and advise the user on problems
  * @param {Object} bibliothecaDocumentation 
  * @param {Object} bibliothecaComponents 

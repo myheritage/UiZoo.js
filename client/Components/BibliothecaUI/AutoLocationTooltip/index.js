@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import _ from 'underscore';
 
 import {getLocationForElementAroundZone} from './autoLocationDetector/autoLocationDetector';
 import {SIDE_TOP, ALIGNMENT_START} from './locationConstants';
@@ -50,7 +51,7 @@ export default class AutoLocationTooltip extends React.Component {
      */
     updateTooltipLocation() {
         // tooltip body exist in the DOM only after the tooltip is being opened
-        let tooltipBody = this.tooltipElement ? this.tooltipElement.querySelector('.tooltip_body') : null;
+        let tooltipBody = this.tooltipElement ? this.tooltipElement.querySelector('.bibliotheca-tooltip-body') : null;
         if (tooltipBody) {
             const preferredSide = this.props.side || SIDE_TOP;
             const preferredAlignment = this.props.alignment || ALIGNMENT_CENTER;

@@ -1,14 +1,15 @@
 $zindex-tooltip: 1030 !default;
-$border_transparent: 8px solid rgba(255,255,255,0);
-$border_visible: 8px solid white;
+$border-transparent: 8px solid rgba(255,255,255,0);
+$border-visible: 8px solid white;
 $constants-border: 1px solid rgba(black, 0.15);
   
-.bibliotheca-tooltip_wrapper {
+.bibliotheca-tooltip-wrapper {
   position: relative;
+  display: inline-block;
   &:focus {
     outline: none;
   }
-  .bibliotheca-tooltip_spacing_wrapper {
+  .bibliotheca-tooltip-spacing-wrapper {
     position: absolute;
     padding: 10px;
     z-index: $zindex-tooltip;
@@ -23,12 +24,12 @@ $constants-border: 1px solid rgba(black, 0.15);
       height: 10px;
       transform: rotate(-45deg);
     }
-    &.side_top {
+    &.side-top {
       bottom: calc(100% - 3px);
       &:before {
         bottom: 3px;
-        border: $border_transparent;
-        border-top: $border_visible;
+        border: $border-transparent;
+        border-top: $border-visible;
         border-bottom: 0;
       }
       &:after {
@@ -37,12 +38,12 @@ $constants-border: 1px solid rgba(black, 0.15);
         border-left: $constants-border;
       }
     }
-    &.side_bottom {
+    &.side-bottom {
       top: calc(100% - 3px);
       &:before {
         top: 4px;
-        border: $border_transparent;
-        border-bottom: $border_visible;
+        border: $border-transparent;
+        border-bottom: $border-visible;
         border-top: 0;
       }
       &:after {
@@ -52,7 +53,7 @@ $constants-border: 1px solid rgba(black, 0.15);
         border-left: 0;
       }
     }
-    &.alignment_center {
+    &.alignment-center {
       left: 50%;
       transform: translateX(-50%);
       &:before {
@@ -62,7 +63,7 @@ $constants-border: 1px solid rgba(black, 0.15);
         left: calc(50% - 5px);
       }
     }
-    &.alignment_start {
+    &.alignment-start {
       left: -10px;
       &:before {
         left: 19px;
@@ -71,7 +72,7 @@ $constants-border: 1px solid rgba(black, 0.15);
         left: 22px;
       }
     }
-    &.alignment_end {
+    &.alignment-end {
       right: -10px;
       &:before {
         right: 19px;
@@ -81,7 +82,7 @@ $constants-border: 1px solid rgba(black, 0.15);
       }
     }
   }
-  .bibliotheca-tooltip_body {
+  .bibliotheca-tooltip-body {
     background: white;
     border-radius: 4px;
     padding: 10px 15px;
