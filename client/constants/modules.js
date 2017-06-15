@@ -1,0 +1,1 @@
+export const NON_MODULE_NAME = "NoneModuleName";

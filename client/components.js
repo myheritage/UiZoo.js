@@ -5,6 +5,7 @@ import MenuItem from './Components/BibliothecaUI/MenuItem';
 import TextField from './Components/BibliothecaUI/TextField';
 import AutoLocationTooltip from './Components/BibliothecaUI/AutoLocationTooltip';
 import Separator from './Components/BibliothecaUI/Separator';
+import Accordion from './Components/BibliothecaUI/Accordion';
 
 export default {
     Card,
@@ -14,4 +15,5 @@ export default {
     TextField,
     AutoLocationTooltip,
     Separator,
+    Accordion,
 };

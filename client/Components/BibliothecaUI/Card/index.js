@@ -5,6 +5,9 @@ import './index.scss';
  * @name 
  * Card
  * 
+ * @module
+ * Cards
+ * 
  * @description
  * Card container with border and box-shadow
  *

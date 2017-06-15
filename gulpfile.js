@@ -3,7 +3,8 @@ let gulp = require('gulp'),
 	getRollupConfig = require('./rollup.config'),
 	chalk = require('chalk'),
 	nodemon = require("gulp-nodemon"),
-	livereload = require('gulp-livereload');
+	livereload = require('gulp-livereload'),
+	execSync = require("child_process").execSync;
 
 let nodemonStream;
 
@@ -23,10 +24,13 @@ gulp.task("watch", () => {
 	
 	// live reload
 	livereload.listen();
-	gulp.watch(["dist/**/*"], (file) => {livereload.changed(file)})
+	gulp.watch(["dist/**/*"], (file) => {
+		livereload.changed(file)
+	});
 });
 
 function bundleClient() {
+	updateDocumentation();
 	return rollup.rollup(getRollupConfig({external: ['underscore', 'react', 'react-dom', 'react-router-dom', 'doctrine', 'babel-standalone']}))
 		.then(bundle => {
 			bundle.write({
@@ -71,5 +75,14 @@ function handleError(error) {
 
 	if (this && this.emit) {
 		this.emit('end');
+	}
+}
+
+function updateDocumentation() {
+	try {
+		execSync(`node documentationMapper.js "./client/Components/BibliothecaUI/*/index.js" "./client/Components/BibliothecaUI/(.+)/index.js" "./client/documentation.js"`);
+	}
+	catch (err) {
+		console.error(err.message);
 	}
 }

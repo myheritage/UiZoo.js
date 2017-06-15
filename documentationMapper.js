@@ -50,7 +50,9 @@ glob(inputGlob, {}, (error, componentsPaths) => {
     function attemptToFinish() {
         componentsDone++;
         if (componentsDone === componentsPaths.length) {
-            let results = `window.libraryDocs = window.libraryDocs || ${JSON.stringify(nameToDoc)}`;
+            let results = 
+            `const libraryDocs = ${JSON.stringify(nameToDoc)};
+            export default libraryDocs;`;
             fs.writeFile(outputPath, results, (error, data) => {
                 if (error) {
                     console.error("Had an error writing the results file: " + error);

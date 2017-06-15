@@ -40,6 +40,31 @@
         margin: 0 (-$sides-padding);
         padding: 0 $sides-padding 15px;
 
+
+        .accordion_container {
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            transition: padding 0.5s 0.1s ease, border 0.3s ease;
+
+            &:hover {
+                border-bottom: 1px solid rgba(0,0,0,0.5);
+            }
+
+            &.accordion_open { 
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+
+            .accordion_title {
+                font-weight: bolder;
+            }
+
+            .accordion_content {
+                margin-left: 8px;
+            }
+        }
+        
+
         .bibliotheca-component-no-links {
             color: #a7a7a7;
             padding-top: 15px;
@@ -61,17 +86,20 @@
                     font-weight: 500;
                 }
             }
+
             > button {
                 cursor: pointer;
                 outline: 0;
                 border: 0;
-                padding: 15px 0;
+                padding: 13px 0;
                 width: 100%;
                 text-align: left;
                 display: block;
                 background: rgba(white, 0);
                 color: #646362;
                 font-size: 15px;
+                transition: all 0.3s ease;
+                
                 &:focus {
                     opacity: 0.5;
                 }

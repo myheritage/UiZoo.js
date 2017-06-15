@@ -27,7 +27,6 @@ export default class ComponentParams extends React.Component {
      */
     renderSelector(paramObj) {
         const isOptional = paramObj.type.type === "OptionalType";
-
         return (
             <div className="bibliotheca-component-params-selector" key={`param-name-${paramObj.name}-${this.props.componentName}`}>
                 <Tooltip tooltip={paramObj.description}>
@@ -39,7 +38,7 @@ export default class ComponentParams extends React.Component {
                 <ParamSelector
                     key={`selector-for-${paramObj.name}-${this.props.componentName}`}
                     name={paramObj.name}
-                    typeExpression={paramObj.type.expression}
+                    type={paramObj.type}
                     selectedValue={paramObj.value}
                     onChange={(e, newValue) => this.onChange(e, paramObj.name, newValue)}/>
             </div>

@@ -5,6 +5,9 @@ import './index.scss';
  * @name
  * TextField
  * 
+ * @module
+ * Inputs
+ * 
  * @description
  * Text Field
  * 

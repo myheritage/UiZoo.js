@@ -8,6 +8,7 @@ import ParamSelectorFunction from './ParamSelectorFunction';
 
 const paramTypeToComponent = {
     'boolean': ParamSelectorBoolean,
+    'bool': ParamSelectorBoolean,
     'variant': ParamSelectorVariant,
     'function' : ParamSelectorFunction,
     'default': ParamSelectorJSON
@@ -17,7 +18,7 @@ const paramTypeToComponent = {
  * @description
  * wrapper to be used to get the needed selector
  * 
- * @param {string} typeExpression Doctrine expression for the type
+ * @param {string} type Doctrine expression for the type
  * @param {string} name selector name for unique id/key
  * @param {any} selectedValue update the selector with the current selected value
  * @param {function} onChange report to parent on changes in the selector
@@ -28,8 +29,8 @@ export default class ParamSelector extends React.Component {
      * @return {object}
      */
     getSelectorAndValues() {
-        const {type, values} = (calculateType(this.props.typeExpression));
-        let Selector = paramTypeToComponent[type] || paramTypeToComponent['default'];
+        const {type, values} = calculateType(this.props.type);
+        let Selector = paramTypeToComponent[type.toLowerCase()] || paramTypeToComponent['default'];
         if (type === 'variant' && (!values || !values.length)) {
             Selector = paramTypeToComponent['default'];
         }
