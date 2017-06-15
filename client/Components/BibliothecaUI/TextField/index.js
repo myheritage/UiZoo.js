@@ -47,6 +47,8 @@ export default class TextField extends React.Component {
             <div className={`bibliotheca-text-field${this.state.className}`}>
                 <textarea
                     className="bibliotecha-text-field-input"
+                    rows="1"
+                    tabIndex="1"
                     ref={textarea => this.textarea = textarea}
                     onFocus={() => this.setState({ className: ' is-focused' })}
                     onBlur={() => this.setState({ className: '' })}

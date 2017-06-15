@@ -30,9 +30,6 @@
         background-size: 150px 120px;
         margin: 15px auto;
     }
-    .bibliotheca-components-search-bar {
-        margin-bottom: 7px;
-    }
     .bibliotheca-components-links {
         white-space: normal;
         word-break: break-word;
@@ -45,13 +42,19 @@
 
         .bibliotheca-component-no-links {
             color: #a7a7a7;
-            padding-top: 7px;
+            padding-top: 15px;
         }
         .bibliotheca-component-link {
-            padding: 7px 0;
             user-select: none;
             transition: all 0.3s ease;
             animation: link-in 0.5s ease;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        
+            &:hover {
+                padding-left: 5px;
+                border-bottom: 1px solid rgba(0,0,0,0.5);
+            }
+
             &.selected {
                 button {
                     color: rgb(0, 188, 212);
@@ -61,8 +64,10 @@
             > button {
                 cursor: pointer;
                 outline: 0;
-                padding: 0;
                 border: 0;
+                padding: 15px 0;
+                width: 100%;
+                text-align: left;
                 display: block;
                 background: rgba(white, 0);
                 color: #646362;
