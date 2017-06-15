@@ -7,9 +7,67 @@
         top: 0;
         height: 100%;
         z-index: 1000;
+        transition: all 0.3s ease;
+        transform: translateX(-100%);
     }
     .bibliotheca-review {
-        width: calc(100% - #{$side-bar-width});
-        margin-left: $side-bar-width;
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+    .bibliotheca-toggle-side-bar {
+        border: 0;
+        outline: 0;
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        left: 0;
+        line-height: 12px;
+        height: 20px;
+        width: 20px;
+        z-index: 1002;
+        background: none;
+        &:before,
+        &:after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1001;
+            padding: 5px;
+            transition: all 0.3s 0.15s ease;
+        }
+        &:before {
+            content: "\2261"; // 3 Equal sign
+            font-size: 35px;
+        }
+        &:after {
+            content: "\00D7"; // X
+            font-size: 25px;
+            opacity: 0;
+        }
+        &:focus {
+            opacity: 0.7;
+        }
+    }
+    &.show-side-bar {
+        .bibliotheca-side-bar {
+            transform: translateX(0);
+        }
+        .bibliotheca-review {
+            width: calc(100% - #{$side-bar-width});
+            margin-left: $side-bar-width;
+        }
+        .bibliotheca-toggle-side-bar {
+            position: fixed;
+            &:before,
+            &:after {
+                position: fixed;
+            }
+            &:before {
+                opacity: 0;
+            }
+            &:after {
+                opacity: 1;
+            }
+        }
     }
 }

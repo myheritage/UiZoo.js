@@ -4,13 +4,27 @@ import ComponentReview from '../ComponentReview';
 import _ from "underscore";
 import './index.scss';
 
+/**
+ * @class App
+ * Main component of the Bibliotheca
+ */
 export default class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showSideBar: true
+        };
+    }
     render() {
         const { documentations, components, componentsByModule, match, compiler } = this.props;
         const componentName = match.params.componentName;
-
+        const showSideBarClassName = this.state.showSideBar ? ' show-side-bar' : '';
+        
         return (
-            <div className="bibliotheca-app">
+            <div className={`bibliotheca-app${showSideBarClassName}`}>
+                <button
+                    className="bibliotheca-toggle-side-bar"
+                    onClick={() => this.setState({showSideBar: !this.state.showSideBar})}/>
                 <div className="bibliotheca-side-bar">
                     <ComponentsSideBar
                         components={components}
@@ -26,6 +40,6 @@ export default class App extends React.Component {
                         compiler={compiler} />
                 </div>
             </div>
-        )
+        );
     }
 }

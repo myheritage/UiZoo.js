@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
-import jsxToString from './jsx-to-string.js';
+import jsxToString from '../../services/jsx-to-string';
 import Card from '../BibliothecaUI/Card';
 import {previewFrameStyle} from './previewFrameStyle';
 import Separator from '../BibliothecaUI/Separator';
