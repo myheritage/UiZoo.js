@@ -49,7 +49,7 @@ export default class TextField extends React.Component {
         return (
             <div className={`bibliotheca-text-field${this.state.className}`}>
                 <textarea
-                    className="bibliotecha-text-field-input"
+                    className="bibliotheca-text-field-input"
                     rows="1"
                     tabIndex="1"
                     ref={textarea => this.textarea = textarea}
