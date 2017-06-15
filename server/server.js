@@ -37,9 +37,9 @@ function start(app) {
     // app.set('view engine', 'jade');
     app.set('port', (process.env.PORT || 5000));
     
-    app.use('/client', express.static(path.join(rootDir, 'dist')));
+    app.use('/dist', express.static(path.join(rootDir, 'dist')));
     app.use('/vendors', express.static(path.join(rootDir, 'vendors')));
-    app.use('/vendors', express.static(path.join(rootDir, 'node_modules')));
+    app.use('/node_modules', express.static(path.join(rootDir, 'node_modules')));
     app.use('/favicon.ico', express.static(path.join(rootDir, 'favicon.ico')));
 
     app.all("/:component?", (req, res) => {

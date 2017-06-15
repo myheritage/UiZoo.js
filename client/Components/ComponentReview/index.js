@@ -134,7 +134,8 @@ export default class ComponentReview extends React.Component {
      * Possible params of the component on review
      * @param {object}
      */
-    renderComponentParams({param: params = []}, name) {
+    renderComponentParams({param: params = [], property: properties = []}, name) {
+        params = [].concat(params, properties);
         params.forEach(param => {
             param.value = this.state.componentProps[param.name];
         });

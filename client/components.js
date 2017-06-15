@@ -6,7 +6,7 @@ import TextField from './Components/BibliothecaUI/TextField';
 import AutoLocationTooltip from './Components/BibliothecaUI/AutoLocationTooltip';
 import Separator from './Components/BibliothecaUI/Separator';
 
-window.libraryData = window.libraryData || {
+export default {
     Card,
     Menu,
     MenuItem,

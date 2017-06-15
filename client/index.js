@@ -2,26 +2,42 @@ import './index.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter, Route} from 'react-router-dom';
-import "./components.js";
-import "./documentation.js";
 
+import libraryData from './components';
+import libraryDocs from './documentation';
+import {checkDependencies} from './services/checkHealth';
 import {createCompiler} from './services/compileWithContext';
 import {parseDocumentation} from './services/parseDocumentation';
 import App from './Components/App';
 
-const {libraryDocs = {}, libraryData = {}} = window;
-const compiler = createCompiler(libraryData); // JSX compiler
-const documentations = parseDocumentation(libraryDocs);
+const defaultRoot = document.getElementById('bibliotheca_root');
 
-ReactDOM.render(
-    <BrowserRouter basename="/">
-        <Route path="/:componentName?" render={routeProps => (
-            <App {...routeProps}
-                components={libraryData}
-                documentations={documentations}
-                compiler={compiler} />
-        )}/>
-    </BrowserRouter>,
-    document.getElementById('bibliotheca_root')
-);
+/**
+ * Init the Bibliotheca
+ * @param {Object} bibliothecaDocumentation
+ * @param {Object} bibliothecaComponents
+ * @param {HTMLElement} rootElement
+ */
+function init(
+    bibliothecaDocumentation = libraryDocs,
+    bibliothecaComponents = libraryData,
+    rootElement = defaultRoot
+) {
+    checkDependencies(bibliothecaDocumentation, bibliothecaComponents);
+    const compiler = createCompiler(bibliothecaComponents); // JSX compiler
+    const documentations = parseDocumentation(bibliothecaDocumentation);
 
+    ReactDOM.render(
+        <BrowserRouter basename="/">
+            <Route path="/:componentName?" render={routeProps => (
+                <App {...routeProps}
+                    components={bibliothecaComponents}
+                    documentations={documentations}
+                    compiler={compiler} />
+            )}/>
+        </BrowserRouter>,
+        rootElement
+    );
+}
+
+export default {init};

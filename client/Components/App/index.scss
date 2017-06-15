@@ -9,7 +9,7 @@
         z-index: 1000;
     }
     .bibliotheca-review {
-        width: calc(100% - $side-bar-width);
+        width: calc(100% - #{$side-bar-width});
         margin-left: $side-bar-width;
     }
 }
