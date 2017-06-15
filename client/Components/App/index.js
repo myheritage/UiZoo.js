@@ -3,7 +3,6 @@ import ComponentsSideBar from '../ComponentsSideBar';
 import ComponentReview from '../ComponentReview';
 import _ from "underscore";
 import './index.scss';
-import { NON_MODULE_NAME } from "../../constants/modules";
 
 export default class App extends React.Component {
     render() {
