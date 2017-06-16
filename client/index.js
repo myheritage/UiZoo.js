@@ -9,7 +9,7 @@ import { checkDependencies } from './services/checkHealth';
 import { createCompiler } from './services/compileWithContext';
 import { parseDocumentation } from './services/parseDocumentation';
 import App from './Components/App';
-import { NON_MODULE_NAME } from "./constants/modules";
+import mapComponentsByModule from "./services/componentByModuleMapper";
 
 const defaultRoot = document.getElementById('bibliotheca_root');
 
@@ -27,13 +27,7 @@ function init(
     checkDependencies(bibliothecaDocumentation, bibliothecaComponents);
     const compiler = createCompiler(bibliothecaComponents); // JSX compiler
     const documentations = parseDocumentation(bibliothecaDocumentation);
-
-    let componentsByModule = {};
-
-    _.each(bibliothecaComponents, (componentData, componentName) => {
-        let modulename = (documentations[componentName].module && documentations[componentName].module[0].name) || NON_MODULE_NAME;
-        componentsByModule[modulename] = [].concat(componentsByModule[modulename], componentData);
-    });
+    let componentsByModule = mapComponentsByModule(bibliothecaComponents, documentations);
 
     ReactDOM.render(
         <BrowserRouter basename="/">

@@ -12,6 +12,9 @@ const SPACING = 5;
  * @name
  * AutoLocationTooltip
  * 
+ * @module
+ * Content
+ * 
  * @description
  * An auto-location version of the Tooltip. Responsive solution to the tooltip.
  * See Tooltip for more information - it uses the same props

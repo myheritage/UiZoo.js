@@ -5,6 +5,9 @@ import './index.scss';
  * @name 
  * MenuItem
  * 
+ * @module
+ * Menus
+ * 
  * @description
  * Menu Item
  * 

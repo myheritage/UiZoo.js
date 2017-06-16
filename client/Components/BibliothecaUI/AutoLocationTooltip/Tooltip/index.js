@@ -2,6 +2,12 @@ import React from 'react';
 import {SIDES, SIDE_TOP, ALIGNMENTS, ALIGNMENT_CENTER, TRIGGER_EVENTS, TRIGGER_EVENT_HOVER} from './constants';
 import './index.scss';
 /**
+ * @name
+ * Tooltip
+ * 
+ * @module
+ * Content
+ * 
  * @description
  * Tooltip to be shown on hover or click events.
  * Wrap children to give them the tooltip upon them.

@@ -6,6 +6,9 @@ const OPEN_STATE_CLASS = 'bibliotheca-collapsible-open';
 /**
  * @name
  * Collapsible
+ * 
+ * @module
+ * Content
  *
  * @description
  * An element that can be closed or opened by clicking on the title
