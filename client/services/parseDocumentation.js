@@ -1,5 +1,5 @@
 import doctrine  from "doctrine";
-import replaceSynonimes from "./synonimeService";
+import replaceSynonyms from "./synonymService";
 
 export function parseDocumentation(libraryDocs) {
     let docs = {};
@@ -7,7 +7,7 @@ export function parseDocumentation(libraryDocs) {
         let doc = libraryDocs[name];
         let ast = doctrine.parse(doc, {unwrap: true, recoverable: true, sloppy: true});
         let parsedDoc = getDoc(ast)
-        parsedDoc = replaceSynonimes(parsedDoc);
+        parsedDoc = replaceSynonyms(parsedDoc);
 
         docs[name] = parsedDoc;
     }

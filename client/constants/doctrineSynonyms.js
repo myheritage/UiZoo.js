@@ -1,6 +1,6 @@
 /**
- * This maps synonimes for doctrine, 
- * used to replace all synonime to a base synonime for bibliotheca usage
+ * This maps synonyms for doctrine, 
+ * used to replace all synonym to a base synonym for bibliotheca usage
  */
 export default {
     bool: ["boolean"],
