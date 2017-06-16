@@ -5,6 +5,9 @@ import './index.scss';
  * @name 
  * RaisedButton
  * 
+ * @description
+ * A styled button for clicking
+ * 
  * @example
  * <RaisedButton onClick={(e) => console.log('RaisedButton was clicked, event: ', e)}>
  *    Raised Button

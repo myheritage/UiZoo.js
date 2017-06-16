@@ -54,7 +54,7 @@ export default class AutoLocationTooltip extends React.Component {
         let tooltipBody = this.tooltipElement ? this.tooltipElement.querySelector('.bibliotheca-tooltip-body') : null;
         if (tooltipBody) {
             const preferredSide = this.props.side || SIDE_TOP;
-            const preferredAlignment = this.props.alignment || ALIGNMENT_CENTER;
+            const preferredAlignment = this.props.alignment || ALIGNMENT_START;
             const newState = getLocationForElementAroundZone(tooltipBody, this.tooltipElement, preferredSide, preferredAlignment, SPACING);
 
             // setState only if there is a change from the current state

@@ -8,18 +8,19 @@ import './index.scss';
  * Menu to select items
  * 
  * @example
- * <Menu value="red" onChange={(e, val) => console.log(val)}>
- *    <MenuItem value="red"
- *          style={{backgroundColor:"#f59a9a"}}>
- *          Color red
+ * // Choose a color
+ * <Menu value="pink" onChange={(e, val) => console.log(val)}>
+ *    <MenuItem value="pink"
+ *          style={{backgroundColor:"#ecabab"}}>
+ *          Color pink
  *    </MenuItem>
- *    <MenuItem value="blue"
- *          style={{backgroundColor:"#2196f3"}}>
- *          Color blue
+ *    <MenuItem value="cyan"
+ *          style={{backgroundColor:"#66cfdc"}}>
+ *          Color cyan
  *    </MenuItem>
- *    <MenuItem value="yellow"
- *          style={{backgroundColor:"#ffeb3b"}}>
- *          Color yellow
+ *    <MenuItem value="green"
+ *          style={{backgroundColor:"#abca87"}}>
+ *          Color green
  *    </MenuItem>
  * </Menu>
  * 

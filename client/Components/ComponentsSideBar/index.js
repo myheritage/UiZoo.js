@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import TextField from '../BibliothecaUI/TextField';
-import Accordion from "../BibliothecaUI/Accordion";
+import Collapsible from "../BibliothecaUI/Collapsible";
 import _ from "underscore";
 import { NON_MODULE_NAME } from "../../constants/modules";
 
@@ -36,13 +36,13 @@ export default class ComponentsSideBar extends Component {
             let moduleLinks = this.renderModuleLinks(componentsByModule[moduleName]);
 
             if (moduleLinks.length > 0) {
-                let moduleAccordion = (
-                    <Accordion title={moduleName} isOpen={true}>
+                let moduleCollapsible = (
+                    <Collapsible title={moduleName} isOpen={true}>
                         {moduleLinks}
-                    </Accordion>
+                    </Collapsible>
                 );
 
-                componentsLinks.push(moduleAccordion)
+                componentsLinks.push(moduleCollapsible)
             }
         });
 
