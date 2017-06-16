@@ -4,6 +4,10 @@ import './index.scss';
 /**
  * @name
  * Menu 
+ * 
+ * @module
+ * Menus
+ * 
  * @description
  * Menu to select items
  * 

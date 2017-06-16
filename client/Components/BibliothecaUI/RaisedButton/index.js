@@ -5,6 +5,9 @@ import './index.scss';
  * @name 
  * RaisedButton
  * 
+ * @module
+ * Buttons
+ * 
  * @description
  * A styled button for clicking
  * 
