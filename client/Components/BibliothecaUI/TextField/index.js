@@ -1,4 +1,4 @@
-import React from 'react';
+import {Component} from 'react';
 import './index.scss';
 
 /**
@@ -9,7 +9,10 @@ import './index.scss';
  * Inputs
  * 
  * @description
- * Text Field
+ * Text Field with adjustable height
+ * It will lengthen the textarea up to 5 rows based on the content in it
+ * use props.value to control the component.
+ * Try writing in it!
  * 
  * @example
  * // Without value
@@ -27,7 +30,7 @@ import './index.scss';
  * @param {string} [value] current value of the text field
  * @param {function} onChange
  */
-export default class TextField extends React.Component {
+export default class TextField extends Component {
     constructor(props) {
         super(props);
         this.state = { className: '' };

@@ -1,4 +1,4 @@
-import React from 'react';
+import {Component} from 'react';
 import {SIDES, SIDE_TOP, ALIGNMENTS, ALIGNMENT_CENTER, TRIGGER_EVENTS, TRIGGER_EVENT_HOVER} from './constants';
 import './index.scss';
 /**
@@ -19,14 +19,14 @@ import './index.scss';
  *
  * @example
  * // Top side tooltip
- * <Tooltip tooltip={'tooltip inner text!'} side="top" alignment="start" trigger="hover">
+ * <UiTooltip tooltip={'tooltip inner text!'} side="top" alignment="start" trigger="hover">
  *     <span>Text to open the tooltip upon</span>
- * </Tooltip>
+ * </UiTooltip>
  *
  * // Bottom side tooltip
- * <Tooltip tooltip={'tooltip inner text!'} side="bottom" alignment="start">
+ * <UiTooltip tooltip={'tooltip inner text!'} side="bottom" alignment="start">
  *     <span>Text to open the tooltip upon</span>
- * </Tooltip>
+ * </UiTooltip>
  *
  * @param {*} [tooltip] tooltip inner content, can be text or elements
  * @param {"top"|"bottom"} [side="top"] the placements of the tooltip relative to the element
@@ -37,7 +37,7 @@ import './index.scss';
  * @param {Object} [children] the element/s to be triggering the tooltip appearance
  *
  */
-export default class Tooltip extends React.Component {
+export default class UiTooltip extends Component {
     constructor(props) {
         super(props);
         this.state = {showTooltip: false};

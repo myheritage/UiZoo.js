@@ -1,4 +1,4 @@
-import React from 'react';
+import {Component} from 'react';
 import './index.scss';
 
 /**
@@ -10,6 +10,8 @@ import './index.scss';
  * 
  * @description
  * Menu to select items
+ * Wrap MenuItem components with the prop "value"
+ * and control the chosen value by the Menu prop "value"
  * 
  * @example
  * // Choose a color
@@ -28,16 +30,20 @@ import './index.scss';
  *    </MenuItem>
  * </Menu>
  * 
- * @param {any} value
+ * @param {string|number} [value]
  * @param {function} [onChange]
  * @param {node} children
  */
-export default class Menu extends React.Component {
+export default class Menu extends Component {
     constructor(props) {
         super(props);
         this.state = {selectedValue: props.value};
     }
 
+    /**
+     * Check if the props.value has changed, and if so update the state
+     * @param {Object} nextProps 
+     */
     componentWillReceiveProps(nextProps) {
         const {value} = nextProps;
         if (value !== this.props.value && value !== this.state.selectedValue) {
@@ -45,6 +51,11 @@ export default class Menu extends React.Component {
         }
     }
     
+    /**
+     * Update props.onChange if the value has changed
+     * @param {event} e 
+     * @param {string|number} val 
+     */
     onChange(e, val) {
         if (val !== this.state.selectedValue) {
             this.setState({selectedValue: val});
@@ -52,6 +63,11 @@ export default class Menu extends React.Component {
         }
     }
 
+    /**
+     * Calculate this item class name
+     * @param {string|number} val 
+     * @returns {string}
+     */
     getItemClassName(val) {
         return `bibliotheca-menu-item-wrapped${val === this.state.selectedValue ? ' selected' : ''}`;
     }

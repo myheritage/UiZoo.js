@@ -4,7 +4,7 @@ import Menu from './Components/BibliothecaUI/Menu';
 import RaisedButton from './Components/BibliothecaUI/RaisedButton';
 import MenuItem from './Components/BibliothecaUI/MenuItem';
 import TextField from './Components/BibliothecaUI/TextField';
-import AutoLocationTooltip from './Components/BibliothecaUI/AutoLocationTooltip';
+import Tooltip from './Components/BibliothecaUI/Tooltip';
 import Separator from './Components/BibliothecaUI/Separator';
 import Collapsible from './Components/BibliothecaUI/Collapsible';
 
@@ -15,7 +15,7 @@ export default {
     MenuItem,
     RaisedButton,
     TextField,
-    AutoLocationTooltip,
+    Tooltip,
     Separator,
     Collapsible,
 };

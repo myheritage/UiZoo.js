@@ -1,38 +1,46 @@
-import React from 'react';
+import {Component} from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'underscore';
 
 import {getLocationForElementAroundZone} from './autoLocationDetector/autoLocationDetector';
 import {SIDE_TOP, ALIGNMENT_START} from './locationConstants';
-import Tooltip from './Tooltip';
+import UiTooltip from './UiTooltip';
 
 const SPACING = 5;
 
 /**
  * @name
- * AutoLocationTooltip
+ * Tooltip
  * 
  * @module
  * Content
  * 
  * @description
- * An auto-location version of the Tooltip. Responsive solution to the tooltip.
- * See Tooltip for more information - it uses the same props
+ * Tooltip to be shown on hover or click events.
+ * Wrap children to give them the tooltip upon them.
+ * This is an auto-location Tooltip. Responsive solution to the tooltip.
  *
  * @example
- * <AutoLocationTooltip tooltip={'tooltip inner text!'} side="top" alignment="start" trigger="hover">
- *     <span>Text to open the tooltip upon</span>
- * </AutoLocationTooltip>
+ * // Default props
+ * <Tooltip tooltip={'tooltip inner text!'}>
+ *     <span>Click me to open the tooltip!</span>
+ * </Tooltip>
+ * 
+ * @example 
+ * // center bottom directions
+ * <Tooltip tooltip={'tooltip inner text on the bottom!'} side="bottom" alignment="center" trigger="hover">
+ *     <span>Text to open the tooltip upon on the bottom</span>
+ * </Tooltip>
  *
- * @param {*} [tooltip] tooltip inner content, can be text or elements
- * @param {"top"|"bottom"} [side="top"] preferred placement of the tooltip relative to the element
- * @param {"center"|"start"|"end"} [alignment="center"] preferred alignment of the tooltip relative to the element
- * @param {"click"|"hover"} [trigger="click"] trigger event, on mobile you should stick with click
+ * @param {node} [tooltip] tooltip inner content, can be text or elements
+ * @param {"top"|"bottom"} [side=top] preferred placement of the tooltip relative to the element
+ * @param {"center"|"start"|"end"} [alignment=center] preferred alignment of the tooltip relative to the element
+ * @param {"click"|"hover"} [trigger=click] trigger event, on mobile you should stick with click
  * @param {function} [onTooltipOpen] callback for when the tooltip is opened
  * @param {function} [onAfterTooltipOpen] callback for after the tooltip is opened
  * @param {node} [children] the element/s to be triggering the tooltip appearance
  */
-export default class AutoLocationTooltip extends React.Component {
+export default class Tooltip extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -86,7 +94,7 @@ export default class AutoLocationTooltip extends React.Component {
         });
 
         return (
-            <Tooltip {...tooltipProps} ref={ref => this.tooltipRef = ref}/>
+            <UiTooltip {...tooltipProps} ref={ref => this.tooltipRef = ref}/>
         );
     }
 }

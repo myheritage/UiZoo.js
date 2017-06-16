@@ -12,7 +12,9 @@ import './index.scss';
  * to show code examples with "pre" tag
  *
  * @example
- * <CodeCard>console.log('You are awesome!');</CodeCard>
+ * <CodeCard>
+ *      console.log('You are awesome!');
+ * </CodeCard>
  *
  * @param {string} [className]
  * @param {node} children

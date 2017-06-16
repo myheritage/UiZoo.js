@@ -1,5 +1,5 @@
 import React from 'react';
-import Tooltip from '../BibliothecaUI/AutoLocationTooltip';
+import Tooltip from '../BibliothecaUI/Tooltip';
 import ParamSelector from './ParamSelector';
 
 import './index.scss';
