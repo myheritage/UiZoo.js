@@ -1,4 +1,5 @@
 # React Bibliotheca - Dynamic React components library
+Try our live example [here](http://react-bibliotheca.herokuapp.com).
 ## About
 How many times you created a new component just to find later someone already did the exact same?
 How many times did you found out that a "generic" component you wanted to use is actually tightly-coupled to the environment it was developed upon?
