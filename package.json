@@ -34,7 +34,14 @@
     "react": "~15.5.4",
     "react-dom": "~15.5.4",
     "react-router-dom": "~4.1.1",
-    "underscore": "~1.8.3"
+    "underscore": "~1.8.3",
+    "rollup": "~0.36.4",
+    "rollup-plugin-alias": "~1.2.0",
+    "rollup-plugin-babel": "~2.7.1",
+    "rollup-plugin-commonjs": "~5.0.5",
+    "rollup-plugin-node-resolve": "~2.0.0",
+    "rollup-plugin-replace": "~1.1.1",
+    "rollup-plugin-scss": "~0.1.0"
   },
   "engines": {
     "node": ">=6.0.0"
@@ -51,13 +58,6 @@
     "postcss": "~5.2.6",
     "postcss-cssnext": "~2.9.0",
     "postcss-discard-comments": "~2.0.4",
-    "postcss-discard-duplicates": "~2.0.2",
-    "rollup": "~0.36.4",
-    "rollup-plugin-alias": "~1.2.0",
-    "rollup-plugin-babel": "~2.7.1",
-    "rollup-plugin-commonjs": "~5.0.5",
-    "rollup-plugin-node-resolve": "~2.0.0",
-    "rollup-plugin-replace": "~1.1.1",
-    "rollup-plugin-scss": "~0.1.0"
+    "postcss-discard-duplicates": "~2.0.2"
   }
 }
