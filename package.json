@@ -4,6 +4,7 @@
   "description": "React Component Library",
   "scripts": {
     "start": "npm run gulp:w",
+    "build": "rollup -c rollup-build.config.js -o dist/index.js -f iife -n Bibliotheca -g underscore:_,react:React,react-dom:ReactDOM,react-router-dom:ReactRouterDOM,doctrine:doctrine,babel-standalone:Babel",
     "gulp:w": "gulp",
     "test": "npm start & SERVER_PID=$!; (cd tests; npm i && node run-tests.js); kill $SERVER_PID"
   },
