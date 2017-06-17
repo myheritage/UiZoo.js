@@ -1,1 +1,1 @@
-web: npm i -g gulp && npm start
+web: npm i -g gulp && npm i && npm start
