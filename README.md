@@ -69,6 +69,8 @@ You can also indicate literal string/number for the type and the input will be a
 
 ![React Bibliotheca 4](https://media.giphy.com/media/R4w7AiCQpYxjO/giphy.gif)
 
+See video example:
+[https://youtu.be/KRCM0fHTXms](https://youtu.be/KRCM0fHTXms)
 
 ## Contributing
 
