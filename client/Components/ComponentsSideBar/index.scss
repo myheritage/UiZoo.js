@@ -54,6 +54,8 @@
                 .bibliotheca-collapsible-title {
                     padding-bottom: 0;
                     transition: opacity 0.3s ease, padding 0.3s 0.1s ease;
+                    opacity: 0.7;
+
                     &:after {
                         margin-top: 13px;
                     }
