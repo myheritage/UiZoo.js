@@ -17,7 +17,7 @@ import './index.scss';
  *   Menu Item
  * </MenuItem>
  *
- * @param {string|number} value
+ * @param {string|number} value this item value in the menu
  * @param {node} children
  */
 export default class MenuItem extends Component {

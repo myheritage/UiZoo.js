@@ -30,9 +30,9 @@ import './index.scss';
  *    </MenuItem>
  * </Menu>
  * 
- * @param {string|number} [value]
- * @param {function} [onChange]
- * @param {node} children
+ * @param {string|number} [value] current selected value of MenuItem inside the menu
+ * @param {function} [onChange] callback for changes in selected value
+ * @param {node} children MenuItems to be selected
  */
 export default class Menu extends Component {
     constructor(props) {

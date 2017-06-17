@@ -16,8 +16,8 @@ import './index.scss';
  *      console.log('You are awesome!');
  * </CodeCard>
  *
- * @param {string} [className]
- * @param {node} children
+ * @param {string} [className] additional className to the element
+ * @param {node} children the code that will be formatted
  *
  */
 export default function CodeCard({children, className}) {

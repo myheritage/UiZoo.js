@@ -23,13 +23,13 @@ const SPACING = 5;
  * @example
  * // Default props
  * <Tooltip tooltip={'tooltip inner text!'}>
- *     <span>Click me to open the tooltip!</span>
+ *     Click me to open the tooltip!
  * </Tooltip>
  * 
  * @example 
  * // center bottom directions
  * <Tooltip tooltip={'tooltip inner text on the bottom!'} side="bottom" alignment="center" trigger="hover">
- *     <span>Text to open the tooltip upon on the bottom</span>
+ *     Text to open the tooltip upon on the bottom
  * </Tooltip>
  *
  * @param {node} [tooltip] tooltip inner content, can be text or elements

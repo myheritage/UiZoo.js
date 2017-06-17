@@ -51,8 +51,7 @@ glob(inputGlob, {}, (error, componentsPaths) => {
         componentsDone++;
         if (componentsDone === componentsPaths.length) {
             let results = 
-            `const libraryDocs = ${JSON.stringify(nameToDoc)};
-            export default libraryDocs;`;
+            `export default ${JSON.stringify(nameToDoc)};`;
             fs.writeFile(outputPath, results, (error, data) => {
                 if (error) {
                     console.error("Had an error writing the results file: " + error);
