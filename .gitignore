@@ -2,3 +2,6 @@
 .vscode
 node_modules
 dist
+tests/node_modules
+tests/output
+tests/.protractor-fail-fast
