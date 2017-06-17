@@ -1,1 +1,1 @@
-web: ./node_modules/.bin/gulp
+web: ./node_modules/.bin/rollup -c rollup-build.config.js -o dist/index.js -f iife -n Bibliotheca -g underscore:_,react:React,react-dom:ReactDOM,react-router-dom:ReactRouterDOM,doctrine:doctrine,babel-standalone:Babel && node server/main.js
