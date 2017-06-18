@@ -1,6 +1,6 @@
 {
   "name": "bibliotheca",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "React Component Library",
   "scripts": {
     "start": "npm run gulp:w",
@@ -29,7 +29,6 @@
     "body-parser": "~1.15.2",
     "compression": "~1.6.2",
     "cors": "~2.8.3",
-    "doctrine": "~2.0.0",
     "express": "~4.15.2",
     "glob": "7.0.6",
     "helmet": "~3.1.0",
