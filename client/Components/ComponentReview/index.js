@@ -103,9 +103,12 @@ export default class ComponentReview extends React.Component {
      * @param {object}
      * @param {string} name
      */
-    renderComponentMetadata({description}, name) {
+    renderComponentMetadata({description, module}, name) {
         return (
             <div>
+                <h10 className="bibliotheca-component-module">
+                    {module && module[0].name}
+                </h10>
                 <h1 className="bibliotheca-component-name">
                     {!!name && name}
                     {!name && 'Welcome to Bibliotheca!'}
