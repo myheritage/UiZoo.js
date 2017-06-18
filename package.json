@@ -1,6 +1,6 @@
 {
   "name": "bibliotheca",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "React Component Library",
   "scripts": {
     "start": "npm run gulp:w",
@@ -9,7 +9,7 @@
     "test": "npm start & SERVER_PID=$!; (cd tests; npm i && node run-tests.js); kill $SERVER_PID"
   },
   "main": "dist/index.cjs.js",
-  "module": "dist/index.js",
+  "module": "dist/index.cjs.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/myheritage/react-bibliotheca.git"
@@ -29,6 +29,7 @@
     "body-parser": "~1.15.2",
     "compression": "~1.6.2",
     "cors": "~2.8.3",
+    "doctrine": "~2.0.0",
     "express": "~4.15.2",
     "glob": "7.0.6",
     "helmet": "~3.1.0",
@@ -36,14 +37,14 @@
     "react": "~15.5.4",
     "react-dom": "~15.5.4",
     "react-router-dom": "~4.1.1",
-    "underscore": "~1.8.3",
     "rollup": "~0.36.4",
     "rollup-plugin-alias": "~1.2.0",
     "rollup-plugin-babel": "~2.7.1",
     "rollup-plugin-commonjs": "~5.0.5",
     "rollup-plugin-node-resolve": "~2.0.0",
     "rollup-plugin-replace": "~1.1.1",
-    "rollup-plugin-scss": "~0.1.0"
+    "rollup-plugin-scss": "~0.1.0",
+    "underscore": "~1.8.3"
   },
   "engines": {
     "node": ">=6.0.0"
