@@ -33,12 +33,12 @@ We recommend updating those files by a script automaticly when files are changin
 
 **or** npm install by:
 ```
-npm i -S react-bibliotheca
+npm i -S bibliotheca
 ```
 then in your code do:
 ```
-import 'react-bibliotheca/dist/index.css';
-import Bibliotheca from 'react-bibliotheca';
+import 'bibliotheca/dist/index.css';
+import Bibliotheca from 'bibliotheca';
 Bibliotheca.init(bibliothecaDocumentation, bibliothecaComponents, rootElement);
 ```
 
