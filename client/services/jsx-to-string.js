@@ -14,7 +14,7 @@ function stringifyObject (object, opts) {
         result = object.map(item => stringifyObject(item));
     } else if (object && typeof object === 'object') {
         result = {};
-        Object.keys(object).map(key => {
+        _.keys(object).map(key => {
             let value = object[key];
             if (React.isValidElement(value)) {
                 value = jsxToString(value, opts);
@@ -85,7 +85,7 @@ function jsxToString (component, options) {
 
     if (component.props) {
         const indentation = new Array(opts.spacing + 3).join(' ');
-        componentData.props = Object.keys(component.props)
+        componentData.props = _.keys(component.props)
             .filter(key => {
                 return (key !== 'children' &&
                 ! isDefaultProp(component.type.defaultProps, key,
