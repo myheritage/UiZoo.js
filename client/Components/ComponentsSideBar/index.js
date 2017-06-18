@@ -6,6 +6,18 @@ import { NON_MODULE_NAME } from "../../constants/modules";
 
 import './index.scss';
 
+/**
+ * @name
+ * ComponentsSideBar
+ * 
+ * @description
+ * Side bar for showing all the components
+ * 
+ * @param {object} components
+ * @param {object} componentsByModule
+ * @param {string} selectedComponentName
+ * @param {function} goToUrl
+ */
 export default class ComponentsSideBar extends Component {
     constructor(props) {
         super(props);
@@ -13,11 +25,18 @@ export default class ComponentsSideBar extends Component {
         this.onSearchChange = this.onSearchChange.bind(this);
     }
 
+    /**
+     * Search value was changed, update state
+     * @param {event} e 
+     */
     onSearchChange(e) {
         const newValue = e.target.value;
         this.setState({ searchValue: newValue || '' });
     }
 
+    /**
+     * get jsx of the links in their module
+     */
     renderComponentsLinks() {
         const {
             components,
@@ -56,6 +75,24 @@ export default class ComponentsSideBar extends Component {
         return componentsLinks;
     }
 
+    /**
+     * Get the component name, compatible with ie11 that doesn't support Function.prototype.name ...
+     * @param {function} comp 
+     */
+    getComponentName(comp) {
+        let componentName = '';
+        if (comp) {
+            if (comp.name) {
+                componentName = comp.name
+            } else if (typeof comp === 'function') { // ie11 stuff make sure it's function
+                componentName = comp.toString().match(/^function\s*([^\s(]+)/)[1];
+            }
+        }
+    }
+
+    /**
+     * @param {Array} moduleComponents 
+     */
     renderModuleLinks(moduleComponents) {
         return moduleComponents &&
         moduleComponents
@@ -63,6 +100,9 @@ export default class ComponentsSideBar extends Component {
             .map(currComponent => this.renderComponentLink(currComponent.name));
     }
 
+    /**
+     * @param {string} componentName 
+     */
     renderComponentLink(componentName) {
         let {
             selectedComponentName,
@@ -98,6 +138,6 @@ export default class ComponentsSideBar extends Component {
                     {this.renderComponentsLinks()}
                 </div>
             </div>
-        )
+        );
     }
 }
