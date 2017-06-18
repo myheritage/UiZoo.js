@@ -1,9 +1,11 @@
 # React Bibliotheca - Dynamic React components library
 Try our live example [here](http://react-bibliotheca.herokuapp.com).
+> "Donde, está, la biblioteca. Me llamo T-Bone La araña discoteca. Discoteca, muñeca, La biblioteca..."
+\- Troy and Abed.
 ## About
 How many times you created a new component just to find later someone already did the exact same?
 How many times did you found out that a "generic" component you wanted to use is actually tightly-coupled to the environment it was developed upon?
-Well, no more! introducing - **The Bibliotheca**
+Well, no more! introducing - **La Bibliotheca**
 
 It will showcase **your components**, letting you develop on a sterile environment and browse what you already have and can use, to better re-use your components.
 And all this by almost no effort!
@@ -26,6 +28,8 @@ cd react-bibliotheca && npm i
 gulp
 ```
 This will start a server on http://localhost:5000 with the Bibliotheca
+you can change the [components file](https://github.com/myheritage/react-bibliotheca/blob/master/client/components.js) and the [documentation file](https://github.com/myheritage/react-bibliotheca/blob/master/client/documentation.js) to start rapidly.
+We recommend updating those files by a script automaticly when files are changing (we plan to create plugins to help with this in the next future).
 
 **or** npm install by:
 ```
@@ -73,10 +77,14 @@ You can also indicate literal string/number for the type and the input will be a
 See video example:
 [https://youtu.be/KRCM0fHTXms](https://youtu.be/KRCM0fHTXms)
 
+---
+
 ## Contributing
 
 Contributions and feedback are very welcome! Feel free to open issues.
 See our [guidelines](https://github.com/myheritage/react-bibliotheca/blob/master/CONTRIBUTING.md).
+
+---
 
 ## Tests
 
