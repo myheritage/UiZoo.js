@@ -15,10 +15,42 @@ export default class ParamSelectorJSON extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: props.selectedValue
+            value: this.getNextValue(props.selectedValue, JSON.stringify(props.selectedValue))
         };
         this.onChange = this.onChange.bind(this);
         this.reportChangeBounced = _.debounce(val => this.reportChange(val), 150);
+    }
+
+    /**
+     * Check if React children to ignore since we cannot update those directly to the example,
+     * Will be fixed with "Live Coding" feature
+     * @param {any} item 
+     * @returns {boolean}
+     */
+    isReactObject(item) {
+        return typeof item === 'object' && item.hasOwnProperty('ref')
+            && item.hasOwnProperty('type') && item.hasOwnProperty('props');
+    }
+
+    /**
+     * Check between value and stringifiedValue, which one should we use
+     * @param {any} value 
+     * @param {string} stringifiedValue 
+     * @return {string} value to set in state
+     */
+    getNextValue(value, stringifiedValue) {
+        let newValue;
+        if (this.isReactObject(value) || (Array.isArray(value) && this.isReactObject(value[0]))) {
+            newValue = '';
+        } else {
+            // check if string to not add quotes around the string
+            if (typeof value === 'string') {
+                newValue = value;
+            } else  {
+                newValue = stringifiedValue;
+            }
+        }
+        return newValue
     }
 
     /**
@@ -26,19 +58,11 @@ export default class ParamSelectorJSON extends React.Component {
      * @param {object} nextProps 
      */
     componentWillReceiveProps(nextProps) {
-        const nextStringifiedValue = JSON.stringify(nextProps.selectedValue);
-        if (nextStringifiedValue !== JSON.stringify(this.props.selectedValue)) {
-            // Check if should ignore React children, will be fixed with Live Coding feature
-            if (typeof nextProps.selectedValue === 'object' && nextProps.selectedValue.hasOwnProperty('ref')
-                && nextProps.selectedValue.hasOwnProperty('type') && nextProps.selectedValue.hasOwnProperty('props')) {
-                this.setState({value: ''});
-            } else {
-                if (typeof nextProps.selectedValue === 'string') {
-                    this.setState({value: nextProps.selectedValue});
-                } else  {
-                    this.setState({value: nextStringifiedValue});
-                }
-            }
+        const nextStringifiedSelectedValue = JSON.stringify(nextProps.selectedValue);
+        // check if the selectedValue even changed
+        if (nextStringifiedSelectedValue !== JSON.stringify(this.props.selectedValue)) {
+            const value = this.getNextValue(nextProps.selectedValue, nextStringifiedSelectedValue);
+            this.setState({value});
         }
     }
 

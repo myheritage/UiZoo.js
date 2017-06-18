@@ -38,13 +38,29 @@ export default class TextField extends Component {
     }
 
     /**
+     * Set initial height of the text area
+     */
+    componentDidMount() {
+        this.setTextareaHeight();
+    }
+
+    /**
+     * Set the textarea height from the scroll height
+     */
+    setTextareaHeight() {
+        if (this.textarea) {
+            this.textarea.style.height = this.textarea.scrollHeight;
+        }
+    }
+    
+    /**
      * Change the text area to the actual text size
      * @param {*} e 
      */
     textAreaChanged(e) {
-        this.textarea.style.height = "auto";
-        this.textarea.style.height = this.textarea.scrollHeight;
-        
+        // needed to set 'auto' for redrawing to get the correct scroll height
+        this.textarea.style.height = 'auto';
+        this.setTextareaHeight();
         this.props.onChange(e);
     }
 
