@@ -1,13 +1,16 @@
 {
   "name": "bibliotheca",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "React Component Library",
   "scripts": {
     "start": "npm run gulp:w",
-    "build": "rollup -c rollup-build.config.js -o dist/index.js -f iife -n Bibliotheca -g underscore:_,react:React,react-dom:ReactDOM,react-router-dom:ReactRouterDOM,doctrine:doctrine,babel-standalone:Babel",
+    "build": "rollup -c rollup-build.config.js -o dist/index.js -f iife -n Bibliotheca -g underscore:_,react:React,react-dom:ReactDOM,react-router-dom:ReactRouterDOM,doctrine:doctrine,babel-standalone:Babel && rollup -c rollup-build.config.js -o dist/index.cjs.js -f cjs -n Bibliotheca -g underscore:_,react:React,react-dom:ReactDOM,react-router-dom:ReactRouterDOM,doctrine:doctrine,babel-standalone:Babel",
     "gulp:w": "gulp",
-    "test": "npm start & SERVER_PID=$!; (cd tests; npm i && node run-tests.js); kill $SERVER_PID"
+    "test": "npm start & SERVER_PID=$!; (cd tests; npm i && node run-tests.js); kill $SERVER_PID",
+    "prepublish": "npm run build"
   },
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/myheritage/react-bibliotheca.git"

@@ -37,6 +37,7 @@ npm i -S react-bibliotheca
 ```
 then in your code do:
 ```
+import 'react-bibliotheca/dist/index.css';
 import Bibliotheca from 'react-bibliotheca';
 Bibliotheca.init(bibliothecaDocumentation, bibliothecaComponents, rootElement);
 ```
