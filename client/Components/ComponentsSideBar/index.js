@@ -31,7 +31,7 @@ export default class ComponentsSideBar extends Component {
         // Init side bar with non module components
         componentsLinks = componentsLinks.concat(this.renderModuleLinks(componentsByModule[NON_MODULE_NAME]));
 
-        // Add module componenets
+        // Add module components
         _.keys(componentsByModule).filter(curr => curr !== NON_MODULE_NAME).forEach(moduleName => {
             let moduleLinks = this.renderModuleLinks(componentsByModule[moduleName]);
 
@@ -59,7 +59,6 @@ export default class ComponentsSideBar extends Component {
     renderModuleLinks(moduleComponents) {
         return moduleComponents &&
         moduleComponents
-            .filter(curr => curr && curr.name) // TODO:  find why we need this 
             .filter(currModuleComponent => currModuleComponent.name.toLowerCase().indexOf(this.state.searchValue.toLowerCase()) !== -1)
             .map(currComponent => this.renderComponentLink(currComponent.name));
     }
