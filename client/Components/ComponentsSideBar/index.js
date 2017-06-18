@@ -78,6 +78,7 @@ export default class ComponentsSideBar extends Component {
     /**
      * Get the component name, compatible with ie11 that doesn't support Function.prototype.name ...
      * @param {function} comp 
+     * @return {string}
      */
     getComponentName(comp) {
         let componentName = '';
@@ -88,6 +89,7 @@ export default class ComponentsSideBar extends Component {
                 componentName = comp.toString().match(/^function\s*([^\s(]+)/)[1];
             }
         }
+        return componentName;
     }
 
     /**
@@ -96,8 +98,8 @@ export default class ComponentsSideBar extends Component {
     renderModuleLinks(moduleComponents) {
         return moduleComponents &&
         moduleComponents
-            .filter(currModuleComponent => currModuleComponent.name.toLowerCase().indexOf(this.state.searchValue.toLowerCase()) !== -1)
-            .map(currComponent => this.renderComponentLink(currComponent.name));
+            .filter(currModuleComponent => this.getComponentName(currModuleComponent).toLowerCase().indexOf(this.state.searchValue.toLowerCase()) !== -1)
+            .map(currComponent => this.renderComponentLink(this.getComponentName(currComponent)));
     }
 
     /**
