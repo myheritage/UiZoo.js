@@ -59,7 +59,7 @@ export default class ComponentsSideBar extends Component {
     renderModuleLinks(moduleComponents) {
         return moduleComponents &&
         moduleComponents
-            .filter(curr => curr) // TODO:  find why we need this 
+            .filter(curr => curr && curr.name) // TODO:  find why we need this 
             .filter(currModuleComponent => currModuleComponent.name.toLowerCase().indexOf(this.state.searchValue.toLowerCase()) !== -1)
             .map(currComponent => this.renderComponentLink(currComponent.name));
     }
