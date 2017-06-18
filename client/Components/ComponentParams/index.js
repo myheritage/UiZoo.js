@@ -29,7 +29,7 @@ export default class ComponentParams extends React.Component {
         const isOptional = paramObj.type.type === "OptionalType";
         const paramTitleStyle = paramObj.description ? {cursor: "pointer"} : null;
         return (
-            <div className="bibliotheca-component-params-selector" key={`param-name-${paramObj.name}-${this.props.componentName}`}>
+            <div className="bibliotheca-component-params-selector" data-param={paramObj.name} key={`param-name-${paramObj.name}-${this.props.componentName}`}>
                 <Tooltip tooltip={paramObj.description}>
                     <p className="bibliotheca-param-name" style={paramTitleStyle}>
                         {paramObj.name}
