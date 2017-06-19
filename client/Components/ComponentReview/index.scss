@@ -16,10 +16,15 @@
         white-space: normal;
         word-break: break-word;
         word-wrap: break-word;
+        pre {
+            white-space: pre-wrap;
+            font-family: Helvetica, sans-serif;
+        }
     }
     .bibliotheca-component-content {
         min-height: 150px;
         padding: 15px 10px;
+        position: relative;
     }
     .bibliotheca-component-module {
         color: #a7a7a7;

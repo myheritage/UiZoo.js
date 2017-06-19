@@ -16,7 +16,7 @@ export default class App extends React.Component {
         };
     }
     render() {
-        const { documentations, components, componentsByModule, match, compiler } = this.props;
+        const { documentations, components, componentsByModule, match, compiler, baseRoute } = this.props;
         const componentName = match.params.componentName;
         const showSideBarClassName = this.state.showSideBar ? ' show-side-bar' : '';
         
@@ -30,7 +30,7 @@ export default class App extends React.Component {
                         components={components}
                         componentsByModule={componentsByModule}
                         selectedComponentName={componentName}
-                        goToUrl={this.props.history.push} />
+                        goToUrl={(url) => this.props.history.push(`${baseRoute}${url}`)} />
                 </div>
                 <div className="bibliotheca-review">
                     <ComponentReview

@@ -114,8 +114,10 @@ export default class ComponentReview extends React.Component {
                     {!name && 'Welcome to Bibliotheca!'}
                 </h1>
                 <h3 className="bibliotheca-component-description">
-                    {_.pluck(description, "description").join(". ")}
-                    {!name && 'please select a component to view'}
+                    <pre>
+                        {_.pluck(description, "description").join(". ")}
+                        {!name && 'please select a component to view'}
+                    </pre>
                 </h3>
             </div>
         );

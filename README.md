@@ -51,7 +51,9 @@ Bibliotheca.init(bibliothecaDocumentation, bibliothecaComponents, rootElement):
 
 **bibliothecaComponents** - Object, mapping of components name to components. See [example](https://github.com/myheritage/react-bibliotheca/blob/master/client/components.js). 
 
-**rootElement** - HTMLElement, will bootstrap the Bibliotheca on that Element
+**rootElement** - HTMLElement, will bootstrap the Bibliotheca on that Element. Default is an element with the id 'bibliotheca_root'
+
+**baseRoute** Route to be the base before the Bibliotheca routes. Default to '/'. for example if the Bibliotheca is on your site like so: 'www.mysite.com/my/bib/', the base route should be '/my/bib/'.
 
 ## JSDoc support
 We support many [JSDoc](http://usejsdoc.org/) conventions.

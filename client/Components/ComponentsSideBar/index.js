@@ -56,7 +56,7 @@ export default class ComponentsSideBar extends Component {
 
             if (moduleLinks.length > 0) {
                 let moduleCollapsible = (
-                    <Collapsible title={moduleName} isOpen={true}>
+                    <Collapsible title={moduleName} isOpen={true} key={`collapsible-for-module-${moduleName}`}>
                         {moduleLinks}
                     </Collapsible>
                 );
@@ -67,7 +67,7 @@ export default class ComponentsSideBar extends Component {
 
         if (componentsLinks.length === 0) {
             componentsLinks.push(
-                <div className="bibliotheca-component-no-links">
+                <div className="bibliotheca-component-no-links" key="no-links-found">
                     No matches for "{this.state.searchValue}"
                 </div>
             )
@@ -125,7 +125,7 @@ export default class ComponentsSideBar extends Component {
     render() {
         return (
             <div className="bibliotheca-components-side-bar">
-                <h1 className="bibliotheca-title" onClick={() => this.props.goToUrl('/')}>
+                <h1 className="bibliotheca-title" onClick={() => this.props.goToUrl('')}>
                     Bibliotheca
                 </h1>
                 <div className="bibliotheca-icon" />

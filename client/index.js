@@ -22,7 +22,8 @@ const defaultRoot = document.getElementById('bibliotheca_root');
 function init(
     bibliothecaDocumentation = libraryDocs,
     bibliothecaComponents = libraryData,
-    rootElement = defaultRoot
+    rootElement = defaultRoot,
+    baseRoute = '/',
 ) {
     checkDependencies(bibliothecaDocumentation, bibliothecaComponents);
     const compiler = createCompiler(bibliothecaComponents); // JSX compiler
@@ -31,12 +32,13 @@ function init(
 
     ReactDOM.render(
         <BrowserRouter basename="/">
-            <Route path="/:componentName?" render={routeProps => (
+            <Route path={`${baseRoute}:componentName?`} render={routeProps => (
                 <App {...routeProps}
                     components={bibliothecaComponents}
                     componentsByModule={componentsByModule}
                     documentations={documentations}
-                    compiler={compiler} />
+                    compiler={compiler} 
+                    baseRoute={baseRoute} />
             )} />
         </BrowserRouter>,
         rootElement
