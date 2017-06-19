@@ -1,4 +1,4 @@
-import doctrine  from "doctrine";
+import doctrine  from "doctrine-standalone";
 import replaceSynonyms from "./synonymService";
 
 export function parseDocumentation(libraryDocs) {

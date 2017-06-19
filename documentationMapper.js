@@ -1,4 +1,4 @@
-// TODO this service should be in a different NPM package and be optional
+// In next versions this service should be an optional plugin
 
 function howToUse() {
     explanation = 'How to use: Run `node documentationMapper.js "./client/Components/BibliothecaUI/*/index.js" "./client/Components/BibliothecaUI/(.+)/index.js" "./client/documentation.js"`';

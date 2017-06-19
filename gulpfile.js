@@ -31,7 +31,7 @@ gulp.task("watch", () => {
 
 function bundleClient() {
 	updateDocumentation();
-	return rollup.rollup(getRollupConfig({external: ['underscore', 'react', 'react-dom', 'react-router-dom', 'doctrine', 'babel-standalone']}))
+	return rollup.rollup(getRollupConfig({external: ['underscore', 'react', 'react-dom', 'react-router-dom', 'doctrine-standalone', 'babel-standalone']}))
 		.then(bundle => {
 			bundle.write({
 				format: 'iife',
@@ -41,7 +41,7 @@ function bundleClient() {
 					'react': 'React',
 					'react-dom': 'ReactDOM',
 					'react-router-dom':'ReactRouterDOM',
-                    'doctrine': 'doctrine',
+                    'doctrine-standalone': 'doctrine',
 					'babel-standalone': 'Babel',
 				},
 				moduleName: 'Bibliotheca',
