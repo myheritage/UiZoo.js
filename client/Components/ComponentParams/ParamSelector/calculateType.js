@@ -1,5 +1,6 @@
 import _ from 'underscore';
 const IS_UNION = (exp = {}) => exp.type === "UnionType" && exp.elements && exp.elements.length;
+const IS_LITERAL = (exp = {}) => exp.type === "StringLiteralType";
 const HAVE_VALUES_TYPE = 'variant';
 const DEFAULT_TYPE = 'default';
 
@@ -16,7 +17,10 @@ export default function calculateType(doctrineType = {}) {
         return calculateTypeForUnion(doctrineType);
     } else if (IS_UNION(doctrineType.expression)) {
         return calculateTypeForUnion(doctrineType.expression);
-    } else if (doctrineType.name || (doctrineType.expression && doctrineType.expression.name)) {
+    } else if (IS_LITERAL(doctrineType) || IS_LITERAL(doctrineType.expression)) {
+        type = HAVE_VALUES_TYPE;
+        values = [doctrineType.value || doctrineType.expression.value];
+    } else if (doctrineType.name || (doctrineType.expression || {}).name) {
         type = doctrineType.name || doctrineType.expression.name;
     }
 
