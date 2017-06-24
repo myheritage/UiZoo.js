@@ -3,16 +3,16 @@ Try our live example [here](http://react-bibliotheca.herokuapp.com).
 > "Donde, está, la biblioteca. Me llamo T-Bone La araña discoteca. Discoteca, muñeca, La biblioteca..."
 \- Troy and Abed.
 ## About
-How many times you created a new component just to find later someone already did the exact same?
+How many times did you create a new component just to find later someone already did the exact same?
 How many times did you found out that a "generic" component you wanted to use is actually tightly-coupled to the environment it was developed upon?
 Well, no more! introducing - **La Bibliotheca**
 
-It will showcase **your components**, letting you develop on a sterile environment and browse what you already have and can use, to better re-use your components.
+It will showcase **your components**, letting you develop in a sterile environment and browse what you already have and can use, to better re-use your components.
 And all this by almost no effort!
 
 ![React Bibliotheca 1](https://media.giphy.com/media/pF8cbzzIGJWO4/giphy.gif "React Bibliotheca 1")
 
-We use JSDoc parsing from your current components to showcase them, with all of their possible properties, examples and descriptions.
+We use JSDoc parsing from your current components to showcase them, with all of their possible properties, examples, and descriptions.
 This tool can be used for developing, for Product Manager to know what possible, for UX to know what we have so far, and it can be a playground for co-operation between all of the above.
 
 ![React Bibliotheca 3](https://media.giphy.com/media/MqhUcIhANah9e/giphy.gif)
@@ -29,7 +29,7 @@ gulp
 ```
 This will start a server on http://localhost:5000 with the Bibliotheca
 you can change the [components file](https://github.com/myheritage/react-bibliotheca/blob/master/client/components.js) and the [documentation file](https://github.com/myheritage/react-bibliotheca/blob/master/client/documentation.js) to start rapidly.
-We recommend updating those files by a script automaticly when files are changing (we plan to create plugins to help with this in the next future).
+We recommend updating those files by a script automatically when files are changing (we plan to create plugins to help with this in the next future).
 
 **or** npm install by:
 ```
