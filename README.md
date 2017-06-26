@@ -62,6 +62,8 @@ Check out our [example UI library](https://github.com/myheritage/react-bibliothe
 ### Supported JSDoc Block Tags
 #### @name (synonyms: @class, @type)
 The component name
+#### @module (synonyms: @namespace, @memberOf)
+The section of the component. Will put the component inside this section on the SideBar.
 #### @description (synonyms: @summary, @desc, @classdesc)
 The component description
 #### @example
