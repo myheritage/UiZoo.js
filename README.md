@@ -4,16 +4,16 @@ Try our live example [here](http://react-bibliotheca.herokuapp.com).
 \- Troy and Abed.
 ## About
 How many times did you create a new component just to find later someone already did the exact same?
-How many times did you found out that a "generic" component you wanted to use is actually tightly-coupled to the environment it was developed upon?
+How many times did you find out that a "generic" component you wanted to use is actually tightly-coupled to the environment it was developed upon?
 Well, no more! introducing - **La Bibliotheca**
 
 It will showcase **your components**, letting you develop in a sterile environment and browse what you already have and can use, to better re-use your components.
-And all this by almost no effort!
+And all this with almost no effort!
 
 ![React Bibliotheca 1](https://media.giphy.com/media/pF8cbzzIGJWO4/giphy.gif "React Bibliotheca 1")
 
 We use JSDoc parsing from your current components to showcase them, with all of their possible properties, examples, and descriptions.
-This tool can be used for developing, for Product Manager to know what possible, for UX to know what we have so far, and it can be a playground for co-operation between all of the above.
+This tool can be used for developing, for Product Managers to know what is possible, for UX to see what we have so far, and it can be a playground for co-operation between all of the above.
 
 ![React Bibliotheca 3](https://media.giphy.com/media/MqhUcIhANah9e/giphy.gif)
 
@@ -35,7 +35,7 @@ We recommend updating those files by a script automatically when files are chang
 ```
 npm i -S bibliotheca
 ```
-then in your code do:
+then in your code, add:
 ```
 import 'bibliotheca/dist/index.css';
 import Bibliotheca from 'bibliotheca';
@@ -94,33 +94,33 @@ See our [guidelines](https://github.com/myheritage/react-bibliotheca/blob/master
 ## Tests
 
 The tests package is isolated and located inside the /tests folder.
-The target of the tests is to run locally before committing changes and to be a sanity indicator that everything is ok.
-Tests are written in Protractor with Karma and cover the Bibliotheca from end to end.
+The target of the tests is to run locally before committing changes and to be a sanity indicator that everything is okay.
+Tests are written in Protractor with Karma and they cover the Bibliotheca from end-to-end.
 
 ### Run the tests once
-To just perform the tests once, we simply run:
+To perform the tests once, run:
 ```
 npm test
 ```
 
 ### Develop tests
-If we want to add tests, we use the following steps - 
+To add tests, use the following steps - 
 
-First, we make sure we have the app up and running:
+First,make sure the app is up and running:
 ```
 gulp
 ```
-The first time we run the tests, we have to install the npm dependencies:
+The first time tests are run, install the npm dependencies:
 ```
 cd tests
 npm i
 ```
-We run the following to get the testing server up and to begin the typescript watch:
+Run the following to get the testing server up and to begin the typescript watch:
 ```
 cd tests
 npm start
 ```
-Now to begin tests, we open another tab and run:
+To begin tests, open another tab and run:
 ```
 cd tests
 npm test
