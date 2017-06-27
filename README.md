@@ -106,7 +106,7 @@ npm test
 ### Develop tests
 To add tests, use the following steps - 
 
-First,make sure the app is up and running:
+First, make sure the app is up and running:
 ```
 gulp
 ```
