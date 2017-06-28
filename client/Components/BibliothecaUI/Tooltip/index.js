@@ -90,7 +90,8 @@ export default class Tooltip extends Component {
         const tooltipProps = _.extend({}, this.props, {
             onAfterTooltipOpen,
             side: this.state.side,
-            alignment: this.state.alignment
+            alignment: this.state.alignment,
+            initiallyOpen: this.props.initiallyOpen
         });
 
         return (

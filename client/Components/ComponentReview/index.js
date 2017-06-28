@@ -7,6 +7,9 @@ import Separator from '../BibliothecaUI/Separator';
 import CodeCard from '../BibliothecaUI/CodeCard';
 import ComponentParams from '../ComponentParams';
 import ComponentExamples from '../ComponentExamples';
+import ErrorReporter from "../../services/errorReporter";
+import Modal from "../BibliothecaUI/Modal";
+import Tooltip from "../BibliothecaUI/Tooltip";
 import './index.scss';
 
 /**
@@ -18,10 +21,11 @@ export default class ComponentReview extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            componentProps: {}
+            componentProps: {},
         };
         this.updateParam = this.updateParam.bind(this);
         this.updateExample = this.updateExample.bind(this);
+        this.toggleErrorModalState = this.toggleErrorModalState.bind(this);
     }
 
     /**
@@ -30,6 +34,12 @@ export default class ComponentReview extends React.Component {
     componentDidMount() {
         const componentDoc = this.props.documentations[this.props.componentName] || {};
         this.setDefaultExample(componentDoc);
+    }
+
+    toggleErrorModalState() {
+        this.setState(state => {
+            state.isErrorModalOpen = !state.isErrorModalOpen;
+        });
     }
 
     /**
@@ -94,7 +104,7 @@ export default class ComponentReview extends React.Component {
             let errorMessage = error
                 ? error
                 : 'error in example';
-            console.error(errorMessage);
+            ErrorReporter.getInstance().reportError(errorMessage);
         }
     }
 
@@ -103,16 +113,24 @@ export default class ComponentReview extends React.Component {
      * @param {object}
      * @param {string} name
      */
-    renderComponentMetadata({description, module}, name) {
+    renderComponentMetadata({description, module}, name, showErrorIndicator) {
+        const errorIndicator = showErrorIndicator ? 
+        <Tooltip tooltip="Errors found!"
+                 trigger="click"
+                 initiallyOpen={true}>
+            <div className="bibliotheca-error-indicator" onClick={() => this.errorModal.toggleOpenState()}/> 
+        </Tooltip> : null;
+
         return (
             <div>
-                <h10 className="bibliotheca-component-module">
+                <h10 className="bibliotheca-component-section">
                     {module && module[0].name}
                 </h10>
                 <h1 className="bibliotheca-component-name">
                     {!!name && name}
                     {!name && 'Welcome to Bibliotheca!'}
                 </h1>
+                {errorIndicator}
                 <h3 className="bibliotheca-component-description">
                     {_.pluck(description, "description").join(". ")}
                     {!name && 'please select a component to view'}
@@ -186,9 +204,16 @@ export default class ComponentReview extends React.Component {
         const componentDoc = this.props.documentations[this.props.componentName] || {};
         const ComponentNode = this.props.components[this.props.componentName] || null;
         const componentContent = ComponentNode ? <ComponentNode {...this.state.componentProps}/> : null;
+
         return (
             <div className="bibliotheca-component-review">
-                {this.renderComponentMetadata(componentDoc, this.props.componentName)}
+                <Modal title="Errors" ref={modal => this.errorModal = modal}>
+                    {ErrorReporter.getInstance().errorList.map(currMsg => 
+                    <div className="error-message">
+                        {currMsg}
+                    </div>)}
+                </Modal>
+                {this.renderComponentMetadata(componentDoc, this.props.componentName, ErrorReporter.getInstance().errorList.length > 0)}
                 <Separator/> {this.renderComponentContent(componentContent)}
                 <Separator/> {this.renderComponentParams(componentDoc, this.props.componentName)}
                 <Separator/> {this.renderComponentExamples(componentDoc)}

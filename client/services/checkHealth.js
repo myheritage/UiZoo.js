@@ -1,4 +1,5 @@
 import _ from 'underscore';
+import ErrorReporter from "./errorReporter";
 
 /**
  * Go through the dependencies and advise the user on problems
@@ -8,6 +9,7 @@ import _ from 'underscore';
 export function checkDependencies (bibliothecaDocumentation, bibliothecaComponents) {
     checkDocumentation(bibliothecaDocumentation);
     checkComponents(bibliothecaComponents);
+    checkComponentDocumentationMatch(bibliothecaComponents, bibliothecaDocumentation);
 }
 
 /**
@@ -46,6 +48,21 @@ function checkComponents(bibliothecaComponents) {
     });
 }
 
+function checkComponentDocumentationMatch(bibliothecaComponents, bibliothecaDocumentation) {
+    let componentKeys = _.keys(bibliothecaComponents);
+    let documentationKeys = _.keys(bibliothecaDocumentation);
+
+    if (componentKeys.length !== documentationKeys.length) {
+        throwError(`The number of components doesn't match the number of documetnations, components: ${componentKeys.length}, documentations: ${documentationKeys.legth}`);
+    }
+
+    let unmatchedKeys = _.difference(componentKeys, documentationKeys).concat(_.difference(documentationKeys, componentKeys));
+
+    if (unmatchedKeys.length > 0) {
+        throwError(`There are unmatched documentations with components, the unmatched names are:`, unmatchedKeys);
+    }
+}
+
 /**
  * @param {Object} shouldBeObj 
  * @param {String} objNameInError 
@@ -60,5 +77,5 @@ function checkIfObject(shouldBeObj, objNameInError) {
  * Log error to console
  */
 function throwError() {
-    console.error(...arguments);
+    ErrorReporter.getInstance().reportError(...arguments);
 }

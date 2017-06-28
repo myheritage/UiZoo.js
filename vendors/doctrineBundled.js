@@ -663,7 +663,7 @@ exports.deprecate = function(fn, msg) {
       } else if (process.traceDeprecation) {
         console.trace(msg);
       } else {
-        console.error(msg);
+        ErrorReporter.getInstance().reportError(msg);
       }
       warned = true;
     }
@@ -685,7 +685,7 @@ exports.debuglog = function(set) {
       var pid = process.pid;
       debugs[set] = function() {
         var msg = exports.format.apply(exports, arguments);
-        console.error('%s %d: %s', set, pid, msg);
+        ErrorReporter.getInstance().reportError('%s %d: %s', set, pid, msg);
       };
     } else {
       debugs[set] = function() {};

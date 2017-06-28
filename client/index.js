@@ -10,6 +10,7 @@ import { createCompiler } from './services/compileWithContext';
 import { parseDocumentation } from './services/parseDocumentation';
 import App from './Components/App';
 import mapComponentsByModule from "./services/componentByModuleMapper";
+import ErrorReporter from "./services/errorReporter";
 
 const defaultRoot = document.getElementById('bibliotheca_root');
 
@@ -22,12 +23,14 @@ const defaultRoot = document.getElementById('bibliotheca_root');
 function init(
     bibliothecaDocumentation = libraryDocs,
     bibliothecaComponents = libraryData,
-    rootElement = defaultRoot
-) {
+    rootElement = defaultRoot) {
     checkDependencies(bibliothecaDocumentation, bibliothecaComponents);
+
+    console.log(ErrorReporter.getInstance().getErrors())
+    
     const compiler = createCompiler(bibliothecaComponents); // JSX compiler
     const documentations = parseDocumentation(bibliothecaDocumentation);
-    let componentsByModule = mapComponentsByModule(bibliothecaComponents, documentations);
+    const componentsByModule = mapComponentsByModule(bibliothecaComponents, documentations);
 
     ReactDOM.render(
         <BrowserRouter basename="/">

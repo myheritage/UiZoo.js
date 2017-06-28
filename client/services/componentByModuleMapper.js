@@ -8,10 +8,12 @@ import { NON_MODULE_NAME } from "../constants/modules";
  */
 export default function mapComponentsByModule(components, documentations) {
     let componentsByModule = {};
-
+    
     _.each(components, (componentData, componentName) => {
-        let moduleName = (documentations[componentName].module && documentations[componentName].module[0].name) || NON_MODULE_NAME;
-        componentsByModule[moduleName] = [].concat(componentsByModule[moduleName], componentData);
+        if (documentations[componentName]) {
+            let moduleName = (documentations[componentName].module && documentations[componentName].module[0].name) || NON_MODULE_NAME;
+            componentsByModule[moduleName] = [].concat(componentsByModule[moduleName], componentData);
+        }
     });
 
     return componentsByModule;
