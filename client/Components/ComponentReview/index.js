@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'underscore';
 import jsxToString from '../../services/jsx-to-string';
 import Card from '../BibliothecaUI/Card';
-import {previewFrameStyle} from './previewFrameStyle';
+import { previewFrameStyle } from './previewFrameStyle';
 import Separator from '../BibliothecaUI/Separator';
 import CodeCard from '../BibliothecaUI/CodeCard';
 import ComponentParams from '../ComponentParams';
@@ -26,6 +26,7 @@ export default class ComponentReview extends React.Component {
         this.updateParam = this.updateParam.bind(this);
         this.updateExample = this.updateExample.bind(this);
         this.toggleErrorModalState = this.toggleErrorModalState.bind(this);
+        this.setModalRef = this.setModalRef.bind(this);
     }
 
     /**
@@ -62,14 +63,14 @@ export default class ComponentReview extends React.Component {
     componentWillReceiveProps(nextProps) {
         if (this.props.componentName !== nextProps.componentName) {
             const componentDoc = nextProps.documentations[nextProps.componentName] || {};
-            if(!this.setDefaultExample(componentDoc)) {
+            if (!this.setDefaultExample(componentDoc)) {
                 this.setState({
                     componentProps: {}
                 });
             }
         }
     }
-    
+
     /**
      * Update when one of the params has changed
      * @param {event} e
@@ -77,10 +78,10 @@ export default class ComponentReview extends React.Component {
      * @param {any} value
      */
     updateParam(e, paramName, value) {
-        let componentProps = _.extend({}, this.state.componentProps, {[paramName]: value});
+        let componentProps = _.extend({}, this.state.componentProps, { [paramName]: value });
         // clean undefined values
         _.keys(componentProps).forEach(key => typeof componentProps[key] === 'undefined' && delete componentProps[key]);
-        this.setState({componentProps});
+        this.setState({ componentProps });
     }
 
     /**
@@ -92,7 +93,7 @@ export default class ComponentReview extends React.Component {
             CompiledNode = null;
         try {
             CompiledNode = this.props.compiler(example);
-        } catch(e) {
+        } catch (e) {
             error = e;
         }
         // TODO: add name CompiledNode.type.name === this.props.documentation.name
@@ -104,8 +105,22 @@ export default class ComponentReview extends React.Component {
             let errorMessage = error
                 ? error
                 : 'error in example';
-            ErrorReporter.getInstance().reportError(errorMessage);
+            ErrorReporter.reportError(errorMessage);
         }
+    }
+
+    renderErrorIndicator() {
+        return (
+            <Tooltip tooltip="Errors found!"
+                trigger="click"
+                initiallyOpen={true}>
+                <div className="bibliotheca-error-indicator" onClick={() => this.errorModal.toggleOpenState()} />
+            </Tooltip>
+        );
+    }
+
+    setModalRef(modalRef) {
+        this.errorModal = modalRef;
     }
 
     /**
@@ -113,13 +128,8 @@ export default class ComponentReview extends React.Component {
      * @param {object}
      * @param {string} name
      */
-    renderComponentMetadata({description, module}, name, showErrorIndicator) {
-        const errorIndicator = showErrorIndicator ? 
-        <Tooltip tooltip="Errors found!"
-                 trigger="click"
-                 initiallyOpen={true}>
-            <div className="bibliotheca-error-indicator" onClick={() => this.errorModal.toggleOpenState()}/> 
-        </Tooltip> : null;
+    renderComponentMetadata({ description, module }, name, showErrorIndicator) {
+        const errorIndicator = showErrorIndicator ? this.renderErrorIndicator() : null;
 
         return (
             <div>
@@ -157,7 +167,7 @@ export default class ComponentReview extends React.Component {
      * Possible params of the component on review
      * @param {object}
      */
-    renderComponentParams({param: params = [], property: properties = []}, name) {
+    renderComponentParams({ param: params = [], property: properties = [] }, name) {
         params = [].concat(params, properties);
         params.forEach(param => {
             param.value = this.state.componentProps[param.name];
@@ -165,7 +175,7 @@ export default class ComponentReview extends React.Component {
         return (
             <div className="bibliotheca-component-params-section">
                 <p className="bibliotheca-section-header">Params:</p>
-                <ComponentParams componentName={name} params={params} onChange={this.updateParam}/>
+                <ComponentParams componentName={name} params={params} onChange={this.updateParam} />
             </div>
         );
     }
@@ -174,11 +184,11 @@ export default class ComponentReview extends React.Component {
      * Possible examples of the component on review
      * @param {object}
      */
-    renderComponentExamples({example = []}) {
+    renderComponentExamples({ example = [] }) {
         return (
             <div className="bibliotheca-component-examples-section">
                 <p className="bibliotheca-section-header">Examples:</p>
-                <ComponentExamples examples={example} onChange={this.updateExample}/>
+                <ComponentExamples examples={example} onChange={this.updateExample} />
             </div>
         );
     }
@@ -200,26 +210,37 @@ export default class ComponentReview extends React.Component {
     }
 
     /**
+     * Renders the error modal
+     */
+    renderErrorModal() {
+        return (
+            <Modal title="Errors" ref={this.setModalRef}>
+                <ul>
+                    {ErrorReporter.getErrors().map(currMsg =>
+                        <li className="error-message">
+                            {currMsg}
+                        </li>)}
+                </ul>
+            </Modal>
+        );
+    }
+
+    /**
      * Render the component by the provided documentation
      */
     render() {
         const componentDoc = this.props.documentations[this.props.componentName] || {};
         const ComponentNode = this.props.components[this.props.componentName] || null;
-        const componentContent = ComponentNode ? <ComponentNode {...this.state.componentProps}/> : null;
+        const componentContent = ComponentNode ? <ComponentNode {...this.state.componentProps} /> : null;
 
         return (
             <div className="bibliotheca-component-review">
-                <Modal title="Errors" ref={modal => this.errorModal = modal}>
-                    {ErrorReporter.getInstance().errorList.map(currMsg => 
-                    <div className="error-message">
-                        {currMsg}
-                    </div>)}
-                </Modal>
-                {this.renderComponentMetadata(componentDoc, this.props.componentName, ErrorReporter.getInstance().errorList.length > 0)}
-                <Separator/> {this.renderComponentContent(componentContent)}
-                <Separator/> {this.renderComponentParams(componentDoc, this.props.componentName)}
-                <Separator/> {this.renderComponentExamples(componentDoc)}
-                <Separator/> {this.renderComponentSourceCode(componentContent)}
+                {this.renderErrorModal()}
+                {this.renderComponentMetadata(componentDoc, this.props.componentName, ErrorReporter.getErrors().length > 0)}
+                <Separator /> {this.renderComponentContent(componentContent)}
+                <Separator /> {this.renderComponentParams(componentDoc, this.props.componentName)}
+                <Separator /> {this.renderComponentExamples(componentDoc)}
+                <Separator /> {this.renderComponentSourceCode(componentContent)}
             </div>
         );
     }

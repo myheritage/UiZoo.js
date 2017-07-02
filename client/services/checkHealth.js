@@ -77,5 +77,5 @@ function checkIfObject(shouldBeObj, objNameInError) {
  * Log error to console
  */
 function throwError() {
-    ErrorReporter.getInstance().reportError(...arguments);
+    ErrorReporter.reportError(...arguments);
 }

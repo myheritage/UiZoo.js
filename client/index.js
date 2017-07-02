@@ -23,17 +23,11 @@ const defaultRoot = document.getElementById('bibliotheca_root');
 function init(
     bibliothecaDocumentation = libraryDocs,
     bibliothecaComponents = libraryData,
-<<<<<<< HEAD
-    rootElement = defaultRoot) {
-=======
     rootElement = defaultRoot,
     baseRoute = '/',
 ) {
->>>>>>> 56d57eda9e76a44da3c47f3687e3a0411fb8ffaa
     checkDependencies(bibliothecaDocumentation, bibliothecaComponents);
 
-    console.log(ErrorReporter.getInstance().getErrors())
-    
     const compiler = createCompiler(bibliothecaComponents); // JSX compiler
     const documentations = parseDocumentation(bibliothecaDocumentation);
     const componentsByModule = mapComponentsByModule(bibliothecaComponents, documentations);
@@ -45,7 +39,7 @@ function init(
                     components={bibliothecaComponents}
                     componentsByModule={componentsByModule}
                     documentations={documentations}
-                    compiler={compiler} 
+                    compiler={compiler}
                     baseRoute={baseRoute} />
             )} />
         </BrowserRouter>,

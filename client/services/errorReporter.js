@@ -1,4 +1,4 @@
-let instance = null;
+let _instance = null;
 
 /**
  * Error reporter for bibliotecha
@@ -8,29 +8,28 @@ export default class ErrorReporter {
         this.errorList = [];
     }
 
-   static getInstance() {
-        if (!instance) {
-            instance = new ErrorReporter();
+    static get instance() {
+        if (!_instance) {
+            _instance = new ErrorReporter();
         }
 
-        return instance;
+        return _instance;
     }
 
     /**
      * Report error
      * @param {string} message 
      */
-    reportError(message, args) {
+    static reportError(message, args) {
         console.error(message, args);
-        this.errorList.push(`${message} ${args}`);
+        this.instance.errorList.push(`${message} ${args}`);
     }
 
     /**
      * Get bibliotheca errors
-     * @param {*} errorList 
      */
-    getErrors(errorList) {
-        return this.errorList;
+    static getErrors() {
+        return this.instance.errorList;
     }
 }
 
