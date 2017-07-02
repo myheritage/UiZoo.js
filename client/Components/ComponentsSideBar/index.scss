@@ -35,7 +35,6 @@
         word-break: break-word;
         word-wrap: break-word;
         overflow: auto;
-        overflow: overlay;
         max-height: calc(100% - 195px);
         margin: 0 (-$sides-padding);
         padding: 0 $sides-padding 30px;
@@ -49,23 +48,29 @@
                 border-bottom: 1px solid rgba(0,0,0,0.3);
             }
 
+            .bibliotheca-collapsible-title {
+                padding: 15px 12px 15px 0;
+                font-weight: 500;
+                transition: opacity 0.3s ease, padding 0.3s 0.01s ease;
+                &:focus {
+                    opacity: 0.7;
+                }
+            }
+
             &.bibliotheca-collapsible-open { 
                 border-bottom-color: rgba(0,0,0,0);
                 .bibliotheca-collapsible-title {
                     padding-bottom: 0;
                     transition: opacity 0.3s ease, padding 0.3s 0.1s ease;
                     opacity: 0.7;
+                    &:focus {
+                        opacity: 1;
+                    }
 
                     &:after {
                         margin-top: 13px;
                     }
                 }
-            }
-
-            .bibliotheca-collapsible-title {
-                padding: 15px 12px 15px 0;
-                font-weight: 500;
-                transition: opacity 0.3s ease, padding 0.3s 0.01s ease;
             }
 
             .bibliotheca-collapsible-content {

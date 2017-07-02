@@ -10,7 +10,7 @@ describe("component review", () => {
         expect(browser.$(".bibliotheca-component-description").getText()).toContain("Tooltip to be shown on");
     });
 
-    it("should prefill the params from the example values", () => {
+    it("should pre-fill the params from the example values", () => {
         expect(browser.$("[data-param=tooltip] > :nth-child(2)").getText()).toEqual("tooltip inner text!");
         expect(browser.$("[data-param=children] > :nth-child(2)").getText()).toEqual("Click me to open the tooltip!");
     });

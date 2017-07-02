@@ -132,8 +132,10 @@ export default class ComponentReview extends React.Component {
                 </h1>
                 {errorIndicator}
                 <h3 className="bibliotheca-component-description">
-                    {_.pluck(description, "description").join(". ")}
-                    {!name && 'please select a component to view'}
+                    <pre>
+                        {_.pluck(description, "description").join(". ")}
+                        {!name && 'please select a component to view'}
+                    </pre>
                 </h3>
             </div>
         );

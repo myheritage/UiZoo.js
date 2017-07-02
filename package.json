@@ -1,13 +1,15 @@
 {
   "name": "bibliotheca",
-  "version": "0.0.2",
+  "version": "1.0.6",
   "description": "React Component Library",
   "scripts": {
     "start": "npm run gulp:w",
-    "build": "rollup -c rollup-build.config.js -o dist/index.js -f iife -n Bibliotheca -g underscore:_,react:React,react-dom:ReactDOM,react-router-dom:ReactRouterDOM,doctrine:doctrine,babel-standalone:Babel",
+    "build": "rollup -c rollup-build.config.js -o dist/index.js -f iife -n Bibliotheca -g underscore:_,react:React,react-dom:ReactDOM,react-router-dom:ReactRouterDOM,doctrine-standalone:doctrine,babel-standalone:Babel && rollup -c rollup-build.config.js -o dist/index.cjs.js -f cjs -n Bibliotheca -g underscore:_,react:React,react-dom:ReactDOM,react-router-dom:ReactRouterDOM,doctrine-standalone:doctrine,babel-standalone:Babel && rollup -c rollup-build.config.js -o dist/index.es.js -f es -n Bibliotheca -g underscore:_,react:React,react-dom:ReactDOM,react-router-dom:ReactRouterDOM,doctrine-standalone:doctrine,babel-standalone:Babel",
     "gulp:w": "gulp",
     "test": "npm start & SERVER_PID=$!; (cd tests; npm i && node run-tests.js); kill $SERVER_PID"
   },
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/myheritage/react-bibliotheca.git"
@@ -27,6 +29,7 @@
     "body-parser": "~1.15.2",
     "compression": "~1.6.2",
     "cors": "~2.8.3",
+    "doctrine-standalone": "~1.0.0",
     "express": "~4.15.2",
     "glob": "7.0.6",
     "helmet": "~3.1.0",
@@ -34,14 +37,13 @@
     "react": "~15.5.4",
     "react-dom": "~15.5.4",
     "react-router-dom": "~4.1.1",
-    "underscore": "~1.8.3",
     "rollup": "~0.36.4",
-    "rollup-plugin-alias": "~1.2.0",
     "rollup-plugin-babel": "~2.7.1",
     "rollup-plugin-commonjs": "~5.0.5",
     "rollup-plugin-node-resolve": "~2.0.0",
     "rollup-plugin-replace": "~1.1.1",
-    "rollup-plugin-scss": "~0.1.0"
+    "rollup-plugin-scss": "~0.1.0",
+    "underscore": "~1.8.3"
   },
   "engines": {
     "node": ">=6.0.0"
@@ -58,6 +60,7 @@
     "postcss": "~5.2.6",
     "postcss-cssnext": "~2.9.0",
     "postcss-discard-comments": "~2.0.4",
-    "postcss-discard-duplicates": "~2.0.2"
+    "postcss-discard-duplicates": "~2.0.2",
+    "rollup-plugin-json": "~2.3.0"
   }
 }

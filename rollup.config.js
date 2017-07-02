@@ -1,7 +1,7 @@
 'use strict';
 
 let fs = require('fs'),
-  alias = require('rollup-plugin-alias'),
+  json = require('rollup-plugin-json'),
   postcss = require('postcss'),
   babel = require('rollup-plugin-babel'),
   nodeResolve = require('rollup-plugin-node-resolve'),
@@ -28,6 +28,7 @@ function getPlugins({
       }
     })];
   const defaultPlugins = [
+    json(),
     babel({
       presets: [
         "es2015-rollup", "react"

@@ -6,6 +6,18 @@ import { NON_MODULE_NAME } from "../../constants/modules";
 
 import './index.scss';
 
+/**
+ * @name
+ * ComponentsSideBar
+ * 
+ * @description
+ * Side bar for showing all the components
+ * 
+ * @param {object} components
+ * @param {object} componentsByModule
+ * @param {string} selectedComponentName
+ * @param {function} goToUrl
+ */
 export default class ComponentsSideBar extends Component {
     constructor(props) {
         super(props);
@@ -13,11 +25,18 @@ export default class ComponentsSideBar extends Component {
         this.onSearchChange = this.onSearchChange.bind(this);
     }
 
+    /**
+     * Search value was changed, update state
+     * @param {event} e 
+     */
     onSearchChange(e) {
         const newValue = e.target.value;
         this.setState({ searchValue: newValue || '' });
     }
 
+    /**
+     * get jsx of the links in their module
+     */
     renderComponentsLinks() {
         const {
             components,
@@ -31,13 +50,13 @@ export default class ComponentsSideBar extends Component {
         // Init side bar with non module components
         componentsLinks = componentsLinks.concat(this.renderModuleLinks(componentsByModule[NON_MODULE_NAME]));
 
-        // Add module componenets
+        // Add module components
         _.keys(componentsByModule).filter(curr => curr !== NON_MODULE_NAME).forEach(moduleName => {
             let moduleLinks = this.renderModuleLinks(componentsByModule[moduleName]);
 
             if (moduleLinks.length > 0) {
                 let moduleCollapsible = (
-                    <Collapsible title={moduleName} isOpen={true}>
+                    <Collapsible title={moduleName} isOpen={true} key={`collapsible-for-module-${moduleName}`}>
                         {moduleLinks}
                     </Collapsible>
                 );
@@ -48,7 +67,7 @@ export default class ComponentsSideBar extends Component {
 
         if (componentsLinks.length === 0) {
             componentsLinks.push(
-                <div className="bibliotheca-component-no-links">
+                <div className="bibliotheca-component-no-links" key="no-links-found">
                     No matches for "{this.state.searchValue}"
                 </div>
             )
@@ -56,14 +75,36 @@ export default class ComponentsSideBar extends Component {
         return componentsLinks;
     }
 
+    /**
+     * Get the component name, compatible with ie11 that doesn't support Function.prototype.name ...
+     * @param {function} comp 
+     * @return {string}
+     */
+    getComponentName(comp) {
+        let componentName = '';
+        if (comp) {
+            if (comp.name) {
+                componentName = comp.name
+            } else if (typeof comp === 'function') { // ie11 stuff make sure it's function
+                componentName = comp.toString().match(/^function\s*([^\s(]+)/)[1];
+            }
+        }
+        return componentName;
+    }
+
+    /**
+     * @param {Array} moduleComponents 
+     */
     renderModuleLinks(moduleComponents) {
         return moduleComponents &&
         moduleComponents
-            .filter(curr => curr) // TODO:  find why we need this 
-            .filter(currModuleComponent => currModuleComponent.name.toLowerCase().indexOf(this.state.searchValue.toLowerCase()) !== -1)
-            .map(currComponent => this.renderComponentLink(currComponent.name));
+            .filter(currModuleComponent => this.getComponentName(currModuleComponent).toLowerCase().indexOf(this.state.searchValue.toLowerCase()) !== -1)
+            .map(currComponent => this.renderComponentLink(this.getComponentName(currComponent)));
     }
 
+    /**
+     * @param {string} componentName 
+     */
     renderComponentLink(componentName) {
         let {
             selectedComponentName,
@@ -84,7 +125,7 @@ export default class ComponentsSideBar extends Component {
     render() {
         return (
             <div className="bibliotheca-components-side-bar">
-                <h1 className="bibliotheca-title" onClick={() => this.props.goToUrl('/')}>
+                <h1 className="bibliotheca-title" onClick={() => this.props.goToUrl('')}>
                     Bibliotheca
                 </h1>
                 <div className="bibliotheca-icon" />
@@ -99,6 +140,6 @@ export default class ComponentsSideBar extends Component {
                     {this.renderComponentsLinks()}
                 </div>
             </div>
-        )
+        );
     }
 }

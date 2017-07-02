@@ -23,7 +23,13 @@ const defaultRoot = document.getElementById('bibliotheca_root');
 function init(
     bibliothecaDocumentation = libraryDocs,
     bibliothecaComponents = libraryData,
+<<<<<<< HEAD
     rootElement = defaultRoot) {
+=======
+    rootElement = defaultRoot,
+    baseRoute = '/',
+) {
+>>>>>>> 56d57eda9e76a44da3c47f3687e3a0411fb8ffaa
     checkDependencies(bibliothecaDocumentation, bibliothecaComponents);
 
     console.log(ErrorReporter.getInstance().getErrors())
@@ -34,12 +40,13 @@ function init(
 
     ReactDOM.render(
         <BrowserRouter basename="/">
-            <Route path="/:componentName?" render={routeProps => (
+            <Route path={`${baseRoute}:componentName?`} render={routeProps => (
                 <App {...routeProps}
                     components={bibliothecaComponents}
                     componentsByModule={componentsByModule}
                     documentations={documentations}
-                    compiler={compiler} />
+                    compiler={compiler} 
+                    baseRoute={baseRoute} />
             )} />
         </BrowserRouter>,
         rootElement

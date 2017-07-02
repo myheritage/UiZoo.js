@@ -33,7 +33,7 @@ export default class ComponentParams extends React.Component {
                 <Tooltip tooltip={paramObj.description}>
                     <p className="bibliotheca-param-name" style={paramTitleStyle}>
                         {paramObj.name}
-                        {isOptional && <span>*</span>}
+                        {!isOptional && <span>*</span>}
                     </p>
                 </Tooltip>
                 <ParamSelector
