@@ -1,15 +1,15 @@
 import React from 'react';
 import _ from 'underscore';
 import jsxToString from '../../services/jsx-to-string';
-import Card from '../BibliothecaUI/Card';
+import Card from '../UI/Card';
 import { previewFrameStyle } from './previewFrameStyle';
-import Separator from '../BibliothecaUI/Separator';
-import CodeCard from '../BibliothecaUI/CodeCard';
+import Separator from '../UI/Separator';
+import CodeCard from '../UI/CodeCard';
 import ComponentParams from '../ComponentParams';
 import ComponentExamples from '../ComponentExamples';
 import ErrorReporter from "../../services/errorReporter";
-import Modal from "../BibliothecaUI/Modal";
-import Tooltip from "../BibliothecaUI/Tooltip";
+import Modal from "../UI/Modal";
+import Tooltip from "../UI/Tooltip";
 import './index.scss';
 
 /**
@@ -114,7 +114,7 @@ export default class ComponentReview extends React.Component {
             <Tooltip tooltip="Errors found!"
                 trigger="click"
                 initiallyOpen={true}>
-                <div className="bibliotheca-error-indicator" onClick={() => this.errorModal.toggleOpenState()} />
+                <div className="library-_-error-indicator" onClick={() => this.errorModal.toggleOpenState()} />
             </Tooltip>
         );
     }
@@ -133,15 +133,15 @@ export default class ComponentReview extends React.Component {
 
         return (
             <div>
-                <h10 className="bibliotheca-component-section">
+                <h10 className="library-_-component-section">
                     {module && module[0].name}
                 </h10>
-                <h1 className="bibliotheca-component-name">
+                <h1 className="library-_-component-name">
                     {!!name && name}
-                    {!name && 'Welcome to Bibliotheca!'}
+                    {!name && 'Welcome to UiZoo.js!'}
                 </h1>
                 {errorIndicator}
-                <h3 className="bibliotheca-component-description">
+                <h3 className="library-_-component-description">
                     <pre>
                         {_.pluck(description, "description").join(". ")}
                         {!name && 'please select a component to view'}
@@ -157,7 +157,7 @@ export default class ComponentReview extends React.Component {
      */
     renderComponentContent(componentContent) {
         return (
-            <Card className="bibliotheca-component-content">
+            <Card className="library-_-component-content">
                 {componentContent}
             </Card>
         );
@@ -173,8 +173,8 @@ export default class ComponentReview extends React.Component {
             param.value = this.state.componentProps[param.name];
         });
         return (
-            <div className="bibliotheca-component-params-section">
-                <p className="bibliotheca-section-header">Params:</p>
+            <div className="library-_-component-params-section">
+                <p className="library-_-section-header">Params:</p>
                 <ComponentParams componentName={name} params={params} onChange={this.updateParam} />
             </div>
         );
@@ -186,8 +186,8 @@ export default class ComponentReview extends React.Component {
      */
     renderComponentExamples({ example = [] }) {
         return (
-            <div className="bibliotheca-component-examples-section">
-                <p className="bibliotheca-section-header">Examples:</p>
+            <div className="library-_-component-examples-section">
+                <p className="library-_-section-header">Examples:</p>
                 <ComponentExamples examples={example} onChange={this.updateExample} />
             </div>
         );
@@ -200,8 +200,8 @@ export default class ComponentReview extends React.Component {
     renderComponentSourceCode(componentContent) {
         const componentSourceCode = !!componentContent ? jsxToString(componentContent) : null;
         return (
-            <div className="bibliotheca-component-source-code">
-                <p className="bibliotheca-section-header">Source code:</p>
+            <div className="library-_-component-source-code">
+                <p className="library-_-section-header">Source code:</p>
                 <CodeCard>
                     {componentSourceCode}
                 </CodeCard>
@@ -234,7 +234,7 @@ export default class ComponentReview extends React.Component {
         const componentContent = ComponentNode ? <ComponentNode {...this.state.componentProps} /> : null;
 
         return (
-            <div className="bibliotheca-component-review">
+            <div className="library-_-component-review">
                 {this.renderErrorModal()}
                 {this.renderComponentMetadata(componentDoc, this.props.componentName, ErrorReporter.getErrors().length > 0)}
                 <Separator /> {this.renderComponentContent(componentContent)}

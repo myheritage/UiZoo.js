@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'underscore';
 
-import TextField from '../../../BibliothecaUI/TextField';
+import TextField from '../../../UI/TextField';
 import tryToParseJson from './tryToParseJson';
 
 /**
@@ -91,7 +91,7 @@ export default class ParamSelectorJSON extends React.Component {
      */
     render() {
         return (
-            <div className="bibliotheca-json-selector-wrapper">
+            <div className="library-_-json-selector-wrapper">
                 <TextField
                     value={this.state.value}
                     onChange={this.onChange}

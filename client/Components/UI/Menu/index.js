@@ -69,7 +69,7 @@ export default class Menu extends Component {
      * @returns {string}
      */
     getItemClassName(val) {
-        return `bibliotheca-menu-item-wrapped${val === this.state.selectedValue ? ' selected' : ''}`;
+        return `library-_-menu-item-wrapped${val === this.state.selectedValue ? ' selected' : ''}`;
     }
 
     render () {
@@ -83,7 +83,7 @@ export default class Menu extends Component {
         ));
 
         return (
-            <div className="bibliotheca-menu-wrapper">
+            <div className="library-_-menu-wrapper">
                 {items}
             </div>
         );

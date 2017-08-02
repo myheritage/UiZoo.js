@@ -3,13 +3,13 @@ import ErrorReporter from "./errorReporter";
 
 /**
  * Go through the dependencies and advise the user on problems
- * @param {Object} bibliothecaDocumentation 
- * @param {Object} bibliothecaComponents 
+ * @param {Object} documentation 
+ * @param {Object} components 
  */
-export function checkDependencies (bibliothecaDocumentation, bibliothecaComponents) {
-    checkDocumentation(bibliothecaDocumentation);
-    checkComponents(bibliothecaComponents);
-    checkComponentDocumentationMatch(bibliothecaComponents, bibliothecaDocumentation);
+export function checkDependencies (documentation, components) {
+    checkDocumentation(documentation);
+    checkComponents(components);
+    checkComponentDocumentationMatch(components, documentation);
 }
 
 /**
@@ -18,14 +18,14 @@ export function checkDependencies (bibliothecaDocumentation, bibliothecaComponen
  *  Card: '/** @name Card @example <Card></Card> @param {String} className* /',
  *  TextField: '/** @name TextField @example <TextField></TextField> @param {String} className* /'
  * }
- * @param {any} bibliothecaDocumentation 
+ * @param {any} documentation 
  */
-function checkDocumentation(bibliothecaDocumentation) {
+function checkDocumentation(documentation) {
     const objNameInError = 'Documentation object: ';
-    checkIfObject(bibliothecaDocumentation, objNameInError);
-    _.keys(bibliothecaDocumentation).forEach(key => {
-        if (typeof bibliothecaDocumentation[key] !== 'string') {
-            throwError(`${objNameInError} for Component name: ${key} documentation must be a valid jsdoc string. Got:`, bibliothecaDocumentation[key]);
+    checkIfObject(documentation, objNameInError);
+    _.keys(documentation).forEach(key => {
+        if (typeof documentation[key] !== 'string') {
+            throwError(`${objNameInError} for Component name: ${key} documentation must be a valid jsdoc string. Got:`, documentation[key]);
         }
     });
 }
@@ -36,24 +36,24 @@ function checkDocumentation(bibliothecaDocumentation) {
  *  Card: function Card(_ref){...},
  *  TextField: function TextField(_ref){...},
  * }
- * @param {any} bibliothecaComponents 
+ * @param {any} components 
  */
-function checkComponents(bibliothecaComponents) {
+function checkComponents(components) {
     const objNameInError = 'Components object: ';
-    checkIfObject(bibliothecaComponents, objNameInError);
-    _.keys(bibliothecaComponents).forEach(key => {
-        if (typeof bibliothecaComponents[key] !== 'function') {
-            throwError(`${objNameInError} for Component name: ${key} component must be a valid React component. Got:`, bibliothecaComponents[key]);
+    checkIfObject(components, objNameInError);
+    _.keys(components).forEach(key => {
+        if (typeof components[key] !== 'function') {
+            throwError(`${objNameInError} for Component name: ${key} component must be a valid React component. Got:`, components[key]);
         }
     });
 }
 
-function checkComponentDocumentationMatch(bibliothecaComponents, bibliothecaDocumentation) {
-    let componentKeys = _.keys(bibliothecaComponents);
-    let documentationKeys = _.keys(bibliothecaDocumentation);
+function checkComponentDocumentationMatch(components, documentation) {
+    let componentKeys = _.keys(components);
+    let documentationKeys = _.keys(documentation);
 
     if (componentKeys.length !== documentationKeys.length) {
-        throwError(`The number of components doesn't match the number of documetnations, components: ${componentKeys.length}, documentations: ${documentationKeys.legth}`);
+        throwError(`The number of components doesn't match the number of documentations, components: ${componentKeys.length}, documentations: ${documentationKeys.length}`);
     }
 
     let unmatchedKeys = _.difference(componentKeys, documentationKeys).concat(_.difference(documentationKeys, componentKeys));

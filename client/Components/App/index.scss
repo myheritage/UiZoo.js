@@ -1,6 +1,6 @@
-.bibliotheca-app {
+.library-_-app {
     $side-bar-width: 210px;
-    .bibliotheca-side-bar {
+    .library-_-side-bar {
         width: $side-bar-width;
         position: fixed;
         left: 0;
@@ -10,11 +10,11 @@
         transition: all 0.3s ease;
         transform: translateX(-100%);
     }
-    .bibliotheca-review {
+    .library-_-review {
         width: 100%;
         transition: all 0.3s ease;
     }
-    .bibliotheca-toggle-side-bar {
+    .library-_-toggle-side-bar {
         border: 0;
         outline: 0;
         cursor: pointer;
@@ -50,14 +50,14 @@
         }
     }
     &.show-side-bar {
-        .bibliotheca-side-bar {
+        .library-_-side-bar {
             transform: translateX(0);
         }
-        .bibliotheca-review {
+        .library-_-review {
             width: calc(100% - #{$side-bar-width});
             margin-left: $side-bar-width;
         }
-        .bibliotheca-toggle-side-bar {
+        .library-_-toggle-side-bar {
             position: fixed;
             &:before,
             &:after {

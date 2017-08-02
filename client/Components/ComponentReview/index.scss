@@ -1,21 +1,21 @@
-.bibliotheca-component-review {
+.library-_-component-review {
     padding: 20px;
-    p.bibliotheca-section-header {
+    p.library-_-section-header {
         margin: 0 0 15px;
         font-size: 15px;
         font-weight: 400;
     }
-    .bibliotheca-component-section {
+    .library-_-component-section {
         color: #a7a7a7;
         margin: 0;
         display: block;
     }
 
-    .bibliotheca-component-name {
+    .library-_-component-name {
         display: inline-block;
     }
 
-    .bibliotheca-error-indicator{
+    .library-_-error-indicator{
         display: inline-block;
 
         width: 20px;
@@ -28,8 +28,8 @@
         cursor: pointer;
     }
 
-    .bibliotheca-component-name,
-    .bibliotheca-component-description {
+    .library-_-component-name,
+    .library-_-component-description {
         margin: 10px 0;
         font-weight: 400;
         white-space: normal;
@@ -40,12 +40,12 @@
             font-family: Helvetica, sans-serif;
         }
     }
-    .bibliotheca-component-content {
+    .library-_-component-content {
         min-height: 150px;
         padding: 15px 10px;
         position: relative;
     }
-    .bibliotheca-component-module {
+    .library-_-component-module {
         color: #a7a7a7;
         font-weight: 300;
     }

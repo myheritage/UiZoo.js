@@ -62,7 +62,7 @@ export default class Tooltip extends Component {
      */
     updateTooltipLocation() {
         // tooltip body exist in the DOM only after the tooltip is being opened
-        let tooltipBody = this.tooltipElement ? this.tooltipElement.querySelector('.bibliotheca-tooltip-body') : null;
+        let tooltipBody = this.tooltipElement ? this.tooltipElement.querySelector('.library-_-tooltip-body') : null;
         if (tooltipBody) {
             const preferredSide = this.props.side || SIDE_TOP;
             const preferredAlignment = this.props.alignment || ALIGNMENT_START;

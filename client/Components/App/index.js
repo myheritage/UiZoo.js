@@ -6,7 +6,7 @@ import './index.scss';
 
 /**
  * @class App
- * Main component of the Bibliotheca
+ * Main component
  */
 export default class App extends React.Component {
     constructor(props) {
@@ -21,18 +21,18 @@ export default class App extends React.Component {
         const showSideBarClassName = this.state.showSideBar ? ' show-side-bar' : '';
         
         return (
-            <div className={`bibliotheca-app${showSideBarClassName}`}>
+            <div className={`library-_-app${showSideBarClassName}`}>
                 <button
-                    className="bibliotheca-toggle-side-bar"
+                    className="library-_-toggle-side-bar"
                     onClick={() => this.setState({showSideBar: !this.state.showSideBar})}/>
-                <div className="bibliotheca-side-bar">
+                <div className="library-_-side-bar">
                     <ComponentsSideBar
                         components={components}
                         componentsByModule={componentsByModule}
                         selectedComponentName={componentName}
                         goToUrl={(url) => this.props.history.push(`${baseRoute}${url}`)} />
                 </div>
-                <div className="bibliotheca-review">
+                <div className="library-_-review">
                     <ComponentReview
                         components={components}
                         documentations={documentations}

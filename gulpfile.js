@@ -44,7 +44,7 @@ function bundleClient() {
                     'doctrine-standalone': 'doctrine',
 					'babel-standalone': 'Babel',
 				},
-				moduleName: 'Bibliotheca',
+				moduleName: 'UiZoo',
 			});
 		})
 		.catch(err => {
@@ -80,7 +80,7 @@ function handleError(error) {
 
 function updateDocumentation() {
 	try {
-		execSync(`node documentationMapper.js "./client/Components/BibliothecaUI/*/index.js" "./client/Components/BibliothecaUI/(.+)/index.js" "./client/documentation.js"`);
+		execSync(`node documentationMapper.js "./client/Components/UI/*/index.js" "./client/Components/UI/(.+)/index.js" "./client/documentation.js"`);
 	}
 	catch (err) {
 		console.error(err.message);
