@@ -18,7 +18,7 @@ This tool can be used for developing, for Product Managers to know what is possi
 ![React Bibliotheca 3](https://media.giphy.com/media/MqhUcIhANah9e/giphy.gif)
 
 ## How To Bibliotheca?
-Either git clone by:
+Git clone by:
 ```
 git clone git@github.com:myheritage/react-bibliotheca.git
 ```
@@ -31,16 +31,7 @@ This will start a server on http://localhost:5000 with the Bibliotheca
 you can change the [components file](https://github.com/myheritage/react-bibliotheca/blob/master/client/components.js) and the [documentation file](https://github.com/myheritage/react-bibliotheca/blob/master/client/documentation.js) to start rapidly.
 We recommend updating those files by a script automatically when files are changing (we plan to create plugins to help with this in the next future).
 
-**or** npm install by:
-```
-npm i -S bibliotheca
-```
-then in your code, add:
-```
-import 'bibliotheca/dist/index.css';
-import Bibliotheca from 'bibliotheca';
-Bibliotheca.init(documentation, components, rootElement);
-```
+*NPM module will be added soon*
 
 ### init
 ```
