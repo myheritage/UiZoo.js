@@ -30,7 +30,7 @@ gulp.task("watch", () => {
 });
 
 function bundleClient() {
-	// updateDocumentation();
+	updateDocumentation();
 	return rollup.rollup(getRollupConfig({external: ['underscore', 'react', 'react-dom', 'react-router-dom', 'doctrine-standalone', 'babel-standalone']}))
 		.then(bundle => {
 			bundle.write({
