@@ -23,7 +23,7 @@ import './index.scss';
 export default class MenuItem extends Component {
     render() {
         return (
-            <div className="bibliotheca-menu-item" style={this.props.style}>
+            <div className="library-_-menu-item" style={this.props.style}>
                 {this.props.children}
             </div>
         );

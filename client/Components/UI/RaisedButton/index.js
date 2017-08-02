@@ -23,7 +23,7 @@ export default class RaisedButton extends Component {
   render() {
     const {children, onClick} = this.props;
     return (
-      <div className="bibliotheca-raised-button">
+      <div className="library-_-raised-button">
         <button 
           tabIndex="1"
           onClick={e => onClick && onClick(e)}>

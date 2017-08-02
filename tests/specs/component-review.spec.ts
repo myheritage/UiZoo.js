@@ -7,7 +7,7 @@ describe("component review", () => {
     });
 
     it("should show the component description from the jsdoc", () => {
-        expect(browser.$(".bibliotheca-component-description").getText()).toContain("Tooltip to be shown on");
+        expect(browser.$(".library-_-component-description").getText()).toContain("Tooltip to be shown on");
     });
 
     it("should pre-fill the params from the example values", () => {
@@ -16,13 +16,13 @@ describe("component review", () => {
     });
     
     it("should copy values from the example when clicking on the try-it", () => {
-        browser.$(".bibliotheca-component-example:nth-child(2) button").click();
+        browser.$(".library-_-component-example:nth-child(2) button").click();
         expect(browser.$("[data-param=side] .selected").getText()).toEqual("bottom");
     });
 
     it("should modify the source code to be the same as the chosen params", () => {
         browser.$("[data-param=side] button:nth-child(2)").click();
-        expect(browser.$(".bibliotheca-component-source-code pre").getText()).toContain("side='top'");
+        expect(browser.$(".library-_-component-source-code pre").getText()).toContain("side='top'");
     });
 
     describe("component content", () => {
@@ -31,9 +31,9 @@ describe("component review", () => {
             input.clear();
             input.sendKeys("Value");
 
-            browser.$(".bibliotheca-component-content .bibliotheca-tooltip-wrapper").click();
+            browser.$(".library-_-component-content .library-_-tooltip-wrapper").click();
             // the input has debounce so we have to wait for the text to appear on the tooltip
-            browser.wait(browser.ExpectedConditions.textToBePresentInElement(browser.$(".bibliotheca-component-content .bibliotheca-tooltip-body"), "Value"), WAIT_TIME);
+            browser.wait(browser.ExpectedConditions.textToBePresentInElement(browser.$(".library-_-component-content .library-_-tooltip-body"), "Value"), WAIT_TIME);
         });
 
         it("should take an array from params and show it on the example", () => {
@@ -41,9 +41,9 @@ describe("component review", () => {
             input.clear();
             input.sendKeys("[1, 2]");
 
-            browser.$(".bibliotheca-component-content .bibliotheca-tooltip-wrapper").click();
+            browser.$(".library-_-component-content .library-_-tooltip-wrapper").click();
             // the input has debounce so we have to wait for the text to appear on the tooltip
-            browser.wait(browser.ExpectedConditions.textToBePresentInElement(browser.$(".bibliotheca-component-content .bibliotheca-tooltip-body"), "12"), WAIT_TIME);
+            browser.wait(browser.ExpectedConditions.textToBePresentInElement(browser.$(".library-_-component-content .library-_-tooltip-body"), "12"), WAIT_TIME);
         });
 
         // it("should take an object from params and show it", () => {
@@ -53,9 +53,9 @@ describe("component review", () => {
         it("should switch when there's a menu params and show the chosen menu item", () => {
             // change click to hover
             browser.$("[data-param=trigger] button:nth-child(3)").click();
-            browser.actions().mouseMove(browser.$(".bibliotheca-component-content .bibliotheca-tooltip-wrapper")).perform();
+            browser.actions().mouseMove(browser.$(".library-_-component-content .library-_-tooltip-wrapper")).perform();
 
-            expect(browser.$(".bibliotheca-component-content .bibliotheca-tooltip-body").getText()).toEqual("tooltip inner text!");
+            expect(browser.$(".library-_-component-content .library-_-tooltip-body").getText()).toEqual("tooltip inner text!");
         });
 
         it("should allow passing function as param", () => {
@@ -64,7 +64,7 @@ describe("component review", () => {
             children.clear();
             children.sendKeys("Children");
 
-            let $element = browser.$(".bibliotheca-component-content .bibliotheca-tooltip-wrapper");
+            let $element = browser.$(".library-_-component-content .library-_-tooltip-wrapper");
             browser.wait(browser.ExpectedConditions.textToBePresentInElement($element, "Children"), WAIT_TIME);
             // after we know the children has switched, we know the function input also has
             $element.click();

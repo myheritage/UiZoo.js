@@ -66,9 +66,9 @@ export default class TextField extends Component {
 
     render() {
         return (
-            <div className={`bibliotheca-text-field${this.state.className}`}>
+            <div className={`library-_-text-field${this.state.className}`}>
                 <textarea
-                    className="bibliotheca-text-field-input"
+                    className="library-_-text-field-input"
                     rows="1"
                     tabIndex="1"
                     ref={textarea => this.textarea = textarea}

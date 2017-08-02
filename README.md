@@ -5,7 +5,7 @@ Try our live example [here](http://react-bibliotheca.herokuapp.com).
 ## About
 How many times did you create a new component just to find later someone already did the exact same?
 How many times did you find out that a "generic" component you wanted to use is actually tightly-coupled to the environment it was developed upon?
-Well, no more! introducing - **La Bibliotheca**
+Well, no more! introducing - **the Bibliotheca**
 
 It will showcase **your components**, letting you develop in a sterile environment and browse what you already have and can use, to better re-use your components.
 And all this with almost no effort!
@@ -39,25 +39,25 @@ then in your code, add:
 ```
 import 'bibliotheca/dist/index.css';
 import Bibliotheca from 'bibliotheca';
-Bibliotheca.init(bibliothecaDocumentation, bibliothecaComponents, rootElement);
+Bibliotheca.init(documentation, components, rootElement);
 ```
 
 ### init
 ```
-Bibliotheca.init(bibliothecaDocumentation, bibliothecaComponents, rootElement):
+Bibliotheca.init(documentation, components, rootElement):
 ```
 
-**bibliothecaDocumentation** - Object, mapping of component name to its documentation. See [example](https://github.com/myheritage/react-bibliotheca/blob/master/client/documentation.js).
+**documentation** - Object, mapping of component name to its documentation. See [example](https://github.com/myheritage/react-bibliotheca/blob/master/client/documentation.js).
 
-**bibliothecaComponents** - Object, mapping of components name to components. See [example](https://github.com/myheritage/react-bibliotheca/blob/master/client/components.js). 
+**components** - Object, mapping of components name to components. See [example](https://github.com/myheritage/react-bibliotheca/blob/master/client/components.js). 
 
-**rootElement** - HTMLElement, will bootstrap the Bibliotheca on that Element. Default is an element with the id 'bibliotheca_root'
+**rootElement** - HTMLElement, will bootstrap the Bibliotheca on that Element. Default is an element with the id 'library-_-root'
 
 **baseRoute** Route to be the base before the Bibliotheca routes. Default to '/'. for example if the Bibliotheca is on your site like so: 'www.mysite.com/my/bib/', the base route should be '/my/bib/'.
 
 ## JSDoc support
 We support many [JSDoc](http://usejsdoc.org/) conventions.
-Check out our [example UI library](https://github.com/myheritage/react-bibliotheca/tree/master/client/Components/BibliothecaUI) and see its component documentation. Cool, right?
+Check out our [example UI library](https://github.com/myheritage/react-bibliotheca/tree/master/client/Components/UI) and see its component documentation. Cool, right?
 
 ### Supported JSDoc Block Tags
 #### @name (synonyms: @class, @type)
@@ -95,7 +95,7 @@ See our [guidelines](https://github.com/myheritage/react-bibliotheca/blob/master
 
 The tests package is isolated and located inside the /tests folder.
 The target of the tests is to run locally before committing changes and to be a sanity indicator that everything is okay.
-Tests are written in Protractor with Karma and they cover the Bibliotheca from end-to-end.
+Tests are written in Protractor with Karma and they cover the project from end-to-end.
 
 ### Run the tests once
 To perform the tests once, run:

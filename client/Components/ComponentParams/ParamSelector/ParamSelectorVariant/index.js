@@ -1,6 +1,6 @@
 import React from 'react';
-import MenuItem from '../../../BibliothecaUI/MenuItem';
-import Menu from '../../../BibliothecaUI/Menu';
+import MenuItem from '../../../UI/MenuItem';
+import Menu from '../../../UI/Menu';
 
 /**
  * @description

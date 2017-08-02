@@ -1,6 +1,6 @@
 import { Component } from 'react';
-import TextField from '../BibliothecaUI/TextField';
-import Collapsible from "../BibliothecaUI/Collapsible";
+import TextField from '../UI/TextField';
+import Collapsible from "../UI/Collapsible";
 import _ from "underscore";
 import { NON_MODULE_NAME } from "../../constants/modules";
 
@@ -67,7 +67,7 @@ export default class ComponentsSideBar extends Component {
 
         if (componentsLinks.length === 0) {
             componentsLinks.push(
-                <div className="bibliotheca-component-no-links" key="no-links-found">
+                <div className="library-_-component-no-links" key="no-links-found">
                     No matches for "{this.state.searchValue}"
                 </div>
             )
@@ -113,7 +113,7 @@ export default class ComponentsSideBar extends Component {
 
         return (
             <div
-                className={`bibliotheca-component-link${componentName === selectedComponentName ? ' selected' : ''}`}
+                className={`library-_-component-link${componentName === selectedComponentName ? ' selected' : ''}`}
                 key={`link-for-${componentName}`}>
                 <button onClick={() => goToUrl(componentName)} tabIndex="1">
                     {componentName}
@@ -124,19 +124,19 @@ export default class ComponentsSideBar extends Component {
 
     render() {
         return (
-            <div className="bibliotheca-components-side-bar">
-                <h1 className="bibliotheca-title" onClick={() => this.props.goToUrl('')}>
+            <div className="library-_-components-side-bar">
+                <h1 className="library-_-title" onClick={() => this.props.goToUrl('')}>
                     Bibliotheca
                 </h1>
-                <div className="bibliotheca-icon" />
-                <div className="bibliotheca-components-search-bar">
+                <div className="library-_-icon" />
+                <div className="library-_-components-search-bar">
                     <TextField
                         value={this.state.searchValue}
                         onChange={this.onSearchChange}
                         placeholder="> Search"
                     />
                 </div>
-                <div className="bibliotheca-components-links">
+                <div className="library-_-components-links">
                     {this.renderComponentsLinks()}
                 </div>
             </div>

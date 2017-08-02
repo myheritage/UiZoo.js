@@ -12,7 +12,7 @@ export default function mapComponentsByModule(components, documentations) {
     _.each(components, (componentData, componentName) => {
         if (documentations[componentName]) {
             let moduleName = (documentations[componentName].module && documentations[componentName].module[0].name) || NON_MODULE_NAME;
-            componentsByModule[moduleName] = [].concat(componentsByModule[moduleName], componentData);
+            componentsByModule[moduleName] = [].concat(componentsByModule[moduleName] || [], componentData);
         }
     });
 

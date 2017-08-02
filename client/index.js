@@ -12,31 +12,31 @@ import App from './Components/App';
 import mapComponentsByModule from "./services/componentByModuleMapper";
 import ErrorReporter from "./services/errorReporter";
 
-const defaultRoot = document.getElementById('bibliotheca_root');
+const defaultRoot = document.getElementById('library-_-root');
 
 /**
- * Init the Bibliotheca
- * @param {Object} bibliothecaDocumentation
- * @param {Object} bibliothecaComponents
+ * Init
+ * @param {Object} documentation
+ * @param {Object} components
  * @param {HTMLElement} rootElement
  */
 function init(
-    bibliothecaDocumentation = libraryDocs,
-    bibliothecaComponents = libraryData,
+    documentation = libraryDocs,
+    components = libraryData,
     rootElement = defaultRoot,
     baseRoute = '/',
 ) {
-    checkDependencies(bibliothecaDocumentation, bibliothecaComponents);
+    checkDependencies(documentation, components);
 
-    const compiler = createCompiler(bibliothecaComponents); // JSX compiler
-    const documentations = parseDocumentation(bibliothecaDocumentation);
-    const componentsByModule = mapComponentsByModule(bibliothecaComponents, documentations);
+    const compiler = createCompiler(components); // JSX compiler
+    const documentations = parseDocumentation(documentation);
+    const componentsByModule = mapComponentsByModule(components, documentations);
 
     ReactDOM.render(
         <BrowserRouter basename="/">
             <Route path={`${baseRoute}:componentName?`} render={routeProps => (
                 <App {...routeProps}
-                    components={bibliothecaComponents}
+                    components={components}
                     componentsByModule={componentsByModule}
                     documentations={documentations}
                     compiler={compiler}

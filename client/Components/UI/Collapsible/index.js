@@ -1,7 +1,7 @@
 import {Component} from 'react';
 import './index.scss';
 
-const OPEN_STATE_CLASS = 'bibliotheca-collapsible-open';
+const OPEN_STATE_CLASS = 'library-_-collapsible-open';
 
 /**
  * @name
@@ -90,20 +90,20 @@ export default class Collapsible extends Component {
 
         return (
             <div
-                className={`bibliotheca-collapsible-container ${addedClassName}`}
+                className={`library-_-collapsible-container ${addedClassName}`}
                 style={this.props.style}>
                 <button
                     tabIndex="1"
-                    className="bibliotheca-collapsible-title"
+                    className="library-_-collapsible-title"
                     onClick={this.toggleOpenState}
                     style={this.props.titleStyle}>
                     {this.props.title}
                 </button>
                 <div
-                    className="bibliotheca-collapsible-content-container"
+                    className="library-_-collapsible-content-container"
                     ref={contentContainerRef => this.contentContainerRef = contentContainerRef}>
                     <div
-                        className="bibliotheca-collapsible-content"
+                        className="library-_-collapsible-content"
                         ref={contentRef => this.contentRef = contentRef}
                         style={this.props.contentStyle}>
                         {this.props.children}

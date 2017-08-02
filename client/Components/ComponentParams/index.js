@@ -1,5 +1,5 @@
 import React from 'react';
-import Tooltip from '../BibliothecaUI/Tooltip';
+import Tooltip from '../UI/Tooltip';
 import ParamSelector from './ParamSelector';
 
 import './index.scss';
@@ -29,9 +29,9 @@ export default class ComponentParams extends React.Component {
         const isOptional = paramObj.type.type === "OptionalType";
         const paramTitleStyle = paramObj.description ? {cursor: "pointer"} : null;
         return (
-            <div className="bibliotheca-component-params-selector" data-param={paramObj.name} key={`param-name-${paramObj.name}-${this.props.componentName}`}>
+            <div className="library-_-component-params-selector" data-param={paramObj.name} key={`param-name-${paramObj.name}-${this.props.componentName}`}>
                 <Tooltip tooltip={paramObj.description}>
-                    <p className="bibliotheca-param-name" style={paramTitleStyle}>
+                    <p className="library-_-param-name" style={paramTitleStyle}>
                         {paramObj.name}
                         {!isOptional && <span>*</span>}
                     </p>
@@ -52,7 +52,7 @@ export default class ComponentParams extends React.Component {
     render() {
         const selectors = (this.props.params || []).map(paramObj => this.renderSelector(paramObj));
         return (
-            <div className="bibliotheca-component-params">
+            <div className="library-_-component-params">
                 {selectors}
                 {selectors.length === 0 && 'None'}
             </div>

@@ -26,7 +26,7 @@ export default function CodeCard({children, className}) {
         : '';
 
     return (
-        <div className={`bibliotheca-code-card-wrapper${additionalClassName}`}>
+        <div className={`library-_-code-card-wrapper${additionalClassName}`}>
             <pre>{children}</pre>
         </div>
     );

@@ -1,7 +1,7 @@
 import {Component} from 'react';
 import _ from 'underscore';
 
-import TextField from '../../../BibliothecaUI/TextField';
+import TextField from '../../../UI/TextField';
 import {tryToEvalFunction} from './tryToEval';
 
 /**
@@ -39,7 +39,7 @@ export default class ParamSelectorFunction extends Component {
 
     render() {
         return (
-            <div className="bibliotheca-function-selector-wrapper">
+            <div className="library-_-function-selector-wrapper">
                 <TextField
                     onChange={this.onChange}
                     placeholder="(e) => console.log.." /> 

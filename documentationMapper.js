@@ -1,7 +1,7 @@
 // In next versions this service should be an optional plugin
 
 function howToUse() {
-    explanation = 'How to use: Run `node documentationMapper.js "./client/Components/BibliothecaUI/*/index.js" "./client/Components/BibliothecaUI/(.+)/index.js" "./client/documentation.js"`';
+    explanation = 'How to use: Run `node documentationMapper.js "./client/Components/UI/*/index.js" "./client/Components/UI/(.+)/index.js" "./client/documentation.js"`';
     console.info(explanation);
     process.exit(1);
 }
