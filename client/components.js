@@ -7,6 +7,7 @@ import TextField from './Components/BibliothecaUI/TextField';
 import Tooltip from './Components/BibliothecaUI/Tooltip';
 import Separator from './Components/BibliothecaUI/Separator';
 import Collapsible from './Components/BibliothecaUI/Collapsible';
+import Modal from './Components/BibliothecaUI/Modal';
 
 export default {
     Card,
@@ -18,4 +19,5 @@ export default {
     Tooltip,
     Separator,
     Collapsible,
+    Modal,
 };

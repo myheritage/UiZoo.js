@@ -40,7 +40,7 @@ import './index.scss';
 export default class UiTooltip extends Component {
     constructor(props) {
         super(props);
-        this.state = {showTooltip: false};
+        this.state = {showTooltip: props.initiallyOpen};
     }
 
     /**
