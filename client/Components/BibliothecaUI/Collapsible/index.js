@@ -34,7 +34,7 @@ export default class Collapsible extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isOpen: props.isOpen || true
+            isOpen: this.isOpen(props)
         };
 
         this.toggleOpenState = this.toggleOpenState.bind(this);
@@ -45,9 +45,20 @@ export default class Collapsible extends Component {
      * @param {Object} nextProps
      */
     componentWillReceiveProps(nextProps) {
-        if (nextProps.isOpen !== this.props.isOpen && nextProps.isOpen !== this.state.isOpen) {
+        if (this.state.isOpen !== this.isOpen(nextProps)) {
             this.toggleOpenState();
         }
+    }
+
+    componentDidMount() {
+        this.updateContentMaxHeight(this.state.isOpen);
+    }
+
+    /**
+     * @param {Object} props 
+     */
+    isOpen(props) {
+        return props.isOpen || props.isOpen === undefined;
     }
 
     /**
