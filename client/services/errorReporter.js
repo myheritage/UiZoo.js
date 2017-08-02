@@ -1,7 +1,7 @@
 let _instance = null;
 
 /**
- * Error reporter for bibliotecha
+ * Error reporter
  */
 export default class ErrorReporter {
     constructor() {
@@ -26,7 +26,7 @@ export default class ErrorReporter {
     }
 
     /**
-     * Get bibliotheca errors
+     * Get errors
      */
     static getErrors() {
         return this.instance.errorList;
