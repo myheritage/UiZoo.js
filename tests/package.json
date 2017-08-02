@@ -1,7 +1,7 @@
 {
-  "name": "bibliotheca-automations",
+  "name": "automations",
   "version": "1.0.0",
-  "description": "Automations coverage for the Bibliotheca library",
+  "description": "Automations coverage for the library",
   "scripts": {
     "webdriver-watch": "./node_modules/protractor/bin/webdriver-manager update && ./node_modules/protractor/bin/webdriver-manager start",
     "typescript-watch": "tsc -w",

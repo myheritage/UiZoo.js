@@ -126,7 +126,7 @@ export default class ComponentsSideBar extends Component {
         return (
             <div className="library-_-components-side-bar">
                 <h1 className="library-_-title" onClick={() => this.props.goToUrl('')}>
-                    Bibliotheca
+                    UiZoo.js
                 </h1>
                 <div className="library-_-icon" />
                 <div className="library-_-components-search-bar">

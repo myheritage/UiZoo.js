@@ -44,7 +44,7 @@ function bundleClient() {
                     'doctrine-standalone': 'doctrine',
 					'babel-standalone': 'Babel',
 				},
-				moduleName: 'Bibliotheca',
+				moduleName: 'UiZoo',
 			});
 		})
 		.catch(err => {

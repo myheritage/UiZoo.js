@@ -1,10 +1,10 @@
 {
-  "name": "bibliotheca",
-  "version": "1.0.6",
-  "description": "React Component Library",
+  "name": "uizoo",
+  "version": "1.0.0",
+  "description": "Dynamic React Component Library",
   "scripts": {
     "start": "npm run gulp:w",
-    "build": "rollup -c rollup-build.config.js -o dist/index.js -f iife -n Bibliotheca -g underscore:_,react:React,react-dom:ReactDOM,react-router-dom:ReactRouterDOM,doctrine-standalone:doctrine,babel-standalone:Babel && rollup -c rollup-build.config.js -o dist/index.cjs.js -f cjs -n Bibliotheca -g underscore:_,react:React,react-dom:ReactDOM,react-router-dom:ReactRouterDOM,doctrine-standalone:doctrine,babel-standalone:Babel && rollup -c rollup-build.config.js -o dist/index.es.js -f es -n Bibliotheca -g underscore:_,react:React,react-dom:ReactDOM,react-router-dom:ReactRouterDOM,doctrine-standalone:doctrine,babel-standalone:Babel",
+    "build": "rollup -c rollup-build.config.js -o dist/index.js -f iife -n UiZoo -g underscore:_,react:React,react-dom:ReactDOM,react-router-dom:ReactRouterDOM,doctrine-standalone:doctrine,babel-standalone:Babel && rollup -c rollup-build.config.js -o dist/index.cjs.js -f cjs -n UiZoo -g underscore:_,react:React,react-dom:ReactDOM,react-router-dom:ReactRouterDOM,doctrine-standalone:doctrine,babel-standalone:Babel && rollup -c rollup-build.config.js -o dist/index.es.js -f es -n UiZoo -g underscore:_,react:React,react-dom:ReactDOM,react-router-dom:ReactRouterDOM,doctrine-standalone:doctrine,babel-standalone:Babel",
     "gulp:w": "gulp",
     "test": "npm start & SERVER_PID=$!; (cd tests; npm i && node run-tests.js); kill $SERVER_PID"
   },
@@ -12,18 +12,19 @@
   "module": "dist/index.es.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/myheritage/react-bibliotheca.git"
+    "url": "git+https://github.com/myheritage/uizoo.js.git"
   },
   "keywords": [
+    "dynamic",
     "react",
     "library",
     "component"
   ],
   "author": "MyHeritage",
   "bugs": {
-    "url": "https://github.com/myheritage/react-bibliotheca/issues"
+    "url": "https://github.com/myheritage/uizoo.js/issues"
   },
-  "homepage": "https://github.com/myheritage/react-bibliotheca#readme",
+  "homepage": "https://github.com/myheritage/uizoo.js#readme",
   "dependencies": {
     "babel-standalone": "~6.25.0",
     "body-parser": "~1.15.2",

@@ -1,11 +1,10 @@
-# React Bibliotheca - Dynamic React components library
-Try our live example [here](http://react-bibliotheca.herokuapp.com).
-> "Donde, está, la biblioteca. Me llamo T-Bone La araña discoteca. Discoteca, muñeca, La biblioteca..."
-\- Troy and Abed.
+# UiZoo.js - Dynamic React components library
+Try our live example [here](https://uizoo.herokuapp.com/).
+
 ## About
 How many times did you create a new component just to find later someone already did the exact same?
 How many times did you find out that a "generic" component you wanted to use is actually tightly-coupled to the environment it was developed upon?
-Well, no more! introducing - **the Bibliotheca**
+Well, no more! introducing - **UiZoo.js**
 
 It will showcase **your components**, letting you develop in a sterile environment and browse what you already have and can use, to better re-use your components.
 And all this with almost no effort!
@@ -17,38 +16,38 @@ This tool can be used for developing, for Product Managers to know what is possi
 
 ![React Bibliotheca 3](https://media.giphy.com/media/MqhUcIhANah9e/giphy.gif)
 
-## How To Bibliotheca?
+## How To UiZoo?
 Git clone by:
 ```
-git clone git@github.com:myheritage/react-bibliotheca.git
+git clone git@github.com:myheritage/uizoo.js.git
 ```
 then
 ```
-cd react-bibliotheca && npm i
+cd uizoo.js && npm i
 gulp
 ```
-This will start a server on http://localhost:5000 with the Bibliotheca
-you can change the [components file](https://github.com/myheritage/react-bibliotheca/blob/master/client/components.js) and the [documentation file](https://github.com/myheritage/react-bibliotheca/blob/master/client/documentation.js) to start rapidly.
+This will start a server on http://localhost:5000 with the UiZoo
+you can change the [components file](https://github.com/myheritage/uizoo.js/blob/master/client/components.js) and the [documentation file](https://github.com/myheritage/uizoo.js/blob/master/client/documentation.js) to start rapidly.
 We recommend updating those files by a script automatically when files are changing (we plan to create plugins to help with this in the next future).
 
 *NPM module will be added soon*
 
 ### init
 ```
-Bibliotheca.init(documentation, components, rootElement):
+UiZoo.init(documentation, components, rootElement):
 ```
 
-**documentation** - Object, mapping of component name to its documentation. See [example](https://github.com/myheritage/react-bibliotheca/blob/master/client/documentation.js).
+**documentation** - Object, mapping of component name to its documentation. See [example](https://github.com/myheritage/uizoo.js/blob/master/client/documentation.js).
 
-**components** - Object, mapping of components name to components. See [example](https://github.com/myheritage/react-bibliotheca/blob/master/client/components.js). 
+**components** - Object, mapping of components name to components. See [example](https://github.com/myheritage/uizoo.js/blob/master/client/components.js). 
 
-**rootElement** - HTMLElement, will bootstrap the Bibliotheca on that Element. Default is an element with the id 'library-_-root'
+**rootElement** - HTMLElement, will bootstrap UiZoo on that Element. Default is an element with the id 'library-_-root'
 
-**baseRoute** Route to be the base before the Bibliotheca routes. Default to '/'. for example if the Bibliotheca is on your site like so: 'www.mysite.com/my/bib/', the base route should be '/my/bib/'.
+**baseRoute** Route to be the base before the UiZoo routes. Default to '/'. for example if the UiZoo is on your site like so: 'www.mysite.com/my/zoo/', the base route should be '/my/zoo/'.
 
 ## JSDoc support
 We support many [JSDoc](http://usejsdoc.org/) conventions.
-Check out our [example UI library](https://github.com/myheritage/react-bibliotheca/tree/master/client/Components/UI) and see its component documentation. Cool, right?
+Check out our [example UI library](https://github.com/myheritage/uizoo.js/tree/master/client/Components/UI) and see its component documentation. Cool, right?
 
 ### Supported JSDoc Block Tags
 #### @name (synonyms: @class, @type)
@@ -78,7 +77,7 @@ See video example:
 ## Contributing
 
 Contributions and feedback are very welcome! Feel free to open issues.
-See our [guidelines](https://github.com/myheritage/react-bibliotheca/blob/master/CONTRIBUTING.md).
+See our [guidelines](https://github.com/myheritage/uizoo.js/blob/master/CONTRIBUTING.md).
 
 ---
 

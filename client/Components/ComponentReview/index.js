@@ -138,7 +138,7 @@ export default class ComponentReview extends React.Component {
                 </h10>
                 <h1 className="library-_-component-name">
                     {!!name && name}
-                    {!name && 'Welcome to Bibliotheca!'}
+                    {!name && 'Welcome to UiZoo.js!'}
                 </h1>
                 {errorIndicator}
                 <h3 className="library-_-component-description">
