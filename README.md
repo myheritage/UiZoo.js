@@ -30,7 +30,16 @@ This will start a server on http://localhost:5000 with the UiZoo
 you can change the [components file](https://github.com/myheritage/uizoo.js/blob/master/client/components.js) and the [documentation file](https://github.com/myheritage/uizoo.js/blob/master/client/documentation.js) to start rapidly.
 We recommend updating those files by a script automatically when files are changing (we plan to create plugins to help with this in the next future).
 
-*NPM module will be added soon*
+*or* npm install by:
+```
+npm i -S uizoo
+```
+then in your code, add:
+```
+import 'uizoo/dist/index.css';
+import UiZoo from 'uizoo';
+UiZoo.init(documentation, components, rootElement);
+```
 
 ### init
 ```
