@@ -43,7 +43,7 @@ UiZoo.init(documentation, components, rootElement);
 
 ### init
 ```
-UiZoo.init(documentation, components, rootElement):
+UiZoo.init(documentation: Object, components: Object, rootElement: HTMLElement?, baseRoute: String?)
 ```
 
 **documentation** - Object, mapping of component name to its documentation. See [example](https://github.com/myheritage/uizoo.js/blob/master/client/documentation.js).

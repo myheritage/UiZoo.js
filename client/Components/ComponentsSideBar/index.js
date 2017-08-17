@@ -1,8 +1,8 @@
 import { Component } from 'react';
 import TextField from '../UI/TextField';
-import Collapsible from "../UI/Collapsible";
-import _ from "underscore";
-import { NON_MODULE_NAME } from "../../constants/modules";
+import Collapsible from '../UI/Collapsible';
+import _ from 'underscore';
+import { NON_MODULE_NAME } from '../../constants/modules';
 
 import './index.scss';
 
@@ -76,30 +76,13 @@ export default class ComponentsSideBar extends Component {
     }
 
     /**
-     * Get the component name, compatible with ie11 that doesn't support Function.prototype.name ...
-     * @param {function} comp 
-     * @return {string}
-     */
-    getComponentName(comp) {
-        let componentName = '';
-        if (comp) {
-            if (comp.name) {
-                componentName = comp.name
-            } else if (typeof comp === 'function') { // ie11 stuff make sure it's function
-                componentName = comp.toString().match(/^function\s*([^\s(]+)/)[1];
-            }
-        }
-        return componentName;
-    }
-
-    /**
      * @param {Array} moduleComponents 
      */
     renderModuleLinks(moduleComponents) {
-        return moduleComponents &&
-        moduleComponents
-            .filter(currModuleComponent => this.getComponentName(currModuleComponent).toLowerCase().indexOf(this.state.searchValue.toLowerCase()) !== -1)
-            .map(currComponent => this.renderComponentLink(this.getComponentName(currComponent)));
+        return moduleComponents && 
+        _.keys(moduleComponents)
+            .filter(componentName => componentName.toLowerCase().indexOf(this.state.searchValue.toLowerCase()) !== -1)
+            .map(componentName => this.renderComponentLink(componentName));
     }
 
     /**
