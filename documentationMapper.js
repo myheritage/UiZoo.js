@@ -51,15 +51,29 @@ glob(inputGlob, {}, (error, componentsPaths) => {
         componentsDone++;
         if (componentsDone === componentsPaths.length) {
             let results = 
-            `export default ${JSON.stringify(nameToDoc)};`;
-            fs.writeFile(outputPath, results, (error, data) => {
-                if (error) {
-                    console.error("Had an error writing the results file: " + error);
-                    howToUse();
+            `export default ${transformToJSON(nameToDoc)};`;
+            fs.readFile(outputPath, "utf8", (error, data) => {
+                if(1, data !== results) {
+                    fs.writeFile(outputPath, results, (error, data) => {
+                        if (error) {
+                            console.error("Had an error writing the results file: " + error);
+                            howToUse();
+                        }
+                        console.log("Wrote documentation map successfully.");
+                    });
                 }
-                console.log("Wrote documentation map successfully.");
             });
         }
+    }
+
+    function transformToJSON(obj) {
+        let keys = Object.keys(obj),
+            jsonReadyObj = {};
+        keys.sort();
+        for (let i = 0, l = keys.length; i < l; i++) {
+            jsonReadyObj[keys[i]] = obj[keys[i]];
+        }
+        return JSON.stringify(jsonReadyObj);
     }
 });
 
