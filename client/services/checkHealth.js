@@ -1,5 +1,5 @@
 import _ from 'underscore';
-import ErrorReporter from "./errorReporter";
+import {reportError} from "./errorReporter";
 
 /**
  * Go through the dependencies and advise the user on problems
@@ -77,5 +77,5 @@ function checkIfObject(shouldBeObj, objNameInError) {
  * Log error to console
  */
 function throwError() {
-    ErrorReporter.reportError(...arguments);
+    reportError(...arguments);
 }

@@ -53,9 +53,10 @@
             .library-_-collapsible-title {
                 padding: 15px 12px 15px 0;
                 font-weight: 500;
-                transition: opacity 0.3s ease, padding 0.3s 0.01s ease;
+                opacity: 0.6;
+                transition: padding 0.3s 0.01s ease;
                 &:focus {
-                    opacity: 0.7;
+                    font-weight: 700;
                 }
             }
 
@@ -63,12 +64,7 @@
                 border-bottom-color: rgba(0,0,0,0);
                 .library-_-collapsible-title {
                     padding-bottom: 0;
-                    transition: opacity 0.3s ease, padding 0.3s 0.1s ease;
-                    opacity: 0.7;
-                    &:focus {
-                        opacity: 1;
-                    }
-
+                    transition: padding 0.3s 0.1s ease;
                     &:after {
                         margin-top: 13px;
                     }
@@ -92,14 +88,12 @@
             border-bottom: 1px solid rgba(0,0,0,0.1);
         
             &:hover {
-                padding-left: 5px;
                 border-bottom: 1px solid rgba(0,0,0,0.3);
             }
 
             &.selected {
                 button {
                     color: rgb(0, 188, 212);
-                    font-weight: 500;
                 }
             }
 
@@ -117,7 +111,7 @@
                 transition: all 0.3s ease;
                 
                 &:focus {
-                    opacity: 0.5;
+                    font-weight: 600;
                 }
             }
         }

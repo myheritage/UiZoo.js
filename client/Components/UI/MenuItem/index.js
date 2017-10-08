@@ -1,4 +1,4 @@
-import {Component} from 'react';
+import React from 'react';
 import './index.scss';
 
 /**
@@ -20,7 +20,7 @@ import './index.scss';
  * @param {string|number} value this item value in the menu
  * @param {node} children
  */
-export default class MenuItem extends Component {
+export default class MenuItem extends React.Component {
     render() {
         return (
             <div className="library-_-menu-item" style={this.props.style}>

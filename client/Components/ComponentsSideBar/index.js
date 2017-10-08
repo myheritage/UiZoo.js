@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React from 'react';
 import TextField from '../UI/TextField';
 import Collapsible from '../UI/Collapsible';
 import _ from 'underscore';
@@ -18,7 +18,7 @@ import './index.scss';
  * @param {string} selectedComponentName
  * @param {function} goToUrl
  */
-export default class ComponentsSideBar extends Component {
+export default class ComponentsSideBar extends React.Component {
     constructor(props) {
         super(props);
         this.state = { searchValue: '' };

@@ -1,4 +1,4 @@
-import {Component} from 'react';
+import React from 'react';
 import './index.scss';
 
 /**
@@ -34,7 +34,7 @@ import './index.scss';
  * @param {function} [onChange] callback for changes in selected value
  * @param {node} children MenuItems to be selected
  */
-export default class Menu extends Component {
+export default class Menu extends React.Component {
     constructor(props) {
         super(props);
         this.state = {selectedValue: props.value};

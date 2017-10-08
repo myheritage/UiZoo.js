@@ -1,4 +1,4 @@
-import {Component} from 'react';
+import React from 'react';
 import './index.scss';
 
 /**
@@ -30,7 +30,7 @@ import './index.scss';
  * @param {string} [value] current value of the text field
  * @param {function} onChange
  */
-export default class TextField extends Component {
+export default class TextField extends React.Component {
     constructor(props) {
         super(props);
         this.state = { className: '' };

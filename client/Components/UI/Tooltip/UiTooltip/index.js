@@ -1,4 +1,5 @@
-import {Component} from 'react';
+import React from 'react';
+
 import {SIDES, SIDE_TOP, ALIGNMENTS, ALIGNMENT_CENTER, TRIGGER_EVENTS, TRIGGER_EVENT_HOVER} from './constants';
 import './index.scss';
 /**
@@ -34,14 +35,24 @@ import './index.scss';
  * @param {"click"|"hover"} [trigger="click"] trigger event, on mobile you should stick with click
  * @param {Function} [onTooltipOpen] callback for when the tooltip is opened
  * @param {Function} [onAfterTooltipOpen] callback for after the tooltip is opened
- * @param {Object} [children] the element/s to be triggering the tooltip appearance
- *
+ * @param {Boolean} [isOpen] controlled prop to open/close the tooltip
+ * @param {node} [children] the element/s to be triggering the tooltip appearance
  */
-export default class UiTooltip extends Component {
+export default class UiTooltip extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {showTooltip: props.initiallyOpen};
+        this.state = {showTooltip: props.isOpen};
     }
+
+    /**
+     * @param {Object} nextProps 
+     */
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.isOpen !== this.props.isOpen && nextProps.isOpen !== this.state.showTooltip) {
+            this.setState(state => _.extend({}, state, {showTooltip: nextProps.isOpen}));
+        }
+    }
+    
 
     /**
      * This is called when a props/state is changed and allow us to do some callback calling based on rules

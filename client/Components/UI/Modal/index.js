@@ -1,35 +1,35 @@
-import React from "react";
+import React from 'react';
+import Card from '../Card';
+import _ from 'underscore';
 
-import "./index.scss";
-import Card from "../Card";
+import './index.scss';
 
 /**
  * @name
  * Modal
  * 
  * @module
- * Modals
+ * Content
+ * 
+ * @description
+ * Change isOpen to open/close the modal
  * 
  * @example
- * <Modal>
- *  <div className="biblio-modal" isOpen={true}>
- *  </div>
- * </Modal
+ * <Modal className="modal_class_name" title="title">
+ *  inner modal content
+ * </Modal>
+ * 
+ * @param {Boolean} [isOpen] change to open/close the modal
+ * @param {String} title the modal title
+ * @param {node} children the modal content
  */
 export default class Modal extends React.Component {
     /**
      * Modal constructor
-     * @param {*} props 
      */
     constructor(props) {
         super(props);
-
-        const { isOpen = false } = props;
-
-        this.state = {
-            isOpen,
-        }
-
+        this.state = {isOpen: props.isOpen || false};
         this.toggleOpenState = this.toggleOpenState.bind(this);
     }
 
@@ -40,15 +40,12 @@ export default class Modal extends React.Component {
     componentWillReceiveProps(nextProps) {
         // If new props contain a different isOpen state than current, change it
         if (nextProps.isOpen !== this.props.isOpen && nextProps.isOpen !== this.state.isOpen) {
-            this.toggleOpenState();
+            this.setState(state => _.extend({}, state, {isOpen: nextProps.isOpen}));
         }
     }
 
     toggleOpenState() {
-        this.setState(state => {
-            state.isOpen = !state.isOpen;
-            return state;
-        });
+        this.setState(state => _.extend({}, state, {isOpen: !state.isOpen}));
     }
 
     /**
@@ -56,20 +53,15 @@ export default class Modal extends React.Component {
      */
     render() {
         const { children, className, title } = this.props;
-        const titleElement = title ? (<h2 className="modal-title">{title}</h2>) : null;
 
-        if (!this.state.isOpen) {
-            return null;
-        }
-
-        return (
-            <Card className={`modal-container${className ? ` ${className}` : ''}`}>
-                {titleElement}
-                <div className="modal-close-button" onClick={this.toggleOpenState}></div>
-                <div className="modal-content-container">
+        return this.state.isOpen ? (
+            <Card className={`library-_-modal-container${className ? ` ${className}` : ''}`}>
+                <h2 className="library-_-modal-title">{title}</h2>
+                <div className="library-_-modal-close-button" onClick={this.toggleOpenState}></div>
+                <div className="library-_-modal-content-container">
                     {children}
                 </div>
             </Card>
-        )
+        ) : null;
     }
 }

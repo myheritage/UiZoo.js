@@ -1,15 +1,14 @@
 import React from 'react';
 import _ from 'underscore';
-import jsxToString from '../../services/jsx-to-string';
 import Card from '../UI/Card';
-import { previewFrameStyle } from './previewFrameStyle';
 import Separator from '../UI/Separator';
 import CodeCard from '../UI/CodeCard';
+import Modal from '../UI/Modal';
+import Tooltip from '../UI/Tooltip';
 import ComponentParams from '../ComponentParams';
 import ComponentExamples from '../ComponentExamples';
-import ErrorReporter from "../../services/errorReporter";
-import Modal from "../UI/Modal";
-import Tooltip from "../UI/Tooltip";
+import jsxToString from '../../services/jsx-to-string';
+import {hasErrors, reportError, getErrors} from '../../services/errorReporter';
 import './index.scss';
 
 /**
@@ -22,7 +21,9 @@ export default class ComponentReview extends React.Component {
         super(props);
         this.state = {
             componentProps: {},
+            showErrorIndicator: hasErrors(),
         };
+
         this.updateParam = this.updateParam.bind(this);
         this.updateExample = this.updateExample.bind(this);
         this.toggleErrorModalState = this.toggleErrorModalState.bind(this);
@@ -96,7 +97,6 @@ export default class ComponentReview extends React.Component {
         } catch (e) {
             error = e;
         }
-        // TODO: add name CompiledNode.type.name === this.props.documentation.name
         if (!error && CompiledNode && CompiledNode.type) {
             this.setState({
                 componentProps: CompiledNode.props
@@ -105,15 +105,14 @@ export default class ComponentReview extends React.Component {
             let errorMessage = error
                 ? error
                 : 'error in example';
-            ErrorReporter.reportError(errorMessage);
+            reportError(errorMessage);
+            this.setState(state => _.extend({}, state, {showErrorIndicator: true}));
         }
     }
 
     renderErrorIndicator() {
         return (
-            <Tooltip tooltip="Errors found!"
-                trigger="click"
-                initiallyOpen={true}>
+            <Tooltip tooltip="Errors found!" isOpen>
                 <div className="library-_-error-indicator" onClick={() => this.errorModal.toggleOpenState()} />
             </Tooltip>
         );
@@ -128,9 +127,7 @@ export default class ComponentReview extends React.Component {
      * @param {object}
      * @param {string} name
      */
-    renderComponentMetadata({ description, module }, name, showErrorIndicator) {
-        const errorIndicator = showErrorIndicator ? this.renderErrorIndicator() : null;
-
+    renderComponentMetadata({ description, module }, name) {
         return (
             <div>
                 <h10 className="library-_-component-section">
@@ -140,7 +137,7 @@ export default class ComponentReview extends React.Component {
                     {!!name && name}
                     {!name && 'Welcome to UiZoo.js!'}
                 </h1>
-                {errorIndicator}
+                {this.state.showErrorIndicator ? this.renderErrorIndicator() : null}
                 <h3 className="library-_-component-description">
                     <pre>
                         {_.pluck(description, "description").join(". ")}
@@ -215,11 +212,8 @@ export default class ComponentReview extends React.Component {
     renderErrorModal() {
         return (
             <Modal title="Errors" ref={this.setModalRef}>
-                <ul>
-                    {ErrorReporter.getErrors().map(currMsg =>
-                        <li className="error-message">
-                            {currMsg}
-                        </li>)}
+                <ul style={{padding: '0 15px'}}>
+                    {getErrors().map((message, i) => <li key={`error-index-${i}`}>{message}</li>)}
                 </ul>
             </Modal>
         );
@@ -236,7 +230,7 @@ export default class ComponentReview extends React.Component {
         return (
             <div className="library-_-component-review">
                 {this.renderErrorModal()}
-                {this.renderComponentMetadata(componentDoc, this.props.componentName, ErrorReporter.getErrors().length > 0)}
+                {this.renderComponentMetadata(componentDoc, this.props.componentName)}
                 <Separator /> {this.renderComponentContent(componentContent)}
                 <Separator /> {this.renderComponentParams(componentDoc, this.props.componentName)}
                 <Separator /> {this.renderComponentExamples(componentDoc)}

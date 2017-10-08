@@ -10,7 +10,6 @@ import { createCompiler } from './services/compileWithContext';
 import { parseDocumentation } from './services/parseDocumentation';
 import App from './Components/App';
 import mapComponentsByModule from "./services/componentByModuleMapper";
-import ErrorReporter from "./services/errorReporter";
 
 const defaultRoot = document.getElementById('library-_-root');
 

@@ -1,4 +1,4 @@
-import {Component} from 'react';
+import React from 'react';
 import _ from 'underscore';
 
 import TextField from '../../../UI/TextField';
@@ -10,7 +10,7 @@ import {tryToEvalFunction} from './tryToEval';
  * 
  * @param {function} onChange
  */
-export default class ParamSelectorFunction extends Component {
+export default class ParamSelectorFunction extends React.Component {
     constructor(props) {
         super(props);
         this.onChange = this.onChange.bind(this);
