@@ -3,7 +3,7 @@
 let fs = require('fs'),
   json = require('rollup-plugin-json'),
   postcss = require('postcss'),
-  babel = require('rollup-plugin-babel'),
+  buble = require('rollup-plugin-buble'),
   nodeResolve = require('rollup-plugin-node-resolve'),
   commonjs = require('rollup-plugin-commonjs'),
   scss = require('rollup-plugin-scss'),
@@ -29,18 +29,23 @@ function getPlugins({
     })];
   const defaultPlugins = [
     json(),
-    babel({
-      presets: [
-        "es2015-rollup", "react"
-      ],
-      exclude: "./node_modules/**/*"
+    buble({
+      objectAssign: 'Object.assign',
+      exclude: ["./node_modules/**/*"]
     }),
+    // babel({
+    //   presets: [
+    //     ["env", {modules: false}],
+    //     "es2015-rollup",
+    //     "react"
+    //   ],
+    //   exclude: "./node_modules/**/*"
+    // }),
 
     nodeResolve({
       browser: true,
       jsnext: true,
-      main: true,
-      skip: defaultExternal.concat(external)
+      main: true
     }),
     commonjs(),
     replace({
@@ -55,10 +60,10 @@ function getPlugins({
 
 function getConfig({
   external = [],
-  entry = 'client/index.js'
+  input = 'client/index.js'
 }, withScss = true) {
   return {
-    entry,
+    input,
     external: defaultExternal.concat(external),
     plugins: getPlugins({external}, withScss),
   };

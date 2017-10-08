@@ -23,7 +23,7 @@ function init(
     documentation = libraryDocs,
     components = libraryData,
     rootElement = defaultRoot,
-    baseRoute = '/',
+    baseRoute = '/'
 ) {
     checkDependencies(documentation, components);
 

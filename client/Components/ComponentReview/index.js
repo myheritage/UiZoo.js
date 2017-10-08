@@ -130,9 +130,9 @@ export default class ComponentReview extends React.Component {
     renderComponentMetadata({ description, module }, name) {
         return (
             <div>
-                <h10 className="library-_-component-section">
+                <p className="library-_-component-section">
                     {module && module[0].name}
-                </h10>
+                </p>
                 <h1 className="library-_-component-name">
                     {!!name && name}
                     {!name && 'Welcome to UiZoo.js!'}
