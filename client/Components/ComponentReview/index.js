@@ -22,35 +22,32 @@ export default class ComponentReview extends React.Component {
         this.state = {
             componentProps: {},
             showErrorIndicator: hasErrors(),
+            isErrorModalOpen: false,
         };
 
         this.updateParam = this.updateParam.bind(this);
         this.updateExample = this.updateExample.bind(this);
-        this.toggleErrorModalState = this.toggleErrorModalState.bind(this);
-        this.setModalRef = this.setModalRef.bind(this);
+        this.toggleErrorModal = this.toggleErrorModal.bind(this);
+
+        const componentDoc = this.props.documentations[this.props.componentName] || {};
+        this.setDefaultExample(componentDoc, true);
     }
 
     /**
-     * Component mount, set default example
+     * @param {boolean} [newValue] 
      */
-    componentDidMount() {
-        const componentDoc = this.props.documentations[this.props.componentName] || {};
-        this.setDefaultExample(componentDoc);
-    }
-
-    toggleErrorModalState() {
-        this.setState(state => {
-            state.isErrorModalOpen = !state.isErrorModalOpen;
-        });
+    toggleErrorModal(newValue = true) {
+        this.setState(state => _.extend({}, state, {isErrorModalOpen: newValue}));
     }
 
     /**
      * Set the default example, which is the first example
      * @return {boolean} if setting the example was a success
+     * @param {boolean} [isInConstructor]
      */
-    setDefaultExample(componentDoc) {
+    setDefaultExample(componentDoc, isInConstructor = false) {
         if (componentDoc.example && componentDoc.example.length) {
-            this.updateExample(componentDoc.example[0].description);
+            this.updateExample(componentDoc.example[0].description, isInConstructor);
             return true;
         } else {
             return false;
@@ -88,8 +85,9 @@ export default class ComponentReview extends React.Component {
     /**
      * Update the params by the example
      * @param {string} example
+     * @param {boolean} [isInConstructor]
      */
-    updateExample(example) {
+    updateExample(example, isInConstructor = false) {
         let error = null,
             CompiledNode = null;
         try {
@@ -98,28 +96,34 @@ export default class ComponentReview extends React.Component {
             error = e;
         }
         if (!error && CompiledNode && CompiledNode.type) {
-            this.setState({
-                componentProps: CompiledNode.props
-            });
+            this.shallowStateUpdate({componentProps: CompiledNode.props}, isInConstructor);
         } else {
             let errorMessage = error
                 ? error
                 : 'error in example';
             reportError(errorMessage);
-            this.setState(state => _.extend({}, state, {showErrorIndicator: true}));
+            this.shallowStateUpdate({showErrorIndicator: true}, isInConstructor);
+        }
+    }
+
+    /**
+     * @param {object} stateFragment
+     * @param {boolean} [isInConstructor] 
+     */
+    shallowStateUpdate(stateFragment = {}, isInConstructor = false) {
+        if (isInConstructor) {
+            this.state = _.extend({}, this.state, stateFragment);
+        } else {
+            this.setState(state => _.extend({}, state, stateFragment));
         }
     }
 
     renderErrorIndicator() {
         return (
             <Tooltip tooltip="Errors found!" isOpen>
-                <div className="library-_-error-indicator" onClick={() => this.errorModal.toggleOpenState()} />
+                <div className="library-_-error-indicator" onClick={this.toggleErrorModal} />
             </Tooltip>
         );
-    }
-
-    setModalRef(modalRef) {
-        this.errorModal = modalRef;
     }
 
     /**
@@ -211,7 +215,11 @@ export default class ComponentReview extends React.Component {
      */
     renderErrorModal() {
         return (
-            <Modal title="Errors" ref={this.setModalRef}>
+            <Modal
+                title="Errors"
+                isOpen={this.state.isErrorModalOpen}
+                onChange={this.toggleErrorModal}
+            >
                 <ul style={{padding: '0 15px'}}>
                     {getErrors().map((message, i) => <li key={`error-index-${i}`}>{message}</li>)}
                 </ul>

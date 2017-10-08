@@ -19,9 +19,10 @@ import './index.scss';
  *  inner modal content
  * </Modal>
  * 
- * @param {Boolean} [isOpen] change to open/close the modal
- * @param {String} title the modal title
+ * @param {boolean} [isOpen] change to open/close the modal
+ * @param {string} title the modal title
  * @param {node} children the modal content
+ * @param {function} onChange will execute the callback on change with the new value
  */
 export default class Modal extends React.Component {
     /**
@@ -45,6 +46,7 @@ export default class Modal extends React.Component {
     }
 
     toggleOpenState() {
+        this.props.onChange && this.props.onChange(!this.state.isOpen);
         this.setState(state => _.extend({}, state, {isOpen: !state.isOpen}));
     }
 
@@ -55,13 +57,16 @@ export default class Modal extends React.Component {
         const { children, className, title } = this.props;
 
         return this.state.isOpen ? (
-            <Card className={`library-_-modal-container${className ? ` ${className}` : ''}`}>
-                <h2 className="library-_-modal-title">{title}</h2>
-                <div className="library-_-modal-close-button" onClick={this.toggleOpenState}></div>
-                <div className="library-_-modal-content-container">
-                    {children}
-                </div>
-            </Card>
+            <div>
+                <Card className={`library-_-modal-container${className ? ` ${className}` : ''}`}>
+                    <h2 className="library-_-modal-title">{title}</h2>
+                    <div className="library-_-modal-close-button" onClick={this.toggleOpenState}></div>
+                    <div className="library-_-modal-content-container">
+                        {children}
+                    </div>
+                </Card>
+                <div className="library-_-modal-frame" onClick={this.toggleOpenState} />
+            </div>
         ) : null;
     }
 }
