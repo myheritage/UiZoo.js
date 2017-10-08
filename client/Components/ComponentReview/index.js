@@ -28,9 +28,9 @@ export default class ComponentReview extends React.Component {
         this.updateParam = this.updateParam.bind(this);
         this.updateExample = this.updateExample.bind(this);
         this.toggleErrorModal = this.toggleErrorModal.bind(this);
-
-        const componentDoc = this.props.documentations[this.props.componentName] || {};
-        this.setDefaultExample(componentDoc, true);
+        
+        const example = this.extractExampleFromJsDoc(props);
+        this.setDefaultExample(example, true);
     }
 
     /**
@@ -45,13 +45,25 @@ export default class ComponentReview extends React.Component {
      * @return {boolean} if setting the example was a success
      * @param {boolean} [isInConstructor]
      */
-    setDefaultExample(componentDoc, isInConstructor = false) {
-        if (componentDoc.example && componentDoc.example.length) {
-            this.updateExample(componentDoc.example[0].description, isInConstructor);
-            return true;
-        } else {
-            return false;
+    setDefaultExample(example, isInConstructor = false) {
+        if (example) {
+            this.updateExample(example, isInConstructor);
         }
+    }
+
+    /**
+     * @param {object} props 
+     * @return {string}
+     */
+    extractExampleFromJsDoc(props) {
+        let example = '';
+        const componentJsDoc = props.documentations[props.componentName] || {};
+        const examples = componentJsDoc.example;
+        if (examples && examples.length) {
+            const exampleIndex = props.exampleIndex || 0;
+            example = examples[exampleIndex] ? examples[exampleIndex].description : '';
+        }   
+        return example; 
     }
 
     /**
@@ -60,11 +72,11 @@ export default class ComponentReview extends React.Component {
      */
     componentWillReceiveProps(nextProps) {
         if (this.props.componentName !== nextProps.componentName) {
-            const componentDoc = nextProps.documentations[nextProps.componentName] || {};
-            if (!this.setDefaultExample(componentDoc)) {
-                this.setState({
-                    componentProps: {}
-                });
+            const example = this.extractExampleFromJsDoc(nextProps);
+            if (example) {
+                this.setDefaultExample(example);
+            } else {
+                this.shallowStateUpdate({componentProps: {}});
             }
         }
     }

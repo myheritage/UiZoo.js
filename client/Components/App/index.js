@@ -30,14 +30,15 @@ export default class App extends React.Component {
                         components={components}
                         componentsByModule={componentsByModule}
                         selectedComponentName={componentName}
-                        goToUrl={(url) => this.props.history.push(`${baseRoute}${url}`)} />
+                        goToUrl={url => this.props.history.push(`${baseRoute}${url}`)} />
                 </div>
                 <div className="library-_-review">
                     <ComponentReview
                         components={components}
                         documentations={documentations}
                         componentName={componentName}
-                        compiler={compiler} />
+                        compiler={compiler} 
+                        exampleIndex={match.params.exampleIndex}/>
                 </div>
             </div>
         );

@@ -42,7 +42,7 @@ function start(app) {
     app.use('/node_modules', express.static(path.join(rootDir, 'node_modules')));
     app.use('/favicon.ico', express.static(path.join(rootDir, 'favicon.ico')));
 
-    app.all("/:component?", (req, res) => {
+    app.all("/*", (req, res) => {
         res.sendFile("index.html", {root: rootDir});
     });
     

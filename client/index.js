@@ -33,7 +33,7 @@ function init(
 
     ReactDOM.render(
         <BrowserRouter basename="/">
-            <Route path={`${baseRoute}:componentName?`} render={routeProps => (
+            <Route path={`${baseRoute}:componentName?/:exampleIndex?`} render={routeProps => (
                 <App {...routeProps}
                     components={components}
                     componentsByModule={componentsByModule}
