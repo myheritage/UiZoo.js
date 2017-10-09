@@ -52,7 +52,14 @@ export default class ParamSelectorJSX extends React.Component {
         let jsxValue;
         if (val) {
             try {
-                jsxValue = jsxToString(val, {useFunctionCode: true});
+                if (Array.isArray(val)) {
+                    jsxValue = '';
+                    for(let i = 0, l = val.length; i < l; i++) {
+                        jsxValue += this.getJsxFromValue(val[i]);
+                    }
+                } else {
+                    jsxValue = jsxToString(val, {useFunctionCode: true});
+                }
             } catch (e) {
                 jsxValue = val;
             }
