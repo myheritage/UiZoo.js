@@ -87,7 +87,9 @@ export default class ParamSelectorJSX extends React.Component {
 
         if (START_WITH_TAG_REGEX.test(value)) {
             try {
-                compiledValue = compiler(value);
+                // as a hack to no mess with keys - wrapping by a div
+                compiledValue = compiler(`<div>${value}</div>`);
+                compiledValue = compiledValue.props.children;
             } catch(e) {
                 error = e;
             }
