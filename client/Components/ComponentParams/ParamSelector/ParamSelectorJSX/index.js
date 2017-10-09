@@ -7,6 +7,7 @@ import Tooltip from '../../../UI/Tooltip';
 import './index.scss';
 
 const DEBOUNCE_AMOUNT = 500;
+const START_WITH_TAG_REGEX = /^\s*</;
 
 /**
  * @description
@@ -38,12 +39,15 @@ export default class ParamSelectorJSX extends React.Component {
      */
     reportChange(value) {
         const {compiler = _.noop, onChange = _.noop} = this.props;
-        let compiledValue, error = null;
-        try {
-            compiledValue = compiler(value);
-        } catch(e) {
-            compiledValue = value; // set as string instead
-            error = e;
+        let compiledValue = value,
+            error = null;
+
+        if (START_WITH_TAG_REGEX.test(value)) {
+            try {
+                compiledValue = compiler(value);
+            } catch(e) {
+                error = e;
+            }
         }
         this.setState(state => _.extend({}, state, {error}));
         onChange(null, compiledValue);
