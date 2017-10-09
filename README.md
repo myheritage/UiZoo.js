@@ -9,12 +9,12 @@ Well, no more! introducing - **UiZoo.js**
 It will showcase **your components**, letting you develop in a sterile environment and browse what you already have and can use, to better re-use your components.
 And all this with almost no effort!
 
-![React Bibliotheca 1](https://media.giphy.com/media/pF8cbzzIGJWO4/giphy.gif "React Bibliotheca 1")
+![React UiZoo 1](https://i.imgur.com/1VIerCJ.gif "React UiZoo 1")
 
 We use JSDoc parsing from your current components to showcase them, with all of their possible properties, examples, and descriptions.
 This tool can be used for developing, for Product Managers to know what is possible, for UX to see what we have so far, and it can be a playground for co-operation between all of the above.
 
-![React Bibliotheca 3](https://media.giphy.com/media/MqhUcIhANah9e/giphy.gif)
+![React UiZoo 3](https://imgur.com/f3B2TDj.gif)
 
 ## How To UiZoo?
 Git clone by:
@@ -66,17 +66,18 @@ The section of the component. Will put the component inside this section on the 
 #### @description (synonyms: @summary, @desc, @classdesc)
 The component description
 #### @example
-A JSX example, this tag can be used multiple times for more examples. 1st example will be loaded automaticly when browsing to a component page.
+A JSX example, this tag can be used multiple times for more examples. 1st example will be loaded as the default when browsing to a component page.
+When loading an example - it will change the url accordingly, this enables you to share configurations with anyone!
+This is great for code-reviews reference!
+
 You can add comments and they will stay in the examples section of the component on the example.
 #### @param (synonyms: @property, @arg, @argument, @prop, @member)
 A possible prop for the component, use [JSDoc optional syntax](http://usejsdoc.org/tags-param.html#optional-parameters-and-default-values) for marking a prop as optional.
-For some prop types, like function, we have a special input
-
-![React Bibliotheca 2](https://media.giphy.com/media/URXY0x84ULSSc/giphy.gif)
+For some prop types, like function or JSX (indicating 'node' or 'ReactElement'), we have special inputs
 
 You can also indicate literal string/number for the type and the input will be a menu of items with those values
 
-![React Bibliotheca 4](https://media.giphy.com/media/R4w7AiCQpYxjO/giphy.gif)
+![React UiZoo 3](https://imgur.com/CWc2CL2.gif)
 
 See video example:
 [https://youtu.be/KRCM0fHTXms](https://youtu.be/KRCM0fHTXms)

@@ -1,4 +1,4 @@
-import {Component} from 'react';
+import React from 'react';
 import './index.scss';
 
 const OPEN_STATE_CLASS = 'library-_-collapsible-open';
@@ -30,7 +30,7 @@ const OPEN_STATE_CLASS = 'library-_-collapsible-open';
  * @param {object} [titleStyle] the style of the title only
  * @param {object} [contentStyle] the title of the content only
  */
-export default class Collapsible extends Component {
+export default class Collapsible extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

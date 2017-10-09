@@ -1,17 +1,19 @@
 import React from 'react';
 import calculateType from './calculateType';
+import {getBaseSynonym} from '../../../services/synonymService';
 
 import ParamSelectorBoolean from './ParamSelectorBoolean';
 import ParamSelectorVariant from './ParamSelectorVariant';
 import ParamSelectorJSON from './ParamSelectorJSON';
 import ParamSelectorFunction from './ParamSelectorFunction';
+import ParamSelectorJSX from './ParamSelectorJSX';
 
 const paramTypeToComponent = {
-    'boolean': ParamSelectorBoolean,
     'bool': ParamSelectorBoolean,
     'variant': ParamSelectorVariant,
     'function' : ParamSelectorFunction,
-    'default': ParamSelectorJSON
+    'node': ParamSelectorJSX,
+    'default': ParamSelectorJSON,
 };
 
 /**
@@ -26,22 +28,24 @@ const paramTypeToComponent = {
 export default class ParamSelector extends React.Component {
     /**
      * get the right selector
+     * @param {string} type 
+     * @param {array} values 
      * @return {object}
      */
-    getSelectorAndValues() {
-        const {type, values} = calculateType(this.props.type);
-        let Selector = paramTypeToComponent[type.toLowerCase()] || paramTypeToComponent['default'];
+    getSelector(type, values) {
+        let Selector = paramTypeToComponent[getBaseSynonym(type.toLowerCase())];
         if (type === 'variant' && (!values || !values.length)) {
             Selector = paramTypeToComponent['default'];
         }
-        return {Selector, values};
+        return Selector || paramTypeToComponent['default'];
     }
 
     /**
      * Render the right selector for the job
      */
     render() {
-        const {Selector, values} = this.getSelectorAndValues();
+        const {type, values} = calculateType(this.props.type);
+        const Selector = this.getSelector(type, values);
         return (<Selector {...this.props} values={values}/>);
     }
 }

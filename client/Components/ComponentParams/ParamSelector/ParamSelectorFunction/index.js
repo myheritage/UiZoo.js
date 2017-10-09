@@ -1,8 +1,9 @@
-import {Component} from 'react';
+import React from 'react';
 import _ from 'underscore';
 
 import TextField from '../../../UI/TextField';
-import {tryToEvalFunction} from './tryToEval';
+
+const DEBOUNCE_AMOUNT = 300;
 
 /**
  * @description
@@ -10,11 +11,11 @@ import {tryToEvalFunction} from './tryToEval';
  * 
  * @param {function} onChange
  */
-export default class ParamSelectorFunction extends Component {
+export default class ParamSelectorFunction extends React.Component {
     constructor(props) {
         super(props);
         this.onChange = this.onChange.bind(this);
-        this.reportChangeBounced = _.debounce(val => this.reportChange(val), 300);
+        this.reportChangeBounced = _.debounce(val => this.reportChange(val), DEBOUNCE_AMOUNT);
     }
 
     /**
@@ -24,7 +25,6 @@ export default class ParamSelectorFunction extends Component {
      */
     onChange(e) {
         const newValue = e.target.value;
-        this.setState({value: newValue});
         this.reportChangeBounced(newValue);
     }
 
@@ -33,8 +33,14 @@ export default class ParamSelectorFunction extends Component {
      * @param {string} val 
      */
     reportChange(val) {
-        let func = tryToEvalFunction(val);
-        this.props.onChange && this.props.onChange(null, func);
+        const {name, compiler = _.noop, onChange = _.noop} = this.props;
+        let func;
+        try {
+            func = compiler(val);
+        } catch(e){
+            func = () => console.error(`Failed in compilation of '${name}' prop, full error:\n\n`, e);
+        }
+        onChange(null, func);
     }
 
     render() {
@@ -42,22 +48,8 @@ export default class ParamSelectorFunction extends Component {
             <div className="library-_-function-selector-wrapper">
                 <TextField
                     onChange={this.onChange}
-                    placeholder="(e) => console.log.." /> 
+                    placeholder="(e) => console.log(e)" /> 
             </div>
         );
     }
-}
-
-/**
- * @param {*} fn 
- */
-function tryToStringifyFunction(fn) {
-    let stringifiedFunction;
-    let typeOfFn = typeof fn;
-    try {
-        if (typeOfFn === 'function' || typeOfFn === 'string') {
-            stringifiedFunction = fn.toString();
-        }
-    } catch(e) {}
-    return stringifiedFunction;
 }

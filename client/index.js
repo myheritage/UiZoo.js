@@ -10,7 +10,6 @@ import { createCompiler } from './services/compileWithContext';
 import { parseDocumentation } from './services/parseDocumentation';
 import App from './Components/App';
 import mapComponentsByModule from "./services/componentByModuleMapper";
-import ErrorReporter from "./services/errorReporter";
 
 const defaultRoot = document.getElementById('library-_-root');
 
@@ -24,7 +23,7 @@ function init(
     documentation = libraryDocs,
     components = libraryData,
     rootElement = defaultRoot,
-    baseRoute = '/',
+    baseRoute = '/'
 ) {
     checkDependencies(documentation, components);
 
@@ -34,7 +33,7 @@ function init(
 
     ReactDOM.render(
         <BrowserRouter basename="/">
-            <Route path={`${baseRoute}:componentName?`} render={routeProps => (
+            <Route path={`${baseRoute}:componentName?/:exampleIndex?`} render={routeProps => (
                 <App {...routeProps}
                     components={components}
                     componentsByModule={componentsByModule}

@@ -1,4 +1,4 @@
-import {Component} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'underscore';
 
@@ -32,15 +32,16 @@ const SPACING = 5;
  *     Text to open the tooltip upon on the bottom
  * </Tooltip>
  *
- * @param {node} [tooltip] tooltip inner content, can be text or elements
+ * @param {*} [tooltip] tooltip inner content, can be text or elements
  * @param {"top"|"bottom"} [side=top] preferred placement of the tooltip relative to the element
  * @param {"center"|"start"|"end"} [alignment=center] preferred alignment of the tooltip relative to the element
  * @param {"click"|"hover"} [trigger=click] trigger event, on mobile you should stick with click
  * @param {function} [onTooltipOpen] callback for when the tooltip is opened
  * @param {function} [onAfterTooltipOpen] callback for after the tooltip is opened
+ * @param {Boolean} [isOpen] controlled prop to open/close the tooltip
  * @param {node} [children] the element/s to be triggering the tooltip appearance
  */
-export default class Tooltip extends Component {
+export default class Tooltip extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -91,7 +92,6 @@ export default class Tooltip extends Component {
             onAfterTooltipOpen,
             side: this.state.side,
             alignment: this.state.alignment,
-            initiallyOpen: this.props.initiallyOpen
         });
 
         return (

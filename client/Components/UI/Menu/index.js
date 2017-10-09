@@ -1,4 +1,4 @@
-import {Component} from 'react';
+import React from 'react';
 import './index.scss';
 
 /**
@@ -34,7 +34,7 @@ import './index.scss';
  * @param {function} [onChange] callback for changes in selected value
  * @param {node} children MenuItems to be selected
  */
-export default class Menu extends Component {
+export default class Menu extends React.Component {
     constructor(props) {
         super(props);
         this.state = {selectedValue: props.value};
@@ -56,7 +56,7 @@ export default class Menu extends Component {
      * @param {event} e 
      * @param {string|number} val 
      */
-    onChange(e, val) {
+    onChange(e, {value: val} = {}) {
         if (val !== this.state.selectedValue) {
             this.setState({selectedValue: val});
             this.props.onChange && this.props.onChange(e, val);
@@ -68,7 +68,7 @@ export default class Menu extends Component {
      * @param {string|number} val 
      * @returns {string}
      */
-    getItemClassName(val) {
+    getItemClassName({value: val} = {}) {
         return `library-_-menu-item-wrapped${val === this.state.selectedValue ? ' selected' : ''}`;
     }
 
@@ -76,8 +76,8 @@ export default class Menu extends Component {
         const items = React.Children.map(this.props.children, child => (
             <button
                 tabIndex="1"
-                onClick={e => this.onChange(e, child.props.value)}
-                className={this.getItemClassName(child.props.value)}>
+                onClick={e => this.onChange(e, child.props)}
+                className={this.getItemClassName(child.props)}>
                 {child}
             </button>
         ));

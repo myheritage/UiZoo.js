@@ -1,15 +1,14 @@
 import React from 'react';
 import _ from 'underscore';
-import jsxToString from '../../services/jsx-to-string';
 import Card from '../UI/Card';
-import { previewFrameStyle } from './previewFrameStyle';
 import Separator from '../UI/Separator';
 import CodeCard from '../UI/CodeCard';
+import Modal from '../UI/Modal';
+import Tooltip from '../UI/Tooltip';
 import ComponentParams from '../ComponentParams';
 import ComponentExamples from '../ComponentExamples';
-import ErrorReporter from "../../services/errorReporter";
-import Modal from "../UI/Modal";
-import Tooltip from "../UI/Tooltip";
+import jsxToString from '../../services/jsx-to-string';
+import {hasErrors, reportError, getErrors} from '../../services/errorReporter';
 import './index.scss';
 
 /**
@@ -22,38 +21,49 @@ export default class ComponentReview extends React.Component {
         super(props);
         this.state = {
             componentProps: {},
+            showErrorIndicator: hasErrors(),
+            isErrorModalOpen: false,
         };
+
         this.updateParam = this.updateParam.bind(this);
         this.updateExample = this.updateExample.bind(this);
-        this.toggleErrorModalState = this.toggleErrorModalState.bind(this);
-        this.setModalRef = this.setModalRef.bind(this);
+        this.toggleErrorModal = this.toggleErrorModal.bind(this);
+        
+        const example = this.extractExampleFromJsDoc(props);
+        this.setDefaultExample(example, true);
     }
 
     /**
-     * Component mount, set default example
+     * @param {boolean} [newValue] 
      */
-    componentDidMount() {
-        const componentDoc = this.props.documentations[this.props.componentName] || {};
-        this.setDefaultExample(componentDoc);
-    }
-
-    toggleErrorModalState() {
-        this.setState(state => {
-            state.isErrorModalOpen = !state.isErrorModalOpen;
-        });
+    toggleErrorModal(newValue = true) {
+        this.setState(state => _.extend({}, state, {isErrorModalOpen: newValue}));
     }
 
     /**
      * Set the default example, which is the first example
      * @return {boolean} if setting the example was a success
+     * @param {boolean} [isInConstructor]
      */
-    setDefaultExample(componentDoc) {
-        if (componentDoc.example && componentDoc.example.length) {
-            this.updateExample(componentDoc.example[0].description);
-            return true;
-        } else {
-            return false;
+    setDefaultExample(example, isInConstructor = false) {
+        if (example) {
+            this.updateExample(example, isInConstructor);
         }
+    }
+
+    /**
+     * @param {object} props 
+     * @return {string}
+     */
+    extractExampleFromJsDoc(props) {
+        let example = '';
+        const componentJsDoc = props.documentations[props.componentName] || {};
+        const examples = componentJsDoc.example;
+        if (examples && examples.length) {
+            const exampleIndex = props.exampleIndex;
+            example = examples[exampleIndex] ? examples[exampleIndex].description : '';
+        }   
+        return example; 
     }
 
     /**
@@ -62,11 +72,11 @@ export default class ComponentReview extends React.Component {
      */
     componentWillReceiveProps(nextProps) {
         if (this.props.componentName !== nextProps.componentName) {
-            const componentDoc = nextProps.documentations[nextProps.componentName] || {};
-            if (!this.setDefaultExample(componentDoc)) {
-                this.setState({
-                    componentProps: {}
-                });
+            const example = this.extractExampleFromJsDoc(nextProps);
+            if (example) {
+                this.setDefaultExample(example);
+            } else {
+                this.shallowStateUpdate({componentProps: {}});
             }
         }
     }
@@ -81,14 +91,15 @@ export default class ComponentReview extends React.Component {
         let componentProps = _.extend({}, this.state.componentProps, { [paramName]: value });
         // clean undefined values
         _.keys(componentProps).forEach(key => typeof componentProps[key] === 'undefined' && delete componentProps[key]);
-        this.setState({ componentProps });
+        this.shallowStateUpdate({ componentProps });
     }
 
     /**
      * Update the params by the example
      * @param {string} example
+     * @param {boolean} [isInConstructor]
      */
-    updateExample(example) {
+    updateExample(example, isInConstructor = false) {
         let error = null,
             CompiledNode = null;
         try {
@@ -96,31 +107,35 @@ export default class ComponentReview extends React.Component {
         } catch (e) {
             error = e;
         }
-        // TODO: add name CompiledNode.type.name === this.props.documentation.name
         if (!error && CompiledNode && CompiledNode.type) {
-            this.setState({
-                componentProps: CompiledNode.props
-            });
+            this.shallowStateUpdate({componentProps: CompiledNode.props}, isInConstructor);
         } else {
             let errorMessage = error
                 ? error
                 : 'error in example';
-            ErrorReporter.reportError(errorMessage);
+            reportError(errorMessage);
+            this.shallowStateUpdate({showErrorIndicator: true}, isInConstructor);
+        }
+    }
+
+    /**
+     * @param {object} stateFragment
+     * @param {boolean} [isInConstructor] 
+     */
+    shallowStateUpdate(stateFragment = {}, isInConstructor = false) {
+        if (isInConstructor) {
+            this.state = _.extend({}, this.state, stateFragment);
+        } else {
+            this.setState(state => _.extend({}, state, stateFragment));
         }
     }
 
     renderErrorIndicator() {
         return (
-            <Tooltip tooltip="Errors found!"
-                trigger="click"
-                initiallyOpen={true}>
-                <div className="library-_-error-indicator" onClick={() => this.errorModal.toggleOpenState()} />
+            <Tooltip tooltip="Errors found!" isOpen>
+                <div className="library-_-error-indicator" onClick={this.toggleErrorModal} />
             </Tooltip>
         );
-    }
-
-    setModalRef(modalRef) {
-        this.errorModal = modalRef;
     }
 
     /**
@@ -128,19 +143,17 @@ export default class ComponentReview extends React.Component {
      * @param {object}
      * @param {string} name
      */
-    renderComponentMetadata({ description, module }, name, showErrorIndicator) {
-        const errorIndicator = showErrorIndicator ? this.renderErrorIndicator() : null;
-
+    renderComponentMetadata({ description, module }, name) {
         return (
             <div>
-                <h10 className="library-_-component-section">
+                <p className="library-_-component-section">
                     {module && module[0].name}
-                </h10>
+                </p>
                 <h1 className="library-_-component-name">
                     {!!name && name}
                     {!name && 'Welcome to UiZoo.js!'}
                 </h1>
-                {errorIndicator}
+                {this.state.showErrorIndicator ? this.renderErrorIndicator() : null}
                 <h3 className="library-_-component-description">
                     <pre>
                         {_.pluck(description, "description").join(". ")}
@@ -175,7 +188,13 @@ export default class ComponentReview extends React.Component {
         return (
             <div className="library-_-component-params-section">
                 <p className="library-_-section-header">Params:</p>
-                <ComponentParams componentName={name} params={params} onChange={this.updateParam} />
+                <ComponentParams
+                    componentName={name}
+                    params={params}
+                    onChange={this.updateParam}
+                    compiler={this.props.compiler}
+                    exampleIndex={this.props.exampleIndex}
+                />
             </div>
         );
     }
@@ -188,7 +207,11 @@ export default class ComponentReview extends React.Component {
         return (
             <div className="library-_-component-examples-section">
                 <p className="library-_-section-header">Examples:</p>
-                <ComponentExamples examples={example} onChange={this.updateExample} />
+                <ComponentExamples
+                    examples={example}
+                    changeExampleIndexInUrl={this.props.changeExampleIndexInUrl}
+                    onChange={this.updateExample}
+                />
             </div>
         );
     }
@@ -214,12 +237,13 @@ export default class ComponentReview extends React.Component {
      */
     renderErrorModal() {
         return (
-            <Modal title="Errors" ref={this.setModalRef}>
-                <ul>
-                    {ErrorReporter.getErrors().map(currMsg =>
-                        <li className="error-message">
-                            {currMsg}
-                        </li>)}
+            <Modal
+                title="Errors"
+                isOpen={this.state.isErrorModalOpen}
+                onChange={this.toggleErrorModal}
+            >
+                <ul style={{padding: '0 15px'}}>
+                    {getErrors().map((message, i) => <li key={`error-index-${i}`}>{message}</li>)}
                 </ul>
             </Modal>
         );
@@ -236,7 +260,7 @@ export default class ComponentReview extends React.Component {
         return (
             <div className="library-_-component-review">
                 {this.renderErrorModal()}
-                {this.renderComponentMetadata(componentDoc, this.props.componentName, ErrorReporter.getErrors().length > 0)}
+                {this.renderComponentMetadata(componentDoc, this.props.componentName)}
                 <Separator /> {this.renderComponentContent(componentContent)}
                 <Separator /> {this.renderComponentParams(componentDoc, this.props.componentName)}
                 <Separator /> {this.renderComponentExamples(componentDoc)}
@@ -245,3 +269,7 @@ export default class ComponentReview extends React.Component {
         );
     }
 }
+
+ComponentReview.defaultProps = {
+    exampleIndex: 0,
+};

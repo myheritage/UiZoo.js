@@ -1,4 +1,4 @@
-import {Component} from 'react';
+import React from 'react';
 import './index.scss';
 
 /**
@@ -6,20 +6,20 @@ import './index.scss';
  * RaisedButton
  * 
  * @module
- * Buttons
+ * Inputs
  * 
  * @description
  * A styled button for clicking and hovering
  * 
  * @example
  * <RaisedButton onClick={(e) => console.log('RaisedButton was clicked, event: ', e)}>
- *    Raised Button Text, test
+ *    Raised Button Text
  * </RaisedButton>
  * 
  * @param {function} [onClick] callback for the tooltip was clicked
  * @param {node} children the clickable element that will open the tooltip
  */
-export default class RaisedButton extends Component {
+export default class RaisedButton extends React.Component {
   render() {
     const {children, onClick} = this.props;
     return (

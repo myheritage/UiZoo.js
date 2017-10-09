@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'underscore';
 import ComponentExample from './ComponentExample';
 import './index.scss';
 
@@ -12,15 +13,18 @@ import './index.scss';
 export default class ComponentExamples extends React.Component {
     constructor(props) {
         super(props);
-        this.onChange = this.onChange.bind(this);
+        this.onExampleChange = this.onExampleChange.bind(this);
     }
 
     /**
      * Report the parent that an example was chosen
      * @param {string} example 
      */
-    onChange(example) {
-        this.props.onChange && this.props.onChange(example);
+    onExampleChange(example, exampleIndex) {
+        const {onChange = _.noop, changeExampleIndexInUrl = _.noop} = this.props;
+        const exampleIndexParam = exampleIndex > 0 ? `/${exampleIndex}` : '';
+        changeExampleIndexInUrl(exampleIndexParam);
+        onChange(example);
     }
 
     /**
@@ -32,7 +36,8 @@ export default class ComponentExamples extends React.Component {
                 <ComponentExample
                     key={`component-example-${i}`}
                     example={example}
-                    onChange={this.onChange}/>
+                    exampleIndex={i}
+                    onChange={this.onExampleChange}/>
             ));
         
         return (

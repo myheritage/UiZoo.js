@@ -35,7 +35,7 @@ function bundleClient() {
 		.then(bundle => {
 			bundle.write({
 				format: 'iife',
-				dest: 'dist/index.js',
+				file: 'dist/index.js',
 				globals: {
 					'underscore': '_',
 					'react': 'React',
@@ -44,13 +44,10 @@ function bundleClient() {
                     'doctrine-standalone': 'doctrine',
 					'babel-standalone': 'Babel',
 				},
-				moduleName: 'UiZoo',
+				name: 'UiZoo',
 			});
 		})
-		.catch(err => {
-			console.error(chalk.red(err.message));
-			console.error(chalk.grey(err.formatted && err.formatted.replace('Error: ' + err.message + '\n', '')));
-		});
+		.catch(handleError);
 }
 
 function startNodemonServer() {
@@ -70,6 +67,7 @@ function restartNodemonServer() {
 }
 
 function handleError(error) {
+	console.log(error);
 	console.error(chalk.red(error.message));
 	console.error(chalk.grey(error.formatted && err.formatted.replace('Error: ' + error.message + '\n', '')));
 

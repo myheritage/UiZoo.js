@@ -1,36 +1,36 @@
-let _instance = null;
+import React from 'react';
+
+let errorList = [];
 
 /**
- * Error reporter
+ * Report error
+ * @param {String|Error} message
+ * @param {Array|String} args
  */
-export default class ErrorReporter {
-    constructor() {
-        this.errorList = [];
-    }
-
-    static get instance() {
-        if (!_instance) {
-            _instance = new ErrorReporter();
-        }
-
-        return _instance;
-    }
-
-    /**
-     * Report error
-     * @param {string} message 
-     */
-    static reportError(message, args) {
-        console.error(message, args);
-        this.instance.errorList.push(`${message} ${args}`);
-    }
-
-    /**
-     * Get errors
-     */
-    static getErrors() {
-        return this.instance.errorList;
+export function reportError(message, args) {
+    console.error(message, args);
+    if (message instanceof Error) {
+        errorList.push(
+            (<div>
+                <pre>{message.toString()}</pre><br/>
+                {args ? args.toString() : ''}
+            </div>)
+        );
+    } else {
+        errorList.push(`${message}${args ? ` ${args}` : ''}`);
     }
 }
 
+/**
+ * Get errors
+ */
+export function getErrors() {
+    return errorList;
+}
 
+/**
+ * Get errors
+ */
+export function hasErrors() {
+    return errorList.length > 0;
+}

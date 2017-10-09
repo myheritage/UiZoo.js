@@ -37,11 +37,12 @@ export default class ComponentParams extends React.Component {
                     </p>
                 </Tooltip>
                 <ParamSelector
-                    key={`selector-for-${paramObj.name}-${this.props.componentName}`}
+                    key={`selector-for-${paramObj.name}-${this.props.componentName}-${this.props.exampleIndex}`}
                     name={paramObj.name}
                     type={paramObj.type}
                     selectedValue={paramObj.value}
-                    onChange={(e, newValue) => this.onChange(e, paramObj.name, newValue)}/>
+                    onChange={(e, newValue) => this.onChange(e, paramObj.name, newValue)}
+                    compiler={this.props.compiler}/>
             </div>
         );
     }

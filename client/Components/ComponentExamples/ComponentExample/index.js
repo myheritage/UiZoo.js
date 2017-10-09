@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'underscore';
 import RaisedButton from '../../UI/RaisedButton';
 import CodeCard from '../../UI/CodeCard';
 import './index.scss';
@@ -9,34 +10,19 @@ import './index.scss';
  * 
  * @param {string} example optionally including a title before the code
  */
-export default class ComponentExample extends React.Component {
-    /**
-     * Report parent that example should be loaded
-     * @param {string} example the code example without title
-     */
-    loadExample(example) {
-        this.props.onChange && this.props.onChange(example);
-    }
-
-    /**
-     * Render the example
-     */
-    render () {
-        const code = this.props.example.description;
-        
-        return (
-            <div className="library-_-component-example">
-                <div className="library-_-code-card-frame">
-                    <a className="library-_-try-it-button">
-                        <RaisedButton onClick={e => this.loadExample(code)}>
-                            Try it!
-                        </RaisedButton>
-                    </a>
-                    <CodeCard>
-                        {code}
-                    </CodeCard>
-                </div>
+export default function ComponentExample ({example, exampleIndex, onChange = _.noop}) {
+    return (
+        <div className="library-_-component-example">
+            <div className="library-_-code-card-frame">
+                <a className="library-_-try-it-button">
+                    <RaisedButton onClick={e => onChange(example.description, exampleIndex)}>
+                        Try it!
+                    </RaisedButton>
+                </a>
+                <CodeCard>
+                    {example.description}
+                </CodeCard>
             </div>
-        );
-    }
+        </div>
+    );
 }
