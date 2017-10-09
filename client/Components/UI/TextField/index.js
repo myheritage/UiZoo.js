@@ -41,7 +41,9 @@ export default class TextField extends React.Component {
      * Set initial height of the text area
      */
     componentDidMount() {
-        this.setTextareaHeight();
+        window.requestAnimationFrame(() => { // reading in the start of the next frame for the correct scrollHeight
+            this.setTextareaHeight();
+        });
     }
 
     /**

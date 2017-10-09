@@ -17,7 +17,7 @@ import './index.scss';
  * </RaisedButton>
  * 
  * @param {function} [onClick] callback for the tooltip was clicked
- * @param {*} children the clickable element that will open the tooltip
+ * @param {node} children the clickable element that will open the tooltip
  */
 export default class RaisedButton extends React.Component {
   render() {

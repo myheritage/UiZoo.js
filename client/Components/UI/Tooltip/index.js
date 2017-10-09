@@ -39,7 +39,7 @@ const SPACING = 5;
  * @param {function} [onTooltipOpen] callback for when the tooltip is opened
  * @param {function} [onAfterTooltipOpen] callback for after the tooltip is opened
  * @param {Boolean} [isOpen] controlled prop to open/close the tooltip
- * @param {*} [children] the element/s to be triggering the tooltip appearance
+ * @param {node} [children] the element/s to be triggering the tooltip appearance
  */
 export default class Tooltip extends React.Component {
     constructor(props) {

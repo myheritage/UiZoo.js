@@ -60,7 +60,7 @@ export default class ComponentReview extends React.Component {
         const componentJsDoc = props.documentations[props.componentName] || {};
         const examples = componentJsDoc.example;
         if (examples && examples.length) {
-            const exampleIndex = props.exampleIndex || 0;
+            const exampleIndex = props.exampleIndex;
             example = examples[exampleIndex] ? examples[exampleIndex].description : '';
         }   
         return example; 
@@ -193,6 +193,7 @@ export default class ComponentReview extends React.Component {
                     params={params}
                     onChange={this.updateParam}
                     compiler={this.props.compiler}
+                    exampleIndex={this.props.exampleIndex}
                 />
             </div>
         );
@@ -268,3 +269,7 @@ export default class ComponentReview extends React.Component {
         );
     }
 }
+
+ComponentReview.defaultProps = {
+    exampleIndex: 0,
+};

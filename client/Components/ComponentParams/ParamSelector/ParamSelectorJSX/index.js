@@ -3,6 +3,7 @@ import _ from 'underscore';
 
 import TextField from '../../../UI/TextField';
 import Tooltip from '../../../UI/Tooltip';
+import jsxToString from '../../../../services/jsx-to-string';
 
 import './index.scss';
 
@@ -22,6 +23,41 @@ export default class ParamSelectorJSX extends React.Component {
         this.state = {error: null};
         this.onChange = this.onChange.bind(this);
         this.reportChangeBounce = _.debounce(v => this.reportChange(v), DEBOUNCE_AMOUNT);
+    }
+    
+    /**
+     * A bit of a hack - it puts initial JSX to the TextField but free it right after (by setting it immediately after to undefined)
+     * The reason that "state.value" can't be just "controlled" by parent (like the String selector):
+     * We do jsx -> function, function -> jsx (receiving parent selectedValue)
+     * which have small differences like spacing and the text changes all the time... that is really annoying to write
+     * 
+     * Parent has a key prop that include the example id in it, therefore we this component will re-render on each load of an example
+     */
+    componentDidMount() {
+        let value = this.getJsxFromValue(this.props.selectedValue);
+        if (value) {
+            this.setState(
+                state => _.extend({}, state, {value}),
+                // done updating state callback -> free up state.value
+                () => this.setState(state => _.extend({}, state, {value: undefined}))
+            );
+        }
+    }
+    
+    /**
+     * @param {ReactElement|string} val 
+     * @return {string}
+     */
+    getJsxFromValue(val) {
+        let jsxValue;
+        if (val) {
+            try {
+                jsxValue = jsxToString(val, {useFunctionCode: true});
+            } catch (e) {
+                jsxValue = val;
+            }
+        }
+        return jsxValue;
     }
 
     /**
@@ -71,6 +107,7 @@ export default class ParamSelectorJSX extends React.Component {
             <div className="library-_-jsx-selector-wrapper">
                 {this.state.error ? this.renderErrorTooltip() :  null}
                 <TextField
+                    value={this.state.value}
                     onChange={this.onChange}
                     placeholder="<div>JSX</div>" /> 
             </div>
