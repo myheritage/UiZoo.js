@@ -13,11 +13,11 @@ import './index.scss';
  * 
  * @example
  * <RaisedButton onClick={(e) => console.log('RaisedButton was clicked, event: ', e)}>
- *    Raised Button Text, test
+ *    Raised Button Text
  * </RaisedButton>
  * 
  * @param {function} [onClick] callback for the tooltip was clicked
- * @param {node} children the clickable element that will open the tooltip
+ * @param {*} children the clickable element that will open the tooltip
  */
 export default class RaisedButton extends React.Component {
   render() {
