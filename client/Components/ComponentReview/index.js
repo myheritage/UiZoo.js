@@ -91,7 +91,7 @@ export default class ComponentReview extends React.Component {
         let componentProps = _.extend({}, this.state.componentProps, { [paramName]: value });
         // clean undefined values
         _.keys(componentProps).forEach(key => typeof componentProps[key] === 'undefined' && delete componentProps[key]);
-        this.setState({ componentProps });
+        this.shallowStateUpdate({ componentProps });
     }
 
     /**
@@ -188,7 +188,12 @@ export default class ComponentReview extends React.Component {
         return (
             <div className="library-_-component-params-section">
                 <p className="library-_-section-header">Params:</p>
-                <ComponentParams componentName={name} params={params} onChange={this.updateParam} />
+                <ComponentParams
+                    componentName={name}
+                    params={params}
+                    onChange={this.updateParam}
+                    compiler={this.props.compiler}
+                />
             </div>
         );
     }

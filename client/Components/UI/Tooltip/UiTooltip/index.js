@@ -36,7 +36,7 @@ import './index.scss';
  * @param {Function} [onTooltipOpen] callback for when the tooltip is opened
  * @param {Function} [onAfterTooltipOpen] callback for after the tooltip is opened
  * @param {Boolean} [isOpen] controlled prop to open/close the tooltip
- * @param {node} [children] the element/s to be triggering the tooltip appearance
+ * @param {*} [children] the element/s to be triggering the tooltip appearance
  */
 export default class UiTooltip extends React.Component {
     constructor(props) {

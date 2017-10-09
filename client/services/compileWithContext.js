@@ -24,8 +24,14 @@ export function removeIframe(iframe) {
 function createEvalWithContext(iframe, context = {}) {
     let win = iframe.contentWindow;
     _.extend(win, context, {React});
+    
     return (input) => {
-        const jsCode = Babel.transform(input, { presets: ['es2015', 'react'] }).code;
+        // defensive measures
+        if (typeof input !== 'string') return null;
+        input = input.trim();
+        if (!input) return null;
+        
+        const jsCode = Babel.transform(input.trim(), { presets: ['es2015', 'react'] }).code;
         return win.eval.call(win, jsCode);
     };
 }

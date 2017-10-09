@@ -1,0 +1,19 @@
+.library-_-jsx-selector-wrapper {
+    position: relative;
+    pre {
+        white-space: pre-wrap;
+        margin: 0;
+    }
+
+    .library-_-error-indicator-wrapper {
+        position: absolute;
+        right: -15px;
+        top: 7px;
+        z-index: 1;
+        .library-_-error-indicator {
+            width: 12px;
+            height: 12px;
+            margin: 0 10px;
+        }
+    }
+}

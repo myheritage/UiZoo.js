@@ -33,6 +33,6 @@ export default function replaceSynonyms(docObject) {
  * Returns the base synonyms for the used key, if doesn't exist returns the give docKeySynonyms
  * @param {string} docKeySynonym The used doctrine key
  */
-function getBaseSynonym(docKeySynonym) {
+export function getBaseSynonym(docKeySynonym) {
     return _.findKey(synonyms, currSynonymOptions => _.contains(currSynonymOptions, docKeySynonym)) || docKeySynonym;
 }

@@ -4,6 +4,8 @@ import _ from 'underscore';
 import TextField from '../../../UI/TextField';
 import tryToParseJson from './tryToParseJson';
 
+const DEBOUNCE_AMOUNT = 150;
+
 /**
  * @description
  * open input for JSON/string values. will try to parse as JSON and fallback to string.
@@ -18,7 +20,7 @@ export default class ParamSelectorJSON extends React.Component {
             value: this.getNextValue(props.selectedValue, JSON.stringify(props.selectedValue))
         };
         this.onChange = this.onChange.bind(this);
-        this.reportChangeBounced = _.debounce(val => this.reportChange(val), 150);
+        this.reportChangeBounced = _.debounce(val => this.reportChange(val), DEBOUNCE_AMOUNT);
     }
 
     /**

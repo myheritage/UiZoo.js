@@ -41,7 +41,8 @@ export default class ComponentParams extends React.Component {
                     name={paramObj.name}
                     type={paramObj.type}
                     selectedValue={paramObj.value}
-                    onChange={(e, newValue) => this.onChange(e, paramObj.name, newValue)}/>
+                    onChange={(e, newValue) => this.onChange(e, paramObj.name, newValue)}
+                    compiler={this.props.compiler}/>
             </div>
         );
     }
