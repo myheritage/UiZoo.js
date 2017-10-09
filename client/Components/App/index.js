@@ -38,7 +38,8 @@ export default class App extends React.Component {
                         documentations={documentations}
                         componentName={componentName}
                         compiler={compiler} 
-                        exampleIndex={match.params.exampleIndex}/>
+                        exampleIndex={match.params.exampleIndex}
+                        changeExampleIndexInUrl={exampleIndexParam => this.props.history.push(`${baseRoute}${componentName}${exampleIndexParam}`)}/>
                 </div>
             </div>
         );

@@ -206,7 +206,11 @@ export default class ComponentReview extends React.Component {
         return (
             <div className="library-_-component-examples-section">
                 <p className="library-_-section-header">Examples:</p>
-                <ComponentExamples examples={example} onChange={this.updateExample} />
+                <ComponentExamples
+                    examples={example}
+                    changeExampleIndexInUrl={this.props.changeExampleIndexInUrl}
+                    onChange={this.updateExample}
+                />
             </div>
         );
     }
