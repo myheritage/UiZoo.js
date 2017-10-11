@@ -1,7 +1,6 @@
 let compression = require('compression');
 let cors = require('cors');
 let express = require('express');
-let helmet = require('helmet');
 let http = require('http');
 let {json} = require('body-parser');
 let path = require('path');
@@ -22,7 +21,6 @@ module.exports = function (app) {
  */
 function useDependencies(app) {
     app.use(json());
-    app.use(helmet());
     app.use(compression({
         level: 1
     }));
@@ -34,7 +32,6 @@ function useDependencies(app) {
  */
 function start(app) {
     let rootDir = getRootDir(__dirname);
-    // app.set('view engine', 'jade');
     app.set('port', (process.env.PORT || 5000));
     
     app.use('/dist', express.static(path.join(rootDir, 'dist')));
