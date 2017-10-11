@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
-import Babel from 'babel-standalone';
+import * as Babel from 'babel-standalone';
 
 export function createCompiler(context) {
     const iframe = createIframe();
