@@ -17,32 +17,43 @@ This tool can be used for developing, for Product Managers to know what is possi
 ![React UiZoo 3](https://imgur.com/f3B2TDj.gif)
 
 ## How To UiZoo?
-Git clone by:
-```
-git clone git@github.com:myheritage/uizoo.js.git
-```
-then
-```
-cd uizoo.js && npm i
-gulp
-```
-This will start a server on http://localhost:5000 with the UiZoo
-you can change the [components file](https://github.com/myheritage/uizoo.js/blob/master/client/components.js) and the [documentation file](https://github.com/myheritage/uizoo.js/blob/master/client/documentation.js) to start rapidly.
-We recommend updating those files by a script automatically when files are changing (we plan to create plugins to help with this in the next future).
 
-*or* npm install by:
+Just use our zero-configuration CLI! it's easy as pie! 🍽
+
 ```
-npm i -S uizoo
+npm i -g uizoo
 ```
-then in your code, add:
+
+In a directory, do:
 ```
-import 'uizoo/dist/index.css';
+uizoo
+```
+
+It will create a [webpack development server](https://webpack.js.org/configuration/dev-server/) fully configured with [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/) to watch your files while you develop!
+
+For example:
+
+![React UiZoo CLI](https://imgur.com/v3PbP8U.gif)
+
+Start the server with the newly added script:
+```
+npm start uizoo
+```
+
+### Customization
+The CLI creates a directory called `uizoo-app`, in it there is a file called `config.js` that determine basic stuff like the server's port, glob to find your components and more. There is also a very simple webpack configuration called `webpack.uizoo.js`.
+
+
+### Local installation
+*If you don't want to install UiZoo globally, you can instead do:*
+```
+npm i -D uizoo && ./node_modules/.bin/uizoo
+```
+
+### API
+```
 import UiZoo from 'uizoo';
-UiZoo.init(documentation, components, rootElement);
-```
 
-### init
-```
 UiZoo.init(documentation: Object, components: Object, rootElement: HTMLElement?, baseRoute: String?)
 ```
 
