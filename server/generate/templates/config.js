@@ -14,11 +14,23 @@ const serverHost = process.env.HOST || '0.0.0.0';
 const componentsRootDir = path.dirname(__dirname);
 
 /**
+ * TIL that glob use '/' separators everywhere!
+ */
+const componentsRootsDirGlob = path.sep === '\\' ? componentsRootDir.split(path.sep).join('/') : componentsRootDir;
+
+/**
  * Glob to fetch all components for UiZoo
  * It exclude node_modules & uizoo-app directories
  * If you have a specific convention to your Components names, or specific sub-libraries, you should add it
+ * 
+ * You can provide either a single glob or an array that will be aggregated
+ * (using 'glob-stream', so you can negate and stuff, see: https://github.com/gulpjs/glob-stream)
  */
-const componentsGlob = [...componentsRootDir.split(path.sep), '!(node_modules|uizoo-app)', '**', '*.js'].join('/');
+const componentsGlob = [
+    `${componentsRootsDirGlob}/**/*.js`,
+    `!${componentsRootsDirGlob}/node_modules/**/*`,
+    `!${componentsRootsDirGlob}/uizoo-app/**/*`,
+];
 
 /**
  * Add this tag to a component JSDoc will exclude it from the config files of UiZoo

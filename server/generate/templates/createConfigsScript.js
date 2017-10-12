@@ -1,4 +1,4 @@
-const glob = require('glob');
+const gs = require('glob-stream');
 const path = require('path');
 const fs = require('fs-extra');
 const doctrine = require('doctrine');
@@ -19,18 +19,19 @@ module.exports = createConfigs;
  * @return {Promise}
  */
 function createConfigs() {
-    return new Promise((resolve, reject) => {
-        glob(componentsGlob, (err, filePaths = []) => {
-            if (err) return reject(err);
+    return promiseGlob(componentsGlob)
+        .then(filePaths => readFiles(filePaths)
+            .then(filesData => processFiles(filesData, filePaths))
+        )
+        .then(writeFiles);
+}
 
-            Promise.all(filePaths.map(filePath => fs.readFile(filePath)))
-                .then((filesData) => processFiles(filesData, filePaths))
-                .then(writeFiles)
-                .then(resolve)
-                .catch(reject);
-
-        });
-    });
+/**
+ * @param {Array} filePaths 
+ * @return {Promise}
+ */
+function readFiles(filePaths) {
+    return Promise.all(filePaths.map(filePath => fs.readFile(filePath)));
 }
 
 /**
@@ -175,4 +176,23 @@ function parseCommentToObject(comment) {
         doc[tag.title].push(tag);
     });
     return doc;
+}
+
+/**
+ * Turn the glob stream to a promise that reslove the files
+ * @param {Array|String} globs 
+ * @return {Promise}
+ */
+function promiseGlob(globs) {
+    return new Promise((resolve, reject) => {
+        let files = [];
+        let ls = gs(componentsGlob);
+        ls.on('data', (f = {}) => {
+            if (f.path) files.push(f.path);
+        });
+        ls.on('error', reject);
+        ls.on('end', () => {
+            resolve(files);
+        });
+    });
 }

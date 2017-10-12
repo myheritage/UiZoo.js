@@ -14,7 +14,8 @@ const neededPackages = [
     'babel-plugin-syntax-dynamic-import',
     'style-loader',
     'css-loader',
-    'fs-extra'
+    'fs-extra',
+    'glob-stream'
 ];
 
 const templatesToCopy = [
