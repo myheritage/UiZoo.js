@@ -21,7 +21,7 @@ function updatePackageJson() {
         fs.exists(pkgPath)
             .then(exists => fs.readFile(exists ? pkgPath : defaultPkgPath))
             .then(modifyPackage)
-            .then(pkg => fs.writeFile(pkgPath, pkg))
+            .then(pkg => fs.writeJSON(pkgPath, pkg, {spaces: 2}))
             .then(resolve)
             .catch(reject);
     });
@@ -48,7 +48,7 @@ function modifyPackage(packageBuffer) {
                 pkg.scripts = Object.assign({}, pkg.scripts, {
                     "uizoo": uiZooScript
                 });
-                resolve(JSON.stringify(pkg));
+                resolve(pkg);
             })
             .catch(reject);
     });
