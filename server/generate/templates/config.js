@@ -1,9 +1,11 @@
 const path = require('path');
 
 /**
- * Dev Server port
+ * Dev Server config
  */
 const serverPort = 5005;
+const serverProtocol = process.env.HTTPS === 'true' ? 'https' : 'http';
+const serverHost = process.env.HOST || '0.0.0.0';
     
 /**
  * The dir where the original command to create UiZoo was originated from,
@@ -35,6 +37,8 @@ const componentMainCommentRegex = /\/\*\*(\s*\*\s*.*?)*@(description|example).*(
 
 module.exports = {
     serverPort,
+    serverProtocol,
+    serverHost,
     componentsRootDir,
     componentsGlob,
     ignoreTag,
