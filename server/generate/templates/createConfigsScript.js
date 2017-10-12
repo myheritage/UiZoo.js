@@ -123,7 +123,7 @@ function createDocumentationFile(docMap) {
     let docFile = 'export default {\n';
     for (let [componentName, comment] of docMap) {
         // escaping ` and ${} by \` and \${}
-        docFile += `${componentName}: \`${comment.replace('`', '\\`').replace('${', '\\${')}\`,\n`;
+        docFile += `${componentName}: \`${comment.replace(/\`/g, '\\`').replace(/\$\{/g, '\\${')}\`,\n`;
     }
     docFile += '}';
     return docFile;
