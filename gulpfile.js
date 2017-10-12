@@ -2,7 +2,7 @@ let gulp = require('gulp'),
 	rollup = require('rollup'),
 	getRollupConfig = require('./rollup.config'),
 	chalk = require('chalk'),
-	nodemon = require("gulp-nodemon"),
+	nodemon = require('gulp-nodemon'),
 	livereload = require('gulp-livereload'),
 	execSync = require("child_process").execSync;
 
@@ -52,7 +52,7 @@ function bundleClient() {
 
 function startNodemonServer() {
 	nodemonStream = nodemon({
-		script: './server/main.js',
+		script: './lib/server/main.js',
 		ext: 'js html',
 		watch: false,
 	})
@@ -78,7 +78,7 @@ function handleError(error) {
 
 function updateDocumentation() {
 	try {
-		execSync(`node documentationMapper.js "./client/Components/UI/*/index.js" "./client/Components/UI/(.+)/index.js" "./client/documentation.js"`);
+		execSync(`node lib/scripts/documentationMapper.js "./client/Components/UI/*/index.js" "./client/Components/UI/(.+)/index.js" "./client/documentation.js"`);
 	}
 	catch (err) {
 		console.error(err.message);

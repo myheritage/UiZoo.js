@@ -1,1 +1,1 @@
-web: ./node_modules/.bin/rollup -c rollup-build.config.js -o dist/index.js -f iife -n UiZoo -g underscore:_,react:React,react-dom:ReactDOM,react-router-dom:ReactRouterDOM,doctrine:doctrine-standalone,babel-standalone:Babel && node server/main.js
+web: ./node_modules/.bin/rollup -c rollup-build.config.js -o dist/index.js -f iife -n UiZoo -g underscore:_,react:React,react-dom:ReactDOM,react-router-dom:ReactRouterDOM,doctrine:doctrine-standalone,babel-standalone:Babel && node lib/server/main.js
