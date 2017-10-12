@@ -11,9 +11,7 @@ let fs = require('fs'),
   comments = require('postcss-discard-comments'),
   dupes = require('postcss-discard-duplicates'),
   cssnext = require('postcss-cssnext'),
-  replace = require("rollup-plugin-replace");
-
-const defaultExternal = [];
+  replace = require('rollup-plugin-replace');
 
 function getPlugins({
   external
@@ -30,18 +28,9 @@ function getPlugins({
   const defaultPlugins = [
     json(),
     buble({
-      objectAssign: 'Object.assign',
-      exclude: ["./node_modules/**/*"]
+      objectAssign: '_extend',
+      exclude: ['./node_modules/**/*']
     }),
-    // babel({
-    //   presets: [
-    //     ["env", {modules: false}],
-    //     "es2015-rollup",
-    //     "react"
-    //   ],
-    //   exclude: "./node_modules/**/*"
-    // }),
-
     nodeResolve({
       browser: true,
       jsnext: true,
@@ -49,7 +38,7 @@ function getPlugins({
     }),
     commonjs(),
     replace({
-      'process.env.NODE_ENV': JSON.stringify('development')
+      'process.env.NODE_ENV': JSON.stringify('production')
     })
   ];
 
@@ -60,13 +49,32 @@ function getPlugins({
 
 function getConfig({
   external = [],
+  globals = {},
   input = 'client/index.js'
 }, withScss = true) {
   return {
     input,
-    external: defaultExternal.concat(external),
+    external,
+    globals,
     plugins: getPlugins({external}, withScss),
   };
 }
 
-module.exports = getConfig;
+module.exports = getConfig({
+  external: [
+    'underscore',
+    'react',
+    'react-dom',
+    'react-router-dom',
+    'doctrine-standalone',
+    'babel-standalone'
+  ],
+  globals: {
+    'underscore': '_',
+    'react': 'React',
+    'react-dom': 'ReactDOM',
+    'react-router-dom':'ReactRouterDOM',
+    'doctrine-standalone': 'doctrine',
+    'babel-standalone': 'Babel'
+  }
+});

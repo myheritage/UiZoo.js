@@ -1,6 +1,7 @@
 import './index.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import _ from 'underscore';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 import libraryData from './components';
@@ -9,7 +10,9 @@ import { checkDependencies } from './services/checkHealth';
 import { createCompiler } from './services/compileWithContext';
 import { parseDocumentation } from './services/parseDocumentation';
 import App from './Components/App';
-import mapComponentsByModule from "./services/componentByModuleMapper";
+import mapComponentsByModule from './services/componentByModuleMapper';
+
+window._extend = _.extend; // to be used instead of Object.assign
 
 const defaultRoot = document.getElementById('library-_-root');
 

@@ -4,7 +4,10 @@
   "description": "Dynamic React Component Library",
   "scripts": {
     "start": "npm run gulp:w",
-    "build": "rollup -c rollup-build.config.js -o dist/index.js -f iife -n UiZoo -g underscore:_,react:React,react-dom:ReactDOM,react-router-dom:ReactRouterDOM,doctrine-standalone:doctrine,babel-standalone:Babel && rollup -c rollup-build.config.js -o dist/index.cjs.js -f cjs -n UiZoo -g underscore:_,react:React,react-dom:ReactDOM,react-router-dom:ReactRouterDOM,doctrine-standalone:doctrine,babel-standalone:Babel && rollup -c rollup-build.config.js -o dist/index.es.js -f es -n UiZoo -g underscore:_,react:React,react-dom:ReactDOM,react-router-dom:ReactRouterDOM,doctrine-standalone:doctrine,babel-standalone:Babel",
+    "build": "npm run build:iife && npm run build:cjs && npm run build:es",
+    "build:iife": "./node_modules/.bin/rollup -c rollup.config.js -o dist/index.js -f iife -n UiZoo",
+    "build:cjs": "./node_modules/.bin/rollup -c rollup.config.js -o dist/index.cjs.js -f cjs -n UiZoo",
+    "build:es": "./node_modules/.bin/rollup -c rollup.config.js -o dist/index.es.js -f es -n UiZoo",
     "gulp:w": "gulp",
     "test": "npm start & SERVER_PID=$!; (cd tests; npm i && node run-tests.js); kill $SERVER_PID"
   },

@@ -1,6 +1,6 @@
 let gulp = require('gulp'),
 	rollup = require('rollup'),
-	getRollupConfig = require('./rollup.config'),
+	rConfig = require('./rollup.config'),
 	chalk = require('chalk'),
 	nodemon = require('gulp-nodemon'),
 	livereload = require('gulp-livereload'),
@@ -31,20 +31,13 @@ gulp.task("watch", () => {
 
 function bundleClient() {
 	updateDocumentation();
-	return rollup.rollup(getRollupConfig({external: ['underscore', 'react', 'react-dom', 'react-router-dom', 'doctrine-standalone', 'babel-standalone']}))
+	return rollup.rollup(rConfig)
 		.then(bundle => {
 			bundle.write({
 				format: 'iife',
 				file: 'dist/index.js',
-				globals: {
-					'underscore': '_',
-					'react': 'React',
-					'react-dom': 'ReactDOM',
-					'react-router-dom':'ReactRouterDOM',
-                    'doctrine-standalone': 'doctrine',
-					'babel-standalone': 'Babel',
-				},
 				name: 'UiZoo',
+				globals: rConfig.globals
 			});
 		})
 		.catch(handleError);
