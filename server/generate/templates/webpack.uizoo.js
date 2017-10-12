@@ -2,18 +2,20 @@ const path = require('path');
 const WebpackDevServer = require('webpack-dev-server');
 const webpack = require('webpack');
 const express = require('express');
+const createConfigs = require('./createConfigsScript');
+const {serverPort, componentsRootDir} = require('./config');
 
-const SERVER_PORT = 5005;
-const componentsRoot = path.dirname(__dirname);
-
+/**
+ * Just a simple webpack config, you can replace or extend it
+ */
 const webpackConfig = {
     entry: {
-        app: [path.join(__dirname, 'index.js')],
+        app: [path.join(__dirname, 'index.js')]
     },
     output: {
         filename: 'components.js',
         path: __dirname,
-        publicPath: path.sep,
+        publicPath: path.sep
     },
     module: {
         rules: [
@@ -33,17 +35,32 @@ const webpackConfig = {
                                 require.resolve('babel-plugin-syntax-dynamic-import')
                             ],
                         }
-                    },
-                ],
-            },
+                    }
+                ]
+            }
         ]
-    },
+    }
 };
 
+/**
+ * Plugin to create the UiZoo config on each file change while using the webpack dev server
+ * @class GenerateUiZooConfigsPlugin
+ */
+class GenerateUiZooConfigsPlugin {
+    apply(compiler) {
+        compiler.plugin('watch-run', (c, cb) => {
+            createConfigs()
+                .then(() => cb())
+                .catch(e => console.error(e));
+        });
+    }
+}
+
 // Addition to the config for the web dev server
-webpackConfig.entry.app.push(`webpack-dev-server/client?http://localhost:${SERVER_PORT}/`, "webpack/hot/dev-server");
+webpackConfig.entry.app.push(`webpack-dev-server/client?http://localhost:${serverPort}/`, "webpack/hot/dev-server");
 webpackConfig.plugins = [].concat(webpackConfig.plugins || [], [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new GenerateUiZooConfigsPlugin()
 ]);
 webpackConfig.devServer = {
     inline: true,
@@ -55,16 +72,16 @@ const server = new WebpackDevServer(webpack(webpackConfig), {
     hot: true,
     noInfo: true,
     before: (app) => {
-        app.use('[/]', (req, res) => {
+        app.use('[/]', (req, res) => { // redirect on exact '/' url
             res.redirect('/uizoo');
         });
-        app.use(express.static(componentsRoot));
-        app.all('/uizoo*', (req, res) => {
+        app.use(express.static(componentsRootDir));
+        app.all('/uizoo*', (req, res) => { // this is needed for the client router to work
             res.sendFile('index.html', {root: __dirname});
         });
-    },
+    }
 });
 
-server.listen(SERVER_PORT, 'localhost', () => {
-    console.log(`    +*+*+ UiZoo on localhost:${SERVER_PORT} +*+*+`);
+server.listen(serverPort, 'localhost', () => {
+    console.log(`    +*+*+ UiZoo on localhost:${serverPort} +*+*+`);
 });

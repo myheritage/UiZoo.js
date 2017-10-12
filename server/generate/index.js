@@ -23,7 +23,11 @@ const neededPackages = [
 const templatesToCopy = [
     'index.html',
     'index.js',
-    'webpack.uizoo.js'
+    'webpack.uizoo.js',
+    'createConfigsScript.js',
+    'componentsContainer.js',
+    'documentationContainer.js',
+    'config.js',
 ];
 
 const appFolder = path.resolve('uizoo-app');
