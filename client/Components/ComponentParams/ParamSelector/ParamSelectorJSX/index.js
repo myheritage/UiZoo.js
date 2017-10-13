@@ -2,10 +2,8 @@ import React from 'react';
 import _ from 'underscore';
 
 import TextField from '../../../UI/TextField';
-import Tooltip from '../../../UI/Tooltip';
+import ErrorIndicator from '../../../UI/ErrorIndicator';
 import jsxToString from '../../../../services/jsx-to-string';
-
-import './index.scss';
 
 const DEBOUNCE_AMOUNT = 500;
 const START_WITH_TAG_REGEX = /^\s*</;
@@ -98,28 +96,17 @@ export default class ParamSelectorJSX extends React.Component {
         onChange(null, compiledValue);
     }
 
-    /**
-     * Create an error tooltip to show the latest compilation error in a tooltip
-     */
-    renderErrorTooltip() {
-        return (
-            <div className="library-_-error-indicator-wrapper">
-                <Tooltip tooltip={<pre>{this.state.error.toString()}</pre>}>
-                    <div className="library-_-error-indicator" />
-                </Tooltip>
-            </div>
-        );
-    }
-
     render() {
         return (
-            <div className="library-_-jsx-selector-wrapper">
-                {this.state.error ? this.renderErrorTooltip() :  null}
-                <TextField
-                    value={this.state.value}
-                    onChange={this.onChange}
-                    placeholder="<div>JSX</div>" /> 
-            </div>
+            <ErrorIndicator error={this.state.error}>
+                <div className="library-_-jsx-selector-wrapper library-_-tooltip-error-indicator-wrapper">
+                    {this.state.error ? this.renderErrorTooltip() :  null}
+                    <TextField
+                        value={this.state.value}
+                        onChange={this.onChange}
+                        placeholder="<div>JSX</div>" /> 
+                </div>
+            </ErrorIndicator>
         );
     }
 }

@@ -7,12 +7,14 @@ import ParamSelectorVariant from './ParamSelectorVariant';
 import ParamSelectorJSON from './ParamSelectorJSON';
 import ParamSelectorFunction from './ParamSelectorFunction';
 import ParamSelectorJSX from './ParamSelectorJSX';
+import ParamSelectorObject from './ParamSelectorObject';
 
 const paramTypeToComponent = {
     'bool': ParamSelectorBoolean,
     'variant': ParamSelectorVariant,
     'function' : ParamSelectorFunction,
     'node': ParamSelectorJSX,
+    'object': ParamSelectorObject,
     'default': ParamSelectorJSON,
 };
 

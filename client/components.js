@@ -1,5 +1,6 @@
 import Card from './Components/UI/Card';
 import CodeCard from './Components/UI/CodeCard';
+import ErrorIndicator from './Components/UI/ErrorIndicator';
 import Menu from './Components/UI/Menu';
 import RaisedButton from './Components/UI/RaisedButton';
 import MenuItem from './Components/UI/MenuItem';
@@ -12,6 +13,7 @@ import Modal from './Components/UI/Modal';
 export default {
     Card,
     CodeCard,
+    ErrorIndicator,
     Menu,
     MenuItem,
     RaisedButton,
