@@ -1,8 +1,8 @@
 let gulp = require('gulp'),
 	rollup = require('rollup'),
-	getRollupConfig = require('./rollup.config'),
+	rConfig = require('./rollup.config'),
 	chalk = require('chalk'),
-	nodemon = require("gulp-nodemon"),
+	nodemon = require('gulp-nodemon'),
 	livereload = require('gulp-livereload'),
 	execSync = require("child_process").execSync;
 
@@ -31,20 +31,13 @@ gulp.task("watch", () => {
 
 function bundleClient() {
 	updateDocumentation();
-	return rollup.rollup(getRollupConfig({external: ['underscore', 'react', 'react-dom', 'react-router-dom', 'doctrine-standalone', 'babel-standalone']}))
+	return rollup.rollup(rConfig)
 		.then(bundle => {
 			bundle.write({
 				format: 'iife',
 				file: 'dist/index.js',
-				globals: {
-					'underscore': '_',
-					'react': 'React',
-					'react-dom': 'ReactDOM',
-					'react-router-dom':'ReactRouterDOM',
-                    'doctrine-standalone': 'doctrine',
-					'babel-standalone': 'Babel',
-				},
 				name: 'UiZoo',
+				globals: rConfig.globals
 			});
 		})
 		.catch(handleError);
@@ -52,7 +45,7 @@ function bundleClient() {
 
 function startNodemonServer() {
 	nodemonStream = nodemon({
-		script: './server/main.js',
+		script: './lib/server/main.js',
 		ext: 'js html',
 		watch: false,
 	})
@@ -78,7 +71,7 @@ function handleError(error) {
 
 function updateDocumentation() {
 	try {
-		execSync(`node documentationMapper.js "./client/Components/UI/*/index.js" "./client/Components/UI/(.+)/index.js" "./client/documentation.js"`);
+		execSync(`node lib/scripts/documentationMapper.js "./client/Components/UI/*/index.js" "./client/Components/UI/(.+)/index.js" "./client/documentation.js"`);
 	}
 	catch (err) {
 		console.error(err.message);

@@ -1,0 +1,9 @@
+{
+    "name": "uizoo-app",
+    "version": "1.0.0",
+    "description": "UiZoo - Dynamic React components library",
+    "repository": {
+        "url": "https://github.com/myheritage/UiZoo.js"
+    },
+    "license": "MIT"
+}

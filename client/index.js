@@ -1,6 +1,7 @@
 import './index.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import _ from 'underscore';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 import libraryData from './components';
@@ -9,22 +10,26 @@ import { checkDependencies } from './services/checkHealth';
 import { createCompiler } from './services/compileWithContext';
 import { parseDocumentation } from './services/parseDocumentation';
 import App from './Components/App';
-import mapComponentsByModule from "./services/componentByModuleMapper";
+import mapComponentsByModule from './services/componentByModuleMapper';
 
-const defaultRoot = document.getElementById('library-_-root');
+window._extend = _.extend; // to be used instead of Object.assign
 
 /**
- * Init
- * @param {Object} documentation
- * @param {Object} components
- * @param {HTMLElement} rootElement
+ * Init - render UiZoo with documentation and components mappings
+ * @param {Object} [documentation]
+ * @param {Object} [components]
+ * @param {HTMLElement} [rootElement] will default to a new element on the body
  */
 function init(
     documentation = libraryDocs,
     components = libraryData,
-    rootElement = defaultRoot,
+    rootElement,
     baseRoute = '/'
 ) {
+    if (!rootElement) {
+        rootElement = document.createElement('div');
+        document.body.appendChild(rootElement);
+    }
     checkDependencies(documentation, components);
 
     const compiler = createCompiler(components); // JSX compiler

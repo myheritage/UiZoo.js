@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'underscore';
 
 import {SIDES, SIDE_TOP, ALIGNMENTS, ALIGNMENT_CENTER, TRIGGER_EVENTS, TRIGGER_EVENT_HOVER} from './constants';
 import './index.scss';
