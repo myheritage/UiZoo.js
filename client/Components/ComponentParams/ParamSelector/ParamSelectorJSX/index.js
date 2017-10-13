@@ -100,7 +100,6 @@ export default class ParamSelectorJSX extends React.Component {
         return (
             <ErrorIndicator error={this.state.error}>
                 <div className="library-_-jsx-selector-wrapper library-_-tooltip-error-indicator-wrapper">
-                    {this.state.error ? this.renderErrorTooltip() :  null}
                     <TextField
                         value={this.state.value}
                         onChange={this.onChange}
