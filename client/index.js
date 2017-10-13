@@ -14,20 +14,22 @@ import mapComponentsByModule from './services/componentByModuleMapper';
 
 window._extend = _.extend; // to be used instead of Object.assign
 
-const defaultRoot = document.getElementById('library-_-root');
-
 /**
- * Init
- * @param {Object} documentation
- * @param {Object} components
- * @param {HTMLElement} rootElement
+ * Init - render UiZoo with documentation and components mappings
+ * @param {Object} [documentation]
+ * @param {Object} [components]
+ * @param {HTMLElement} [rootElement] will default to a new element on the body
  */
 function init(
     documentation = libraryDocs,
     components = libraryData,
-    rootElement = defaultRoot,
+    rootElement,
     baseRoute = '/'
 ) {
+    if (!rootElement) {
+        rootElement = document.createElement('div');
+        document.body.appendChild(rootElement);
+    }
     checkDependencies(documentation, components);
 
     const compiler = createCompiler(components); // JSX compiler

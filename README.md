@@ -61,7 +61,7 @@ UiZoo.init(documentation: Object, components: Object, rootElement: HTMLElement?,
 
 **components** - Object, mapping of components name to components. See [example](https://github.com/myheritage/uizoo.js/blob/master/client/components.js). 
 
-**rootElement** - HTMLElement, will bootstrap UiZoo on that Element. Default is an element with the id 'library-_-root'
+**rootElement** - HTMLElement, will bootstrap UiZoo on that Element. Default is a new element on the body.
 
 **baseRoute** Route to be the base before the UiZoo routes. Default to '/'. for example if the UiZoo is on your site like so: 'www.mysite.com/my/zoo/', the base route should be '/my/zoo/'.
 
@@ -119,7 +119,7 @@ To add tests, use the following steps -
 
 First, make sure the app is up and running:
 ```
-gulp
+npm start
 ```
 The first time tests are run, install the npm dependencies:
 ```
