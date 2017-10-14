@@ -1,0 +1,35 @@
+{
+  "name": "uizoogithubpage",
+  "version": "0.0.1",
+  "description": "Dynamic React Component Library",
+  "scripts": {
+    "build": "npm run build:js && npm run build:css && npm run build:doctrine",
+    "build:js": "./node_modules/.bin/uglifyjs node_modules/uizoo/dist/index.js -o dist/index.min.js -c -m",
+    "build:doctrine": "./node_modules/.bin/uglifyjs node_modules/doctrine-standalone/dist/index.js -o dist/doctrine-standalone.min.js -c -m",
+    "build:css": "./node_modules/.bin/cleancss node_modules/uizoo/dist/index.css -o dist/index.min.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/myheritage/uizoo.js.git"
+  },
+  "keywords": [
+    "dynamic",
+    "react",
+    "library",
+    "component"
+  ],
+  "author": "MyHeritage",
+  "bugs": {
+    "url": "https://github.com/myheritage/uizoo.js/issues"
+  },
+  "homepage": "https://github.com/myheritage/uizoo.js#readme",
+  "devDependencies": {
+    "clean-css-cli": "latest",
+    "uglify-js": "latest",
+    "uizoo": "latest"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "license": "MIT"
+}
