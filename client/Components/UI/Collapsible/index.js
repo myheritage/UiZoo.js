@@ -67,7 +67,7 @@ export default class Collapsible extends React.Component {
      */
     updateContentMaxHeight(isOpen) {
         let newMaxHeight = isOpen ? this.contentRef.clientHeight + 500 : 0;
-        this.contentContainerRef.style.maxHeight = newMaxHeight;
+        this.contentContainerRef.style.maxHeight = `${newMaxHeight}px`;
     }
 
     /**
