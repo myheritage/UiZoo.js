@@ -17,7 +17,7 @@ import './index.scss';
  * <Card>
  *  <div>Card content</div>
  *  <br/>
- *  <img src="https://i.imgur.com/8CoNRCD.gif"></img>
+ *  <img src="https://i.imgur.com/8CoNRCD.gif" style={{maxWidth: '100%'}}></img>
  * </Card>
  *
  * @param {String} [className] Append class name to container

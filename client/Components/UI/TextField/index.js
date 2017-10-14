@@ -51,7 +51,7 @@ export default class TextField extends React.Component {
      */
     setTextareaHeight() {
         if (this.textarea) {
-            this.textarea.style.height = this.textarea.scrollHeight;
+            this.textarea.style.height = `${this.textarea.scrollHeight || 0}px`;
         }
     }
     
