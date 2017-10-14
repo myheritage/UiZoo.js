@@ -1,5 +1,5 @@
 # UiZoo.js - Dynamic React components library
-Try our live example [here](https://uizoo.herokuapp.com/).
+Try our live example [here](https://myheritage.github.io/UiZoo.js/).
 
 ## About
 How many times did you create a new component just to find later someone already did the exact same?
