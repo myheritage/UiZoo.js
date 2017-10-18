@@ -8,7 +8,10 @@ import Tooltip from '../UI/Tooltip';
 import ComponentParams from '../ComponentParams';
 import ComponentExamples from '../ComponentExamples';
 import jsxToString from '../../services/jsx-to-string';
-import {hasErrors, reportError, getErrors} from '../../services/errorReporter';
+import { hasErrors, reportError, getErrors } from '../../services/errorReporter';
+import compileExampleProps from '../../services/compileExampleProps';
+import extractJSDocExample from '../../services/extractJSDocExample';
+
 import './index.scss';
 
 /**
@@ -28,8 +31,9 @@ export default class ComponentReview extends React.Component {
         this.updateParam = this.updateParam.bind(this);
         this.updateExample = this.updateExample.bind(this);
         this.toggleErrorModal = this.toggleErrorModal.bind(this);
-        
-        const example = this.extractExampleFromJsDoc(props);
+
+        const example = this.extractJSDocExample(props);
+            
         this.setDefaultExample(example, true);
     }
 
@@ -37,7 +41,7 @@ export default class ComponentReview extends React.Component {
      * @param {boolean} [newValue] 
      */
     toggleErrorModal(newValue = true) {
-        this.setState(state => _.extend({}, state, {isErrorModalOpen: newValue}));
+        this.setState(state => _.extend({}, state, { isErrorModalOpen: newValue }));
     }
 
     /**
@@ -52,18 +56,14 @@ export default class ComponentReview extends React.Component {
     }
 
     /**
-     * @param {object} props 
-     * @return {string}
+     * Extracts the wanted jsdoc example by props
+     * @param {Object} props 
      */
-    extractExampleFromJsDoc(props) {
-        let example = '';
-        const componentJsDoc = props.documentations[props.componentName] || {};
-        const examples = componentJsDoc.example;
-        if (examples && examples.length) {
-            const exampleIndex = props.exampleIndex;
-            example = examples[exampleIndex] ? examples[exampleIndex].description : '';
-        }   
-        return example; 
+    extractJSDocExample(props = this.props) {
+        return extractJSDocExample(
+            props.documentations[props.componentName], 
+            props.exampleIndex);
+            
     }
 
     /**
@@ -72,11 +72,11 @@ export default class ComponentReview extends React.Component {
      */
     componentWillReceiveProps(nextProps) {
         if (this.props.componentName !== nextProps.componentName) {
-            const example = this.extractExampleFromJsDoc(nextProps);
+            const example = this.extractJSDocExample(nextProps);
             if (example) {
                 this.setDefaultExample(example);
             } else {
-                this.shallowStateUpdate({componentProps: {}});
+                this.shallowStateUpdate({ componentProps: {} });
             }
         }
     }
@@ -100,21 +100,12 @@ export default class ComponentReview extends React.Component {
      * @param {boolean} [isInConstructor]
      */
     updateExample(example, isInConstructor = false) {
-        let error = null,
-            CompiledNode = null;
-        try {
-            CompiledNode = this.props.compiler(example);
-        } catch (e) {
-            error = e;
-        }
-        if (!error && CompiledNode && CompiledNode.type) {
-            this.shallowStateUpdate({componentProps: CompiledNode.props}, isInConstructor);
+        let exampleProps = compileExampleProps(example, this.props.compiler);
+
+        if (exampleProps) {
+            this.shallowStateUpdate({ componentProps: exampleProps }, isInConstructor);
         } else {
-            let errorMessage = error
-                ? error
-                : 'error in example';
-            reportError(errorMessage);
-            this.shallowStateUpdate({showErrorIndicator: true}, isInConstructor);
+            this.shallowStateUpdate({ showErrorIndicator: true }, isInConstructor);
         }
     }
 
@@ -144,11 +135,17 @@ export default class ComponentReview extends React.Component {
      * @param {string} name
      */
     renderComponentMetadata({ description, module }, name) {
+        const { goToUrl } = this.props;
+        const moduleName = module && module[0].name;
+
         return (
             <div>
-                <p className="library-_-component-section">
-                    {module && module[0].name}
-                </p>
+                <div className="library-_-component-section">
+                    <span className="library-_-component-section-name"
+                        onClick={() => goToUrl(moduleName)}>
+                        {moduleName}
+                    </span>
+                </div>
                 <h1 className="library-_-component-name">
                     {!!name && name}
                     {!name && 'Welcome to UiZoo.js!'}
@@ -242,7 +239,7 @@ export default class ComponentReview extends React.Component {
                 isOpen={this.state.isErrorModalOpen}
                 onChange={this.toggleErrorModal}
             >
-                <ul style={{padding: '0 15px'}}>
+                <ul style={{ padding: '0 15px' }}>
                     {getErrors().map((message, i) => <li key={`error-index-${i}`}>{message}</li>)}
                 </ul>
             </Modal>
