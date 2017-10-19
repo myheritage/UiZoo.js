@@ -48,17 +48,22 @@ export default class ComponentsSideBar extends React.Component {
         let componentsLinks = [];
 
         // Init side bar with non module components
-        componentsLinks = componentsLinks.concat(this.renderModuleLinks(componentsByModule[NON_MODULE_NAME]));
+        componentsLinks = componentsLinks.concat(this.renderModuleLinks(NON_MODULE_NAME));
 
         // Add module components
         _.keys(componentsByModule).filter(curr => curr !== NON_MODULE_NAME).forEach(moduleName => {
-            let moduleLinks = this.renderModuleLinks(componentsByModule[moduleName]);
+            let moduleLinks = this.renderModuleLinks(moduleName);
 
             if (moduleLinks.length > 0) {
                 let moduleCollapsible = (
-                    <Collapsible title={moduleName} isOpen={true} key={`collapsible-for-module-${moduleName}`}>
-                        {moduleLinks}
-                    </Collapsible>
+                    <div className='library-_-module-links-container' key={`module-${moduleName}-links`}>
+                        <div className='library-_-module-title' onClick={() => goToUrl(moduleName)}>
+                            {moduleName}
+                        </div>
+                        <div className='library-_-module-links'>
+                            {moduleLinks}
+                        </div>
+                    </div>
                 );
 
                 componentsLinks.push(moduleCollapsible)
@@ -75,14 +80,19 @@ export default class ComponentsSideBar extends React.Component {
         return componentsLinks;
     }
 
-    /**
-     * @param {Array} moduleComponents 
-     */
-    renderModuleLinks(moduleComponents) {
-        return moduleComponents && 
-        _.keys(moduleComponents)
-            .filter(componentName => componentName.toLowerCase().indexOf(this.state.searchValue.toLowerCase()) !== -1)
-            .map(componentName => this.renderComponentLink(componentName));
+    renderModuleLinks(moduleName) {
+        let searchTerm = this.state.searchValue;
+        const { componentsByModule } = this.props;
+        const moduleComponents = componentsByModule[moduleName];
+
+        let searchRegex = new RegExp(`${searchTerm.split('').join('.*')}.*`, 'i');
+
+        return moduleComponents &&
+            _.keys(moduleComponents)
+                .filter(componentName =>
+                    (moduleName !== NON_MODULE_NAME && searchRegex.test(moduleName)) ||
+                    searchRegex.test(componentName))
+                .map(componentName => this.renderComponentLink(componentName));
     }
 
     /**

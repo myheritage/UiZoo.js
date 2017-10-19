@@ -42,36 +42,27 @@
         padding: 0 $sides-padding 30px;
 
 
-        .library-_-collapsible-container {
-            border-bottom: 1px solid rgba(0,0,0,0.1);
+        .library-_-module-links-container {
             transition: border 0.3s ease;
 
-            &:hover {
-                border-bottom: 1px solid rgba(0,0,0,0.3);
-            }
-
-            .library-_-collapsible-title {
-                padding: 15px 12px 15px 0;
+            .library-_-module-title {
+                padding: 15px 12px 5px 0;
                 font-weight: 500;
                 opacity: 0.6;
-                transition: padding 0.3s 0.01s ease;
+                transition: padding 0.3s 0.01s ease, color 0.3s ease;
+                cursor: pointer;
+                text-decoration: underline;
+            
+                &:hover {
+                    color: darken(#646362, 40%);
+                }
+
                 &:focus {
                     font-weight: 700;
                 }
             }
 
-            &.library-_-collapsible-open { 
-                border-bottom-color: rgba(0,0,0,0);
-                .library-_-collapsible-title {
-                    padding-bottom: 0;
-                    transition: padding 0.3s 0.1s ease;
-                    &:after {
-                        margin-top: 13px;
-                    }
-                }
-            }
-
-            .library-_-collapsible-content {
+            .library-_-module-links {
                 margin-left: 8px;
             }
         }
@@ -88,6 +79,7 @@
             border-bottom: 1px solid rgba(0,0,0,0.1);
         
             &:hover {
+                padding-left: 8px;
                 border-bottom: 1px solid rgba(0,0,0,0.3);
             }
 
