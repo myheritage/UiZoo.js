@@ -51,7 +51,7 @@ export default class ComponentsSideBar extends React.Component {
         componentsLinks = componentsLinks.concat(this.renderModuleLinks(NON_MODULE_NAME));
 
         // Add module components
-        _.keys(componentsByModule).filter(curr => curr !== NON_MODULE_NAME).forEach(moduleName => {
+        _.keys(componentsByModule).sort().filter(curr => curr !== NON_MODULE_NAME).forEach(moduleName => {
             let moduleLinks = this.renderModuleLinks(moduleName);
 
             if (moduleLinks.length > 0) {
@@ -86,10 +86,10 @@ export default class ComponentsSideBar extends React.Component {
         const moduleComponents = componentsByModule[moduleName];
 
         let searchRegex = new RegExp(`${searchTerm.split('').join('.*')}.*`, 'i');
-
+console.log(345);
         return moduleComponents &&
             _.keys(moduleComponents)
-                .filter(componentName =>
+                .sort().filter(componentName =>
                     (moduleName !== NON_MODULE_NAME && searchRegex.test(moduleName)) ||
                     searchRegex.test(componentName))
                 .map(componentName => this.renderComponentLink(componentName));
