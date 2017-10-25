@@ -86,7 +86,6 @@ export default class ComponentsSideBar extends React.Component {
         const moduleComponents = componentsByModule[moduleName];
 
         let searchRegex = new RegExp(`${searchTerm.split('').join('.*')}.*`, 'i');
-console.log(345);
         return moduleComponents &&
             _.keys(moduleComponents)
                 .sort().filter(componentName =>
