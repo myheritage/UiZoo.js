@@ -4,10 +4,13 @@
   "description": "Dynamic React Component Library",
   "scripts": {
     "start": "npm run gulp:w",
-    "build": "npm run build:iife && npm run build:cjs && npm run build:es",
+    "build": "npm run build:iife && npm run build:cjs && npm run build:es && npm run build:min",
     "build:iife": "./node_modules/.bin/rollup -c rollup.config.js -o dist/index.js -f iife -n UiZoo",
     "build:cjs": "./node_modules/.bin/rollup -c rollup.config.js -o dist/index.cjs.js -f cjs -n UiZoo",
     "build:es": "./node_modules/.bin/rollup -c rollup.config.js -o dist/index.es.js -f es -n UiZoo",
+    "build:min": "npm run build:min:js && npm run build:min:css",
+    "build:min:js": "./node_modules/.bin/uglifyjs dist/index.js -o dist/index.min.js -c -m",
+    "build:min:css": "./node_modules/.bin/cleancss dist/index.css -o dist/index.min.css",
     "gulp:w": "./node_modules/.bin/gulp",
     "test": "npm start & SERVER_PID=$!; (cd tests; npm i && node run-tests.js); kill $SERVER_PID"
   },
@@ -49,6 +52,7 @@
   "license": "MIT",
   "devDependencies": {
     "body-parser": "~1.15.2",
+    "clean-css-cli": "^4.1.10",
     "compression": "~1.6.2",
     "cors": "~2.8.3",
     "express": "~4.15.2",
@@ -66,6 +70,7 @@
     "rollup-plugin-json": "~2.3.0",
     "rollup-plugin-node-resolve": "~3.0.0",
     "rollup-plugin-replace": "~2.0.0",
-    "rollup-plugin-scss": "~0.3.0"
+    "rollup-plugin-scss": "~0.3.0",
+    "uglify-js": "~3.1.6"
   }
 }
