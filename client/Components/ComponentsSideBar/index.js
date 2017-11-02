@@ -57,10 +57,10 @@ export default class ComponentsSideBar extends React.Component {
             if (moduleLinks.length > 0) {
                 let moduleCollapsible = (
                     <div className='library-_-module-links-container' key={`module-${moduleName}-links`}>
-                        <div className='library-_-module-title' onClick={() => goToUrl(moduleName)}>
-                            {moduleName}
-                        </div>
                         <div className='library-_-module-links'>
+                            <button tabIndex="1" className='library-_-module-title' onClick={() => goToUrl(moduleName)}>
+                                {moduleName}
+                            </button>
                             {moduleLinks}
                         </div>
                     </div>

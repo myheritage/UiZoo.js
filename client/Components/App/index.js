@@ -2,7 +2,8 @@ import React from 'react';
 import ComponentsSideBar from '../ComponentsSideBar';
 import ComponentReview from '../ComponentReview';
 import ModulePreview from '../ModulePreview';
-import _ from "underscore";
+import ComponentsHome from '../ComponentsHome';
+import _ from 'underscore';
 import './index.scss';
 
 /**
@@ -74,9 +75,9 @@ export default class App extends React.Component {
         const showSideBarClassName = this.state.showSideBar ? ' show-side-bar' : '';
 
         const isModule = _.includes(_.keys(componentsByModule), componentName);
-        const isComponent = components[componentName] && !isModule;
-        const doesDataExist = components[componentName] || isModule;
-
+        const isComponent = (components[componentName] && !isModule);
+        const isHome = !components[componentName] && !isModule;
+        
         return (
             <div className={`library-_-app${showSideBarClassName}`}>
                 <button
@@ -89,9 +90,9 @@ export default class App extends React.Component {
                         selectedComponentName={componentName}
                         goToUrl={this.goToUrl} />
                 </div>
-                {isComponent ?
-                    this.renderComponentReview(componentName) :
-                    this.renderModulePreview(componentName, doesDataExist)}
+                {!!isComponent && this.renderComponentReview(componentName)}
+                {!!isModule && this.renderModulePreview(componentName, true)}
+                {!!isHome && <ComponentsHome/>}
             </div>
         );
     }
