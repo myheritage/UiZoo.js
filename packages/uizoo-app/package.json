@@ -1,0 +1,32 @@
+{
+  "name": "uizoo-app",
+  "version": "0.0.1",
+  "description": "Dynamic React Component Library - app to create components configuration for UiZoo",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/myheritage/uizoo.js.git"
+  },
+  "keywords": [
+    "dynamic",
+    "react",
+    "library",
+    "component"
+  ],
+  "author": "MyHeritage",
+  "bugs": {
+    "url": "https://github.com/myheritage/uizoo.js/issues"
+  },
+  "homepage": "https://github.com/myheritage/uizoo.js#readme",
+  "dependencies": {
+    "doctrine": "^2.0.0",
+    "fs-extra": "^4.0.2",
+    "glob-stream": "^6.1.0",
+    "react-docgen": "^2.19.0"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "license": "MIT",
+  "devDependencies": {}
+}
