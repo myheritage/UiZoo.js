@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {isValidElement, Component} from 'react';
 import _ from 'underscore';
 import Card from '../UI/Card';
 import Separator from '../UI/Separator';
@@ -6,6 +6,7 @@ import CodeCard from '../UI/CodeCard';
 import Modal from '../UI/Modal';
 import Tooltip from '../UI/Tooltip';
 import ComponentParams from '../ComponentParams';
+import ParamSelectorJSX from '../ComponentParams/ParamSelector/ParamSelectorJSX';
 import ComponentExamples from '../ComponentExamples';
 import jsxToString from '../../services/jsx-to-string';
 import { hasErrors, reportError, getErrors } from '../../services/errorReporter';
@@ -19,7 +20,7 @@ import './index.scss';
  * Review the current component
  * Choose props, example of see the source code
  */
-export default class ComponentReview extends React.Component {
+export default class ComponentReview extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -229,12 +230,19 @@ export default class ComponentReview extends React.Component {
      * @param {boolean} [isEditable]
      */
     renderComponentSourceCode(componentContent, isEditable) {
-        const componentSourceCode = !!componentContent ? jsxToString(componentContent) : null;
+        const componentSourceCode = !!componentContent && isValidElement(componentContent) ? jsxToString(componentContent) : null;
         return (
             <div className="library-_-component-source-code">
                 <p className="library-_-section-header">{isEditable ? 'Editable code' : 'Source code'}:</p>
                 <CodeCard>
-                    {componentSourceCode}
+                    {isEditable
+                        ? <ParamSelectorJSX
+                                selectedValue={componentSourceCode}
+                                compiler={this.props.compiler}
+                                onChange={(e, compiledNode) => this.shallowStateUpdate({compiledNode}, false)}
+                                forceOnlyJSX
+                          />
+                        : componentSourceCode}
                 </CodeCard>
             </div>
         );
@@ -262,7 +270,7 @@ export default class ComponentReview extends React.Component {
      * or build the Component from the props and return <ComponentNode {...props} />
      */
     getComponentContent() {
-        if (this.state.compiledNode) {
+        if (this.state.compiledNode !== null) {
             return this.state.compiledNode;
         }
         const ComponentNode = this.props.components[this.props.componentName];
@@ -275,7 +283,7 @@ export default class ComponentReview extends React.Component {
     render() {
         const componentDoc = this.props.documentations[this.props.componentName] || {};
         const componentContent = this.getComponentContent();
-        const shouldShowEditableSource = !!this.state.compiledNode;
+        const shouldShowEditableSource = this.state.compiledNode !== null;
 
         return (
             <div className="library-_-component-review">

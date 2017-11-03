@@ -79,21 +79,25 @@ export default class ParamSelectorJSX extends React.Component {
      * @param {Object} event 
      */
     reportChange(value) {
-        const {compiler = _.noop, onChange = _.noop} = this.props;
+        const {compiler = _.noop, onChange = _.noop, forceOnlyJSX = false} = this.props;
         let compiledValue = value,
             error = null;
 
-        if (START_WITH_TAG_REGEX.test(value)) {
+        if (forceOnlyJSX || START_WITH_TAG_REGEX.test(value)) {
             try {
-                // as a hack to no mess with keys - wrapping by a div
-                compiledValue = compiler(`<div>${value}</div>`);
-                compiledValue = compiledValue.props.children;
+                if (forceOnlyJSX) {
+                    compiledValue = compiler(value);
+                } else {
+                    // as a hack to not mess with keys - wrapping by an element
+                    compiledValue = compiler(`<i>${value}</i>`);
+                    compiledValue = compiledValue.props.children;
+                }
             } catch(e) {
                 error = e;
             }
         }
         this.setState(state => _.extend({}, state, {error}));
-        onChange(null, compiledValue);
+        if (!error) onChange(null, compiledValue);
     }
 
     render() {

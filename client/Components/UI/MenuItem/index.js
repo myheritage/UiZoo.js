@@ -13,6 +13,7 @@ import './index.scss';
  * as a child. fill props.value with this item value.
  * 
  * @example 
+ * // Example with a different root
  * <Menu value="pink">
  *    <MenuItem value="pink"
  *          style={{backgroundColor:"#ecabab"}}>
