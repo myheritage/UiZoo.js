@@ -9,7 +9,7 @@ import ComponentParams from '../ComponentParams';
 import ComponentExamples from '../ComponentExamples';
 import jsxToString from '../../services/jsx-to-string';
 import { hasErrors, reportError, getErrors } from '../../services/errorReporter';
-import compileExampleProps from '../../services/compileExampleProps';
+import compileExample from '../../services/compileExample';
 import extractJSDocExample from '../../services/extractJSDocExample';
 
 import './index.scss';
@@ -23,6 +23,7 @@ export default class ComponentReview extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            compiledNode: null,
             componentProps: {},
             showErrorIndicator: hasErrors(),
             isErrorModalOpen: false,
@@ -34,7 +35,7 @@ export default class ComponentReview extends React.Component {
 
         const example = this.extractJSDocExample(props);
             
-        this.setDefaultExample(example, true);
+        this.setDefaultExample(example, true, props);
     }
 
     /**
@@ -48,10 +49,11 @@ export default class ComponentReview extends React.Component {
      * Set the default example, which is the first example
      * @return {boolean} if setting the example was a success
      * @param {boolean} [isInConstructor]
+     * @param {object} [props]
      */
-    setDefaultExample(example, isInConstructor = false) {
+    setDefaultExample(example, isInConstructor = false, props = this.props) {
         if (example) {
-            this.updateExample(example, isInConstructor);
+            this.updateExample(example, isInConstructor, props);
         }
     }
 
@@ -74,9 +76,9 @@ export default class ComponentReview extends React.Component {
         if (this.props.componentName !== nextProps.componentName) {
             const example = this.extractJSDocExample(nextProps);
             if (example) {
-                this.setDefaultExample(example);
+                this.setDefaultExample(example, false, nextProps);
             } else {
-                this.shallowStateUpdate({ componentProps: {} });
+                this.shallowStateUpdate({ componentProps: {}, compiledNode: null});
             }
         }
     }
@@ -98,14 +100,22 @@ export default class ComponentReview extends React.Component {
      * Update the params by the example
      * @param {string} example
      * @param {boolean} [isInConstructor]
+     * @param {object} [props]
      */
-    updateExample(example, isInConstructor = false) {
-        let exampleProps = compileExampleProps(example, this.props.compiler);
-
-        if (exampleProps) {
-            this.shallowStateUpdate({ componentProps: exampleProps }, isInConstructor);
-        } else {
+    updateExample(example, isInConstructor = false, props = this.props) {
+        const compiledExample = compileExample(example, props.compiler);
+        if (!compiledExample) {
             this.shallowStateUpdate({ showErrorIndicator: true }, isInConstructor);
+        } else {
+            let componentProps = {};
+            let compiledNode = null;
+            // checks if the root of the example is the current component, will put it "as-is" if yes
+            if (compiledExample.type && compiledExample.type === props.components[props.componentName]) {
+                componentProps = compiledExample.props || {};
+            } else {
+                compiledNode = compiledExample;
+            }
+            this.shallowStateUpdate({ componentProps, compiledNode}, isInConstructor);
         }
     }
 
@@ -216,12 +226,13 @@ export default class ComponentReview extends React.Component {
     /**
      * Source code of the component on review with chosen props
      * @param {object}
+     * @param {boolean} [isEditable]
      */
-    renderComponentSourceCode(componentContent) {
+    renderComponentSourceCode(componentContent, isEditable) {
         const componentSourceCode = !!componentContent ? jsxToString(componentContent) : null;
         return (
             <div className="library-_-component-source-code">
-                <p className="library-_-section-header">Source code:</p>
+                <p className="library-_-section-header">{isEditable ? 'Editable code' : 'Source code'}:</p>
                 <CodeCard>
                     {componentSourceCode}
                 </CodeCard>
@@ -247,21 +258,37 @@ export default class ComponentReview extends React.Component {
     }
 
     /**
+     * Decide what to render, either predefined compiled example (compiledNode)
+     * or build the Component from the props and return <ComponentNode {...props} />
+     */
+    getComponentContent() {
+        if (this.state.compiledNode) {
+            return this.state.compiledNode;
+        }
+        const ComponentNode = this.props.components[this.props.componentName];
+        return (ComponentNode ? <ComponentNode {...this.state.componentProps} /> : null);
+    }
+
+    /**
      * Render the component by the provided documentation
      */
     render() {
         const componentDoc = this.props.documentations[this.props.componentName] || {};
-        const ComponentNode = this.props.components[this.props.componentName] || null;
-        const componentContent = ComponentNode ? <ComponentNode {...this.state.componentProps} /> : null;
+        const componentContent = this.getComponentContent();
+        const shouldShowEditableSource = !!this.state.compiledNode;
 
         return (
             <div className="library-_-component-review">
                 {this.renderErrorModal()}
                 {this.renderComponentMetadata(componentDoc, this.props.componentName)}
                 <Separator /> {this.renderComponentContent(componentContent)}
-                <Separator /> {this.renderComponentParams(componentDoc, this.props.componentName)}
+                <Separator /> 
+                {shouldShowEditableSource
+                    ? this.renderComponentSourceCode(componentContent, true)
+                    : this.renderComponentParams(componentDoc, this.props.componentName)
+                }
                 <Separator /> {this.renderComponentExamples(componentDoc)}
-                <Separator /> {this.renderComponentSourceCode(componentContent)}
+                {!shouldShowEditableSource && <div><Separator />{this.renderComponentSourceCode(componentContent, false)}</div>}
             </div>
         );
     }

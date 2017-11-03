@@ -13,9 +13,22 @@ import './index.scss';
  * as a child. fill props.value with this item value.
  * 
  * @example 
- * <MenuItem>
- *   Menu Item
- * </MenuItem>
+ * <Menu value="pink">
+ *    <MenuItem value="pink"
+ *          style={{backgroundColor:"#ecabab"}}>
+ *          Color pink
+ *    </MenuItem>
+ *    <MenuItem value="cyan"
+ *          style={{backgroundColor:"#66cfdc"}}>
+ *          Color cyan
+ *    </MenuItem>
+ * </Menu>
+ * 
+ * @example
+ *  <MenuItem value="pink"
+ *      style={{backgroundColor:"#ecabab"}}>
+ *      Color pink
+ *  </MenuItem>
  *
  * @param {string|number} value this item value in the menu
  * @param {node} children

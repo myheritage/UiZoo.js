@@ -1,7 +1,7 @@
 import React from 'react';
-import compileExampleProps from '../../services/compileExampleProps';
+import compileExample from '../../services/compileExample';
 import Card from '../UI/Card';
-import Seperator from '../UI/Separator';
+import Separator from '../UI/Separator';
 import { reportError } from '../../services/errorReporter';
 import extractJSDocExample from '../../services/extractJSDocExample';
 import './index.scss';
@@ -32,10 +32,11 @@ export default class ModulePreview extends React.Component {
         const componentDefaultExample = extractJSDocExample(componentDoc, DEFAULT_EXAMPLE_INDEX);
         
         // Compile the example's props
-        const componentExampleProps = compileExampleProps(componentDefaultExample, compiler);
+        const componentContent = compileExample(componentDefaultExample, compiler);
 
-        const description = componentDoc.description[0].description;
-        const componentContent = ComponentNode ? <ComponentNode {...componentExampleProps} /> : null;
+        const description = componentDoc.description && componentDoc.description[0]
+            ? componentDoc.description[0].description
+            : '';
 
         return (
             <div className='library-_-component-preview-card-container'>
@@ -76,7 +77,7 @@ export default class ModulePreview extends React.Component {
                 {moduleNameElement}
                 {_.keys(moduleComponents).map(currComponentName =>
                     this.renderComponentPreviewCard(currComponentName))}
-                    {isMainModule && <Seperator/>}
+                    {isMainModule && <Separator/>}
             </div>
         )
     }
