@@ -18,14 +18,16 @@ export function checkDependencies (documentation, components) {
  *  Card: '/** @name Card @example <Card></Card> @param {String} className* /',
  *  TextField: '/** @name TextField @example <TextField></TextField> @param {String} className* /'
  * }
+ * 
+ * But it can also be a "final-form" object, so either string or object
  * @param {any} documentation 
  */
 function checkDocumentation(documentation) {
     const objNameInError = 'Documentation object: ';
     checkIfObject(documentation, objNameInError);
     _.keys(documentation).forEach(key => {
-        if (typeof documentation[key] !== 'string') {
-            throwError(`${objNameInError} for Component name: ${key} documentation must be a valid jsdoc string. Got:`, documentation[key]);
+        if (!documentation[key] || (!_.isString(documentation[key]) && !_.isObject(documentation[key]))) {
+            throwError(`${objNameInError} for Component name: ${key} documentation must be a valid jsdoc. Got:`, documentation[key]);
         }
     });
 }
@@ -68,7 +70,7 @@ function checkComponentDocumentationMatch(components, documentation) {
  * @param {String} objNameInError 
  */
 function checkIfObject(shouldBeObj, objNameInError) {
-    if (!shouldBeObj || typeof shouldBeObj !== 'object') {
+    if (!_.isObject(shouldBeObj)) {
         throwError(`${objNameInError} is not even an object, you should provide a map object of key values to the 'init' function.`);
     }
 }

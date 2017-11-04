@@ -1,0 +1,47 @@
+.library-_-module-preview {
+    .library-_-module-title {
+        font-size: 22px;
+        margin: 20px;
+    }
+
+    .library-_-module-components-container {
+        margin: 10px;
+
+        .library-_-module-preview-name {
+            margin: 10px;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    }
+
+    .library-_-component-preview-card-container {
+        margin: 10px;
+
+        .library-_-component-preview-name {
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .library-_-component-preview-description {
+            margin-bottom: 10px;
+            font-size: 14px;
+            font-weight: 300;
+        }
+
+        .library-_-component-preview-label {
+            font-size: 14px;
+            font-weight: 400;
+            color: gray;
+        }
+
+        .library-_-component_preview_container {
+            box-shadow: inset 0 0 5px 0px rgba(0, 0, 0, .2);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    }
+}

@@ -1,0 +1,41 @@
+.library-_-components_home {
+    padding: 18px 30px;
+    max-width: 1200px;
+    h1, h2 {
+        padding: 0;
+        padding-top: 20px;
+        margin: 0;
+        font-weight: 400;
+    }
+
+    p {
+        line-height: 22px;
+    }
+    a {
+        color: #00bcd4;
+        white-space: normal;
+        word-break: break-word;
+        word-wrap: break-word;
+    }
+    img {
+        max-width: 100%;
+        display: block;
+        margin: 30px 0 15px;
+    }
+    pre {
+        margin-left: 5px;
+        padding: 0 10px;
+        display: inline-block;
+        position: relative;
+        background: rgba(#00bcd4, 0.1);
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 1px;
+            background: #00bcd4;
+        }
+    }
+}

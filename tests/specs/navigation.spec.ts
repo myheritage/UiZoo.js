@@ -2,8 +2,8 @@ import { browser } from 'protractor/built';
 import { BASE_URL } from '../conf';
 
 describe("navigation", () => {
-    it("should have the initial title as Welcome", () => {
-        expect(browser.$(".library-_-component-name").getText()).toEqual("Welcome to UiZoo.js!");
+    it("should have the home content", () => {
+        expect(browser.$(".library-_-components_home h1").getText()).toContain("Welcome to UiZoo.js!");
     });
 
     it("should have all the components listed in the links section", () => {
@@ -39,6 +39,6 @@ describe("navigation", () => {
     it("should take back home when clicking on the logo", () => {
         browser.get(BASE_URL + "/CodeCard");
         browser.$(".library-_-title").click();
-        expect(browser.$(".library-_-component-name").getText()).toEqual("Welcome to UiZoo.js!");
+        expect(browser.$(".library-_-components_home h1").getText()).toContain("Welcome to UiZoo.js!");
     });
 });
