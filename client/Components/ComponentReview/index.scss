@@ -1,5 +1,9 @@
 .library-_-component-review {
+    animation: fade-in 0.3s ease;
     padding: 20px;
+    > div {
+        animation: fade-in 0.3s ease;
+    }
     p.library-_-section-header {
         margin: 0 0 15px;
         font-size: 15px;
@@ -65,6 +69,11 @@
             &:before {
                 display: none;
             }
+        }
+    }
+    @keyframes fade-in {
+        from {
+            opacity: 0;
         }
     }
 }

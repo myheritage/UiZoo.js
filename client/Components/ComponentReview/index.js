@@ -232,7 +232,7 @@ export default class ComponentReview extends Component {
     renderComponentSourceCode(componentContent, isEditable) {
         const componentSourceCode = !!componentContent && isValidElement(componentContent) ? jsxToString(componentContent) : null;
         return (
-            <div className="library-_-component-source-code">
+            <div className="library-_-component-source-code" key="source-code">
                 <p className="library-_-section-header">{isEditable ? 'Editable code' : 'Source code'}:</p>
                 <CodeCard>
                     {isEditable
@@ -286,7 +286,7 @@ export default class ComponentReview extends Component {
         const shouldShowEditableSource = this.state.compiledNode !== null;
 
         return (
-            <div className="library-_-component-review">
+            <div className="library-_-component-review" key={`review-for-${this.props.componentName}`}>
                 {this.renderErrorModal()}
                 {this.renderComponentMetadata(componentDoc, this.props.componentName)}
                 <Separator /> {this.renderComponentContent(componentContent)}
