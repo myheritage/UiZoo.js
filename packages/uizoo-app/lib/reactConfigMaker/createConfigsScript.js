@@ -3,13 +3,7 @@ const path = require('path');
 const fs = require('fs-extra');
 const doctrine = require('doctrine');
 const reactDocs = require('react-docgen');
-
-const {
-    ignoreTag,
-    componentsGlob,
-    componentsRootDir
-} = require('./config');
-const enhanceComment = require("./enhanceComment");
+const enhanceComment = require('./enhanceComment');
 
 module.exports = createConfigs;
 
@@ -17,14 +11,16 @@ module.exports = createConfigs;
  * Create 2 config files
  * One is a mapping between components names to actual components
  * and another is a mapping between components names to their documentation
+ * @param {Object} options includes an array of plugins
  * @return {Promise}
  */
-function createConfigs() {
+function createConfigs(componentsGlob, componentsRootDir, options) {
     return promiseGlob(componentsGlob)
         .then(filePaths => readFiles(filePaths)
-            .then(filesData => processFiles(filesData, filePaths))
+            .then(filesData => processFiles(filesData, filePaths, options))
         )
-        .then(writeFiles);
+        .then(componentsMap => writeFiles(componentsMap, componentsRootDir))
+        .catch(e => console.error(e));
 }
 
 /**
@@ -39,9 +35,10 @@ function readFiles(filePaths) {
  * Process components files and output a map that we can write to files
  * @param {Array} filesData 
  * @param {Array} filePaths
+ * @param {Object} options
  * @return {Map} of component name to an object in the form {filePath, comment} 
  */
-function processFiles(filesData = [], filePaths = []) {
+function processFiles(filesData = [], filePaths = [], options = {}) {
     let componentsMap = new Map();
 
     filesData.forEach((fileDataBuffer, i) => {
@@ -54,7 +51,7 @@ function processFiles(filesData = [], filePaths = []) {
         let parsedComment = parseCommentToObject(comment);
         comment = enhanceComment(comment, parsedComment, componentInfo);
         // skip this components if it has an ignore tag
-        if (!parsedComment[ignoreTag]) { 
+        if (options.ignoreTag && !parsedComment[options.ignoreTag]) { 
             const componentName = getComponentName(parsedComment, filePath);
             componentsMap.set(componentName, {filePath, comment});
         }
@@ -69,9 +66,10 @@ function processFiles(filesData = [], filePaths = []) {
  * It will skip the writing if there is nothing to write or nothing had changed
  * 
  * @param {Map} componentsMap 
+ * @param {String} componentsRootDir 
  * @return {Promise}
  */
-function writeFiles(componentsMap) {
+function writeFiles(componentsMap, componentsRootDir) {
     let componentsKeys = [...componentsMap.keys()];
     if (!componentsKeys.length) return null;
     let docMap = new Map(),
@@ -85,8 +83,8 @@ function writeFiles(componentsMap) {
     });
 
     return Promise.all([
-        writeIfDifferent('documentationContainer.js', createDocumentationFile(docMap)),
-        writeIfDifferent('componentsContainer.js', createComponentsFile(comMap))
+        writeIfDifferent('documentationContainer.js', createDocumentationFile(docMap), componentsRootDir),
+        writeIfDifferent('componentsContainer.js', createComponentsFile(comMap, componentsRootDir), componentsRootDir)
     ]);
 }
 
@@ -132,9 +130,10 @@ function createDocumentationFile(docMap) {
 /**
  * Create the components file from the map
  * @param {Map} comMap 
+ * @param {String} componentsRootDir 
  * @return {String}
  */
-function createComponentsFile(comMap) {
+function createComponentsFile(comMap, componentsRootDir) {
     let comFile = '',
         exportLine = 'export default {\n';
     for (let [componentName, filePath] of comMap) {
@@ -149,9 +148,10 @@ function createComponentsFile(comMap) {
  * Write only if current content is different to prevent
  * @param {String} fileName 
  * @param {String} fileContent 
+ * @param {String} componentsRootDir
  * @return {Promise}
  */
-function writeIfDifferent(fileName, fileContent) {
+function writeIfDifferent(fileName, fileContent, componentsRootDir) {
     const filePath = path.join(componentsRootDir, '.uizoo-app', fileName);
     return new Promise((resolve, reject) => {
         fs.readFile(filePath)
