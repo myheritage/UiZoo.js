@@ -3,6 +3,7 @@ import ComponentsSideBar from '../ComponentsSideBar';
 import ComponentReview from '../ComponentReview';
 import ModulePreview from '../ModulePreview';
 import ComponentsHome from '../ComponentsHome';
+import {clearErrors} from '../../services/errorReporter';
 import _ from 'underscore';
 import './index.scss';
 
@@ -19,6 +20,17 @@ export default class App extends React.Component {
 
         this.goToUrl = this.goToUrl.bind(this);
     }
+
+    /**
+     * update error state to blank when switching routes to only show errors of the current component
+     * @param {object} nextProps 
+     */
+    componentWillReceiveProps(nextProps) {
+        if (this.props.match !== nextProps.match) {
+            clearErrors();
+        }
+    }
+    
 
     /**
      * Render component review for a specific component

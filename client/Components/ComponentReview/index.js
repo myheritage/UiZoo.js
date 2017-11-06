@@ -82,6 +82,10 @@ export default class ComponentReview extends Component {
                 this.shallowStateUpdate({ componentProps: {}, compiledNode: null});
             }
         }
+        const showErrorIndicator = hasErrors();
+        if (showErrorIndicator !== this.state.showErrorIndicator) {
+            this.shallowStateUpdate({showErrorIndicator});
+        }
     }
 
     /**
