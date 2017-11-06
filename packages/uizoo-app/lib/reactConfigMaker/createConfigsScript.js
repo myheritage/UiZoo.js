@@ -42,18 +42,23 @@ function processFiles(filesData = [], filePaths = [], options = {}) {
     let componentsMap = new Map();
 
     filesData.forEach((fileDataBuffer, i) => {
-        const fileData = fileDataBuffer.toString();
-        let componentInfo = reactDocs.parse(fileData);
+        try {
+            const fileData = fileDataBuffer.toString();
+            let componentInfo = reactDocs.parse(fileData);
 
-        let comment = componentInfo.description,
-        filePath = filePaths[i];
-        
-        let parsedComment = parseCommentToObject(comment);
-        comment = enhanceComment(comment, parsedComment, componentInfo);
-        // skip this components if it has an ignore tag
-        if (options.ignoreTag && !parsedComment[options.ignoreTag]) { 
-            const componentName = getComponentName(parsedComment, filePath);
-            componentsMap.set(componentName, {filePath, comment});
+            let comment = componentInfo.description,
+            filePath = filePaths[i];
+
+            let parsedComment = parseCommentToObject(comment);
+
+            comment = enhanceComment(comment, parsedComment, componentInfo);
+            // skip this components if it has an ignore tag
+            if (options.ignoreTag && !parsedComment[options.ignoreTag]) {
+                const componentName = getComponentName(parsedComment, filePath);
+                componentsMap.set(componentName, {filePath, comment});
+            }
+        } catch(e) {
+            // skip this file if there was an error parsing it
         }
     });
 
@@ -185,7 +190,7 @@ function parseCommentToObject(comment) {
 function promiseGlob(globs) {
     return new Promise((resolve, reject) => {
         let files = [];
-        let ls = gs(componentsGlob);
+        let ls = gs(globs);
         ls.on('data', (f = {}) => {
             if (f.path) files.push(f.path);
         });

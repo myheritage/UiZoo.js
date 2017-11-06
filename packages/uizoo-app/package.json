@@ -1,6 +1,6 @@
 {
   "name": "uizoo-app",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "Dynamic React Component Library - app to create components configuration for UiZoo",
   "main": "index.js",
   "repository": {

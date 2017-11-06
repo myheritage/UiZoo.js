@@ -1,5 +1,7 @@
 module.exports = enhanceComment;
 
+const DEFAULT_PROP_TYPE = 'string';
+
 /**
  * Enhances the comment from the assumed data of the file
  * @param {string} comment 
@@ -71,7 +73,7 @@ function addParamJsdoc(comment, props, prop) {
  * @param {{name: string, value?: any}} type 
  * @returns {string}
  */
-function getParamType(type) {
+function getParamType(type = {}) {
     let paramType;
     switch (type.name) {
         case 'node':
@@ -84,12 +86,12 @@ function getParamType(type) {
             break;
 
         case 'enum':
-            paramType = type.value.map(obj => obj.value).join("|");
+            paramType = Array.isArray(type.value) ? type.value.map(obj => obj.value).join("|") : DEFAULT_PROP_TYPE;
             break;
 
         case 'union':
             // recursive
-            paramType = type.value.map(obj => getParamType(obj)).join("|");
+            paramType = Array.isArray(type.value) ? type.value.map(obj => getParamType(obj)).join("|") : DEFAULT_PROP_TYPE;
             break;
 
         case 'arrayOf':
@@ -103,7 +105,7 @@ function getParamType(type) {
 
         // any unhandled case, or 'custom'
         default: 
-            paramType = "node";
+            paramType = DEFAULT_PROP_TYPE;
             break;
     }
 
