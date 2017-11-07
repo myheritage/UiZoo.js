@@ -31,15 +31,11 @@ export default function ComponentsHome() {
             <p>
                 Just use our zero-configuration CLI! it's easy as pie! 🍽
             </p>
-            <p>
-                <pre>npm i -g uizoo</pre>
-            </p>
+            <pre>npm i -g uizoo</pre>
             <p>
                 In a directory, do:
             </p>
-            <p>
-                <pre>uizoo</pre>
-            </p>
+            <pre>uizoo</pre>
         </div>
     )
 }

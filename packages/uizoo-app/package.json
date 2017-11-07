@@ -28,5 +28,10 @@
     "node": ">=6.0.0"
   },
   "license": "MIT",
-  "devDependencies": {}
+  "devDependencies": {
+    "jest": "^21.2.1"
+  },
+  "scripts": {
+    "test": "jest"
+  }
 }

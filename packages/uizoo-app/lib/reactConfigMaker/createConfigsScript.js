@@ -183,7 +183,7 @@ function parseCommentToObject(comment) {
 }
 
 /**
- * Turn the glob stream to a promise that reslove the files
+ * Turn the glob stream to a promise that resolve the files
  * @param {Array|String} globs 
  * @return {Promise}
  */
