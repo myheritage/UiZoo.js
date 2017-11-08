@@ -78,7 +78,7 @@ export default class App extends React.Component {
 
     goToUrl(url) {
         const { baseRoute } = this.props;
-        this.props.history.push(`${baseRoute}${url}`);
+        this.props.history.push(`${baseRoute}${encodeURIComponent(url)}`);
     }
 
     render() {
@@ -86,7 +86,8 @@ export default class App extends React.Component {
         const componentName = match.params.componentName;
         const showSideBarClassName = this.state.showSideBar ? ' show-side-bar' : '';
 
-        const isModule = _.includes(_.keys(componentsByModule), componentName);
+        const moduleName = decodeURIComponent(componentName);
+        const isModule = _.includes(_.keys(componentsByModule), moduleName);
         const isComponent = (components[componentName] && !isModule);
         const isHome = !components[componentName] && !isModule;
         
@@ -103,7 +104,7 @@ export default class App extends React.Component {
                         goToUrl={this.goToUrl} />
                 </div>
                 {!!isComponent && this.renderComponentReview(componentName)}
-                {!!isModule && this.renderModulePreview(componentName, true)}
+                {!!isModule && this.renderModulePreview(moduleName, true)}
                 {!!isHome && <ComponentsHome/>}
             </div>
         );

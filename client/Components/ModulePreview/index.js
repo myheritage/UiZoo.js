@@ -29,14 +29,14 @@ export default class ModulePreview extends React.Component {
         
         const componentDefaultExample = extractJSDocExample(componentDoc, DEFAULT_EXAMPLE_INDEX);
         // try to compile an example, if it didn't work - at least show something
-        const componentContent = compileExample(componentDefaultExample, compiler) || (<ComponentNode />);
+        const componentContent = componentDefaultExample ? compileExample(componentDefaultExample, compiler) || (<ComponentNode />) : (<ComponentNode />);
 
         const description = componentDoc.description && componentDoc.description[0]
             ? componentDoc.description[0].description
             : '';
 
         return (
-            <div className='library-_-component-preview-card-container'>
+            <div className='library-_-component-preview-card-container' key={componentName}>
                 <Card className='library-_-component-preview-card'>
                     <div className='library-_-component-preview-name'
                         onClick={() => goToUrl(componentName)}>
@@ -70,7 +70,7 @@ export default class ModulePreview extends React.Component {
             </div>;
 
         return (
-            <div className='library-_-module-components-container'>
+            <div className='library-_-module-components-container' key={moduleName}>
                 {moduleNameElement}
                 {_.keys(moduleComponents).map(currComponentName =>
                     this.renderComponentPreviewCard(currComponentName))}
