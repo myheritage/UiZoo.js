@@ -29,8 +29,20 @@ describe('createConfigsScript', () => {
     it('should create simple config for a component', () => {
         expect.assertions(2);
         const promise = createConfigsScript(...configArgs).then(() => {
-            expect(getDocsFile()).toEqual('export default {\nComp1: `@example <Content/>\n@param {string} someProp1\n@name Comp1\n@param {node} [children] `,\n}');
-            expect(getCompsFile()).toEqual('import Comp1 from \'1.js\';\nexport default {\n    Comp1,\n};');
+            expect(getDocsFile()).toEqual(
+`export default {
+Comp1: \`@example <Content/>
+@param {string} someProp1
+@name Comp1
+@param {node} [children] \`,
+}`
+            );
+            expect(getCompsFile()).toEqual(
+`import Comp1 from '1.js';
+export default {
+    Comp1,
+};`
+            );
         });
         streamFiles(['1.js']);
         return promise;
@@ -38,8 +50,28 @@ describe('createConfigsScript', () => {
     it('should create simple config for multiple components', () => {
         expect.assertions(2);
         const promise = createConfigsScript(...configArgs).then(() => {
-            expect(getDocsFile()).toEqual("export default {\nComp1: `@example <Content/>\n@param {string} someProp1\n@name Comp1\n@param {node} [children] `,\nComp2Name: `@name Comp2Name\n@module Comp2Module\n@example <Comp2 />\n@example <Comp2 someProp1=\"val1\" someProp2=\"val2\">child</Comp2>\n@param {string} someProp1\n@param {\"val2\"|\"val3\"} [someProp2]`,\n}");
-            expect(getCompsFile()).toEqual("import Comp1 from \'1.js\';\nimport Comp2Name from \'2.js\';\nexport default {\n    Comp1,\n    Comp2Name,\n};");
+            expect(getDocsFile()).toEqual(
+`export default {
+Comp1: \`@example <Content/>
+@param {string} someProp1
+@name Comp1
+@param {node} [children] \`,
+Comp2Name: \`@name Comp2Name
+@module Comp2Module
+@example <Comp2 />
+@example <Comp2 someProp1="val1" someProp2="val2">child</Comp2>
+@param {string} someProp1
+@param {"val2"|"val3"} [someProp2]\`,
+}`
+            );
+            expect(getCompsFile()).toEqual(
+`import Comp1 from '1.js';
+import Comp2Name from '2.js';
+export default {
+    Comp1,
+    Comp2Name,
+};`
+            );
         });
         streamFiles(['1.js', '2.js']);
         return promise;
@@ -47,7 +79,17 @@ describe('createConfigsScript', () => {
     it('should create documentation for only prop-types', () => {
         expect.assertions(1);
         const promise = createConfigsScript(...configArgs).then(() => {
-            expect(getDocsFile()).toEqual("export default {\nComp3: `\n@name Comp3\n@param {node} children=\'yo\' \n@param {'option1'|'option2'} [someProp1] \n@param {object} [someProp2] \n@param {func} [someFn] \n@param {object} someObject `,\n}");
+            expect(getDocsFile()).toEqual(
+`export default {
+Comp3: \`
+@name Comp3
+@param {node} children 
+@param {'option1'|'option2'} [someProp1] 
+@param {object} [someProp2] 
+@param {func} [someFn] 
+@param {object} someObject \`,
+}`
+            );
         });
         streamFiles(['3.js']);
         return promise;

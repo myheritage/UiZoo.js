@@ -12,4 +12,5 @@ export default {
     bool: ["boolean"],
     number: ["float", "int", "integer", "double"],
     node: ["jsx", "react.reactelement", "reactelement"],
+    function: ["func"],
 };
