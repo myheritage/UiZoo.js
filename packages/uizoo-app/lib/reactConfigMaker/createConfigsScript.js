@@ -52,7 +52,6 @@ function processFiles(filesData = [], filePaths = [], options = {}) {
             filePath = filePaths[i];
             if (!comment) { // as fallback take the first JSDoc
                 comment = getDefaultComment(fileData);
-                console.log(comment);
             }
 
             let parsedComment = parseCommentToObject(comment);
