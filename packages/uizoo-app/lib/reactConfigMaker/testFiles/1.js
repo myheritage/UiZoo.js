@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 /**
- * @example <Content/>
+ * @example <Comp1/>
  * @param {string} someProp1
  */
 export default function Comp1 () {

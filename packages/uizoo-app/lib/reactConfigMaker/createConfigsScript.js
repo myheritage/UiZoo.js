@@ -4,6 +4,8 @@ const fs = require('fs-extra');
 const doctrine = require('doctrine');
 const reactDocs = require('react-docgen');
 const enhanceComment = require('./enhanceComment');
+const defaultCommentRegex = /\/\*\*((.*|\s*)*?)\*\//;
+const removeCommentLineStateRegex = /^\s*\*\s{0,1}/gm;
 
 module.exports = createConfigs;
 
@@ -46,8 +48,12 @@ function processFiles(filesData = [], filePaths = [], options = {}) {
             const fileData = fileDataBuffer.toString();
             let componentInfo = reactDocs.parse(fileData);
 
-            let comment = componentInfo.description,
+            let comment = componentInfo.description || '',
             filePath = filePaths[i];
+            if (!comment) { // as fallback take the first JSDoc
+                comment = getDefaultComment(fileData);
+                console.log(comment);
+            }
 
             let parsedComment = parseCommentToObject(comment);
 
@@ -63,6 +69,16 @@ function processFiles(filesData = [], filePaths = [], options = {}) {
     });
 
     return componentsMap;
+}
+
+/**
+ * @param {string} fileData
+ * @return {string}
+ */
+function getDefaultComment(fileData) {
+    commentMatches = defaultCommentRegex.exec(fileData) || [];
+    let defaultComment = commentMatches[1] || '';
+    return defaultComment.replace(removeCommentLineStateRegex, '').trim();
 }
 
 /**

@@ -15,6 +15,7 @@ const mockFiles = {
     '1.js': getTestFile(1),
     '2.js': getTestFile(2),
     '3.js': getTestFile(3),
+    '4.js': getTestFile(4),
     [docFilePath]: '',
     [compFilePath]: '',
 };
@@ -31,7 +32,7 @@ describe('createConfigsScript', () => {
         const promise = createConfigsScript(...configArgs).then(() => {
             expect(getDocsFile()).toEqual(
 `export default {
-Comp1: \`@example <Content/>
+Comp1: \`@example <Comp1/>
 @param {string} someProp1
 @name Comp1
 @param {node} [children] \`,
@@ -52,7 +53,7 @@ export default {
         const promise = createConfigsScript(...configArgs).then(() => {
             expect(getDocsFile()).toEqual(
 `export default {
-Comp1: \`@example <Content/>
+Comp1: \`@example <Comp1/>
 @param {string} someProp1
 @name Comp1
 @param {node} [children] \`,
@@ -92,6 +93,21 @@ Comp3: \`
             );
         });
         streamFiles(['3.js']);
+        return promise;
+    });
+
+    it('should create documentation even if react-docgen miss the comment', () => {
+        expect.assertions(1);
+        const promise = createConfigsScript(...configArgs).then(() => {
+            expect(getDocsFile()).toEqual(
+`export default {
+Comp4: \`@name Comp4
+@example <Comp4 />
+@param {string} someProp1\`,
+}`
+            );
+        });
+        streamFiles(['4.js']);
         return promise;
     });
 });
