@@ -8,6 +8,7 @@ import _ from 'underscore';
 import './index.scss';
 import cloneRegExp from 'babel-standalone';
 
+
 /**
  * @class App
  * Main component
@@ -129,7 +130,7 @@ export default class App extends React.Component {
                 </div>
                 {!!isComponent && this.renderComponentReview(componentName)}
                 {!!isModule && this.renderModulePreview(moduleName, true)}
-                {!!isHome && <ComponentsHome />}
+                {!!isHome && <ComponentsHome/>}
             </div>
         );
     }
