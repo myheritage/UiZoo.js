@@ -43,6 +43,38 @@
             margin: 0;
         }
     }
+
+    .library-_-component-dependencies-section {
+        margin-top: 30px;
+    }
+
+    .library-_-component-usages-section,
+    .library-_-component-dependencies-section {
+        margin-bottom: 15px;
+
+        .library-_-section-title {
+            margin: 10px 0;
+        }
+
+        .library-_-component-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        li {
+            display: inline-block;
+        }
+
+        li + li:before {
+            content: ', ';
+        }
+
+        a {
+            color: #00bcd4;
+        }
+    }
+
     .library-_-component-content {
         min-height: 150px;
         padding: 15px 10px;

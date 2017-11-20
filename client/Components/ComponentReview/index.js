@@ -1,4 +1,4 @@
-import React, {isValidElement, Component} from 'react';
+import React, { isValidElement, Component } from 'react';
 import _ from 'underscore';
 import Card from '../UI/Card';
 import Separator from '../UI/Separator';
@@ -35,7 +35,7 @@ export default class ComponentReview extends Component {
         this.toggleErrorModal = this.toggleErrorModal.bind(this);
 
         const example = this.extractJSDocExample(props);
-            
+
         this.setDefaultExample(example, true, props);
     }
 
@@ -64,9 +64,9 @@ export default class ComponentReview extends Component {
      */
     extractJSDocExample(props = this.props) {
         return extractJSDocExample(
-            props.documentations[props.componentName], 
+            props.documentations[props.componentName],
             props.exampleIndex);
-            
+
     }
 
     /**
@@ -79,12 +79,12 @@ export default class ComponentReview extends Component {
             if (example) {
                 this.setDefaultExample(example, false, nextProps);
             } else {
-                this.shallowStateUpdate({ componentProps: {}, compiledNode: null});
+                this.shallowStateUpdate({ componentProps: {}, compiledNode: null });
             }
         }
         const showErrorIndicator = hasErrors();
         if (showErrorIndicator !== this.state.showErrorIndicator) {
-            this.shallowStateUpdate({showErrorIndicator});
+            this.shallowStateUpdate({ showErrorIndicator });
         }
     }
 
@@ -120,7 +120,7 @@ export default class ComponentReview extends Component {
             } else {
                 compiledNode = compiledExample;
             }
-            this.shallowStateUpdate({ componentProps, compiledNode}, isInConstructor);
+            this.shallowStateUpdate({ componentProps, compiledNode }, isInConstructor);
         }
     }
 
@@ -149,9 +149,10 @@ export default class ComponentReview extends Component {
      * @param {object}
      * @param {string} name
      */
-    renderComponentMetadata({ description, module }, name) {
-        const { goToUrl } = this.props;
+    renderComponentMetadata({ description, module, requires = [] }, name) {
+        const { goToUrl, usages } = this.props;
         const moduleName = module && module[0].name;
+        const componentUsages = usages[name];
 
         return (
             <div>
@@ -172,6 +173,30 @@ export default class ComponentReview extends Component {
                         {!name && 'please select a component to view'}
                     </pre>
                 </h3>
+                {!_.isEmpty(requires) &&
+                    <section className='library-_-component-dependencies-section'>
+                        <h4 className='library-_-section-title'>Dependencies:</h4>
+                        <ul className='library-_-component-list library-_-component-dependencies'>
+                            {requires.map(currentDependency =>
+                                <li className='library-_-component-list-item'>
+                                    <a href='' onClick={() => goToUrl(currentDependency.name) && false}>
+                                        {currentDependency.name}
+                                    </a>
+                                </li>)}
+                        </ul>
+                    </section>}
+                {!_.isEmpty(componentUsages) &&
+                    <section className='library-_-component-usages-section'>
+                        <h4 className='library-_-section-title'>Used By:</h4>
+                        <ul className='library-_-component-list library-_-component-usages'>
+                            {componentUsages.map(currentUsage =>
+                                <li>
+                                    <a href='' onClick={() => goToUrl(currentUsage) && false}>
+                                        {currentUsage}
+                                    </a>
+                                </li>)}
+                        </ul>
+                    </section>}
             </div>
         );
     }
@@ -241,11 +266,11 @@ export default class ComponentReview extends Component {
                 <CodeCard>
                     {isEditable
                         ? <ParamSelectorJSX
-                                selectedValue={componentSourceCode}
-                                compiler={this.props.compiler}
-                                onChange={(e, compiledNode) => this.shallowStateUpdate({compiledNode}, false)}
-                                forceOnlyJSX
-                          />
+                            selectedValue={componentSourceCode}
+                            compiler={this.props.compiler}
+                            onChange={(e, compiledNode) => this.shallowStateUpdate({ compiledNode }, false)}
+                            forceOnlyJSX
+                        />
                         : componentSourceCode}
                 </CodeCard>
             </div>
@@ -294,7 +319,7 @@ export default class ComponentReview extends Component {
                 {this.renderErrorModal()}
                 {this.renderComponentMetadata(componentDoc, this.props.componentName)}
                 <Separator /> {this.renderComponentContent(componentContent)}
-                <Separator /> 
+                <Separator />
                 {shouldShowEditableSource
                     ? this.renderComponentSourceCode(componentContent, true)
                     : this.renderComponentParams(componentDoc, this.props.componentName)
