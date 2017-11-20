@@ -6,6 +6,7 @@ const reactDocs = require('react-docgen');
 const enhanceComment = require('./enhanceComment');
 const defaultCommentRegex = /\/\*\*((.*|\s*)*?)\*\//;
 const removeCommentLineStateRegex = /^\s*\*\s{0,1}/gm;
+const defaultDuplicateComponentSuffix = 2; // will add '2' to the dupe, and add one for every other dupe.
 
 module.exports = createConfigs;
 
@@ -60,7 +61,8 @@ function processFiles(filesData = [], filePaths = [], options = {}) {
             // skip this components if it has an ignore tag
             if (options.ignoreTag && !parsedComment[options.ignoreTag]) {
                 const componentName = getComponentName(parsedComment, filePath);
-                componentsMap.set(componentName, {filePath, comment});
+                const mapKey = getComponentNameForMap(componentName, componentsMap, defaultDuplicateComponentSuffix);
+                componentsMap.set(mapKey, {filePath, comment});
             }
         } catch(e) {
             // skip this file if there was an error parsing it
@@ -130,6 +132,20 @@ function getComponentName(parsedComment, filePath) {
         }
     }
     return name;
+}
+
+/**
+ * Make sure this name is not in use already
+ * @param {String} componentName 
+ * @param {Map} componentsMap 
+ * @param {String} defaultSuffix 
+ */
+function getComponentNameForMap(componentName, componentsMap, defaultSuffix = 2) {
+    let suffix = '';
+    while(componentsMap.has(`${componentName}${suffix}`)) {
+        suffix =+ suffix ? suffix + 1 : defaultDuplicateComponentSuffix;
+    }
+    return componentName + suffix;
 }
 
 /**

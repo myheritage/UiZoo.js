@@ -72,7 +72,7 @@ export default class ModulePreview extends React.Component {
         return (
             <div className='library-_-module-components-container' key={moduleName}>
                 {moduleNameElement}
-                {_.keys(moduleComponents).map(currComponentName =>
+                {_.keys(moduleComponents).sort().map(currComponentName =>
                     this.renderComponentPreviewCard(currComponentName))}
                     {isMainModule && <Separator/>}
             </div>

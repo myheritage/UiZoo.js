@@ -110,4 +110,36 @@ Comp4: \`@name Comp4
         streamFiles(['4.js']);
         return promise;
     });
+
+    it('should create documentation even same name is used a couple of times', () => {
+        expect.assertions(2);
+        const promise = createConfigsScript(...configArgs).then(() => {
+            expect(getDocsFile()).toEqual(
+`export default {
+Comp4: \`@name Comp4
+@example <Comp4 />
+@param {string} someProp1\`,
+Comp42: \`@name Comp4
+@example <Comp4 />
+@param {string} someProp1\`,
+Comp43: \`@name Comp4
+@example <Comp4 />
+@param {string} someProp1\`,
+}`
+            );
+            expect(getCompsFile()).toEqual(
+`import Comp4 from '4.js';
+import Comp42 from '4.js';
+import Comp43 from '4.js';
+export default {
+    Comp4,
+    Comp42,
+    Comp43,
+};`
+            );
+        });
+        streamFiles(['4.js', '4.js', '4.js']);
+    
+        return promise;
+    });
 });
