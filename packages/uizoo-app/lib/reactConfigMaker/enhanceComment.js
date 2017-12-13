@@ -1,21 +1,23 @@
 module.exports = enhanceComment;
 
+const DEFAULT_PROP_TYPE = 'string';
+
 /**
  * Enhances the comment from the assumed data of the file
+ * Eventually to return a better comment with all the information we can get
  * @param {string} comment 
  * @param {Object} parsedComment 
- * @param {Object=} props 
+ * @param {Object} [props]
  * @returns {string}
  */
 function enhanceComment(comment, parsedComment, {displayName, props = {}}) {
     comment = verifyNameInJsdoc(comment, parsedComment, displayName);
     comment = verifyPropsInJsdoc(comment, parsedComment, props);
-
     return comment;
 }
 
 /**
- * Makes sure that the comment has a name
+ * Makes sure that the comment has a name, it will be added if missing and we have it
  * @param {string} comment 
  * @param {Object} parsedComment 
  * @param {string} displayName 
@@ -31,7 +33,7 @@ function verifyNameInJsdoc(comment, parsedComment, displayName) {
 }
 
 /**
- * Verifies that our jsdoc has all the props from the object
+ * Verifies that our JSDoc has all the props from the object
  * @param {string} comment 
  * @param {Object} parsedComment 
  * @param {Object} props 
@@ -40,8 +42,9 @@ function verifyNameInJsdoc(comment, parsedComment, displayName) {
 function verifyPropsInJsdoc(comment, parsedComment, props) {
     let existingParams = new Set();
     (parsedComment.param || []).forEach(param => existingParams.add(param.name));
-    
-    for (let prop in props) {
+    const propKeys = Object.keys(props);
+    for (let i = 0, l = propKeys.length; i < l; i++) {
+        let prop = propKeys[i];
         if (existingParams.has(prop)) {
             continue;
         }
@@ -51,27 +54,26 @@ function verifyPropsInJsdoc(comment, parsedComment, props) {
 }
 
 /**
- * Adds a single jdsoc prop line
+ * Adds a single JSDoc line of a prop in the comment
  * @param {string} comment 
  * @param {Object} props 
  * @param {string} prop 
  * @returns {string}
  */
 function addParamJsdoc(comment, props, prop) {
-    let paramType = getParamType(props[prop].type);
-    let paramName = getParamName(prop, props[prop]);
-    
-    let commentLine = `\n@param {${paramType}} ${paramName} ${props[prop].description}`;
+    const paramType = getParamType(props[prop].type);
+    const paramName = getParamName(prop, props[prop]);
+    const commentLine = `\n@param {${paramType}} ${paramName} ${props[prop].description}`;
     comment += commentLine;
     return comment;
 }
 
 /**
- * Gets the JSDoc type from the PropType object
+ * Resolves the JSDoc type from the PropType object
  * @param {{name: string, value?: any}} type 
  * @returns {string}
  */
-function getParamType(type) {
+function getParamType(type = {}) {
     let paramType;
     switch (type.name) {
         case 'node':
@@ -84,12 +86,12 @@ function getParamType(type) {
             break;
 
         case 'enum':
-            paramType = type.value.map(obj => obj.value).join("|");
+            paramType = Array.isArray(type.value) ? type.value.map(obj => obj.value).join("|") : DEFAULT_PROP_TYPE;
             break;
 
         case 'union':
             // recursive
-            paramType = type.value.map(obj => getParamType(obj)).join("|");
+            paramType = Array.isArray(type.value) ? type.value.map(obj => getParamType(obj)).join("|") : DEFAULT_PROP_TYPE;
             break;
 
         case 'arrayOf':
@@ -103,7 +105,7 @@ function getParamType(type) {
 
         // any unhandled case, or 'custom'
         default: 
-            paramType = "node";
+            paramType = DEFAULT_PROP_TYPE;
             break;
     }
 
@@ -119,7 +121,7 @@ function getParamType(type) {
  * @returns {string}
  */
 function getParamName(name, {defaultValue, required}) {
-    if (defaultValue) {
+    if (defaultValue && !required) {
         name = `${name}=${defaultValue.value}`;
     }
     if (!required) {

@@ -11,7 +11,7 @@ And all this with almost no effort!
 
 ![React UiZoo 1](https://i.imgur.com/1VIerCJ.gif "React UiZoo 1")
 
-We use JSDoc parsing from your current components to showcase them, with all of their possible properties, examples, and descriptions.
+We use JSDoc/PropTypes parsing from your current components to showcase them, with all of their possible properties, examples, and descriptions.
 This tool can be used for developing, for Product Managers to know what is possible, for UX to see what we have so far, and it can be a playground for co-operation between all of the above.
 
 ![React UiZoo 3](https://imgur.com/f3B2TDj.gif)
@@ -108,10 +108,22 @@ The tests package is isolated and located inside the /tests folder.
 The target of the tests is to run locally before committing changes and to be a sanity indicator that everything is okay.
 Tests are written in Protractor with Karma and they cover the project from end-to-end.
 
+In the uizoo-app package (the local app helper module), the tests sits next to what they are testing. Those are written in Jest.
+
 ### Run the tests once
 To perform the tests once, run:
 ```
 npm test
+```
+
+To run uizoo-app tests, run:
+```
+cd packages/uizoo-app
+npm test
+```
+or for watching
+```
+npm run test:w
 ```
 
 ### Develop tests

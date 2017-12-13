@@ -1,1 +1,0 @@
-web: ./node_modules/.bin/rollup -c rollup.config.js -o dist/index.js -f iife -n UiZoo && node lib/server/main.js

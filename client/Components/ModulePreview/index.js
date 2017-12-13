@@ -9,8 +9,8 @@ import './index.scss';
 export const DEFAULT_EXAMPLE_INDEX = 0;
 
 /**
- * Shows a preview of a module, show casing it's components
- * Has a mode to show all modules' components
+ * Shows a preview of a module, show casing the components in it
+ * Passing isMainModule props as 'true' will show all modules' components
  */
 export default class ModulePreview extends React.Component {
     constructor(props) {
@@ -20,26 +20,23 @@ export default class ModulePreview extends React.Component {
     }
 
     /**
-     * Render a single component preview card
      * @param {String} componentName The components name
      */
     renderComponentPreviewCard(componentName) {
-        const { goToUrl, compiler} = this.props;
+        const {goToUrl, compiler} = this.props;
         const componentDoc = this.props.documentations[componentName] || {};
         const ComponentNode = this.props.components[componentName] || null;
         
-        // Extract the default jsdoc example
         const componentDefaultExample = extractJSDocExample(componentDoc, DEFAULT_EXAMPLE_INDEX);
-        
-        // Compile the example's props
-        const componentContent = compileExample(componentDefaultExample, compiler);
+        // try to compile an example, if it didn't work - at least show something
+        const componentContent = componentDefaultExample ? compileExample(componentDefaultExample, compiler) || (<ComponentNode />) : (<ComponentNode />);
 
         const description = componentDoc.description && componentDoc.description[0]
             ? componentDoc.description[0].description
             : '';
 
         return (
-            <div className='library-_-component-preview-card-container'>
+            <div className='library-_-component-preview-card-container' key={componentName}>
                 <Card className='library-_-component-preview-card'>
                     <div className='library-_-component-preview-name'
                         onClick={() => goToUrl(componentName)}>
@@ -62,7 +59,7 @@ export default class ModulePreview extends React.Component {
      * @param {Array} moduleName 
      */
     renderModuleComponents(moduleName) {
-        const { componentsByModule, goToUrl, isMainModule} = this.props;
+        const {componentsByModule, goToUrl, isMainModule} = this.props;
         const moduleComponents = componentsByModule[moduleName];
 
         // Only show module name if showing all modules in library
@@ -73,9 +70,9 @@ export default class ModulePreview extends React.Component {
             </div>;
 
         return (
-            <div className='library-_-module-components-container'>
+            <div className='library-_-module-components-container' key={moduleName}>
                 {moduleNameElement}
-                {_.keys(moduleComponents).map(currComponentName =>
+                {_.keys(moduleComponents).sort().map(currComponentName =>
                     this.renderComponentPreviewCard(currComponentName))}
                     {isMainModule && <Separator/>}
             </div>
@@ -83,7 +80,7 @@ export default class ModulePreview extends React.Component {
     }
 
     render() {
-        const { moduleName, componentsByModule, isMainModule = false } = this.props;
+        const {moduleName, componentsByModule, isMainModule = false} = this.props;
         const modules = isMainModule ? _.keys(componentsByModule) : [moduleName];
 
         return (

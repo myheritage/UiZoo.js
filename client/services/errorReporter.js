@@ -22,6 +22,13 @@ export function reportError(message, args) {
 }
 
 /**
+ * Remove all the errors like when switching routes
+ */
+export function clearErrors() {
+    errorList = [];
+}
+
+/**
  * Get errors
  */
 export function getErrors() {

@@ -1,6 +1,6 @@
 {
   "name": "uizoo-app",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Dynamic React Component Library - app to create components configuration for UiZoo",
   "main": "index.js",
   "repository": {
@@ -28,5 +28,11 @@
     "node": ">=6.0.0"
   },
   "license": "MIT",
-  "devDependencies": {}
+  "devDependencies": {
+    "jest": "^21.2.1"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:w": "jest --watch"
+  }
 }

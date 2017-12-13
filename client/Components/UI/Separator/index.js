@@ -14,6 +14,7 @@ import './index.scss';
  * @example
  * <Separator/>
  */
+
 export default function Separator() {
     return <div className="library-_-primary-separator"/>;
 }

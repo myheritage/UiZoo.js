@@ -8,7 +8,7 @@ export default function ComponentsHome() {
     return (
         <div className="library-_-view-section library-_-components_home">
             <h1>
-                Welcome to UiZoo.js! 🦉🐼 🦍
+                Welcome to UiZoo.js! <span className="library-_-emoji owl"/><span className="library-_-emoji panda"/><span className="library-_-emoji gorilla"/>
             </h1>
             <p>
                 How many times did you create a new component just to find later someone already did the exact same? How many times did you find out that a "generic"
@@ -31,15 +31,11 @@ export default function ComponentsHome() {
             <p>
                 Just use our zero-configuration CLI! it's easy as pie! 🍽
             </p>
-            <p>
-                <pre>npm i -g uizoo</pre>
-            </p>
+            <pre>npm i -g uizoo</pre>
             <p>
                 In a directory, do:
             </p>
-            <p>
-                <pre>uizoo</pre>
-            </p>
+            <pre>uizoo</pre>
         </div>
     )
 }

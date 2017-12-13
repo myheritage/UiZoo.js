@@ -13,6 +13,12 @@
     .library-_-view-section {
         width: 100%;
         transition: all 0.3s ease;
+        animation: fade-in 0.3s ease;
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+            }
+        }
     }
     .library-_-toggle-side-bar {
         border: 0;

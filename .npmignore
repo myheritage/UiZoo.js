@@ -1,8 +1,4 @@
-.DS_Store
 .vscode
 node_modules
 packages
-tests/node_modules
-tests/output
-tests/.protractor-fail-fast
-Procfile
+tests
