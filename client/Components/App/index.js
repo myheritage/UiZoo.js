@@ -6,6 +6,9 @@ import ComponentsHome from '../ComponentsHome';
 import _ from 'underscore';
 import './index.scss';
 
+const SHOW_SIDE_BAR_KEY = 'showSideBar';
+const DEFAULT_SHOW_SIDE_BAR = true;
+
 /**
  * @class App
  * Main component
@@ -13,11 +16,46 @@ import './index.scss';
 export default class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            showSideBar: true
-        };
-
         this.goToUrl = this.goToUrl.bind(this);
+        this.setShowSideBar = this.setShowSideBar.bind(this);
+        this.getShowSideBar = this.getShowSideBar.bind(this);
+        this.setInitialShowSideBar = this.setInitialShowSideBar.bind(this);
+    }
+
+    /**
+     * Setting showSideBar in both localStorage and state
+     * @param {boolean} value 
+     */
+    setShowSideBar(value) {
+        try {
+            window.localStorage.setItem(SHOW_SIDE_BAR_KEY, JSON.stringify(value));
+        } catch (e) { }
+        this.setState({ showSideBar: value });
+    }
+
+    /**
+     * Returns showSideBar from localStorage
+     * @returns {boolean} 
+     */
+    getShowSideBar() {
+        try {
+            return JSON.parse(window.localStorage.getItem(SHOW_SIDE_BAR_KEY));
+        } catch (e) {
+            return undefined;
+        }
+    }
+
+    /**
+     * Setting initial showSideBar
+     */
+    setInitialShowSideBar() {
+        const localStorageValue = this.getShowSideBar();
+        const initialValue = localStorageValue !== undefined ? localStorageValue : DEFAULT_SHOW_SIDE_BAR;
+        this.setShowSideBar(initialValue);
+    }
+
+    componentWillMount() {
+        this.setInitialShowSideBar();        
     }
 
     /**
@@ -35,7 +73,7 @@ export default class App extends React.Component {
                     componentName={componentName}
                     compiler={compiler}
                     exampleIndex={match.params.exampleIndex}
-                    changeExampleIndexInUrl={exampleIndexParam => this.props.history.push(`${baseRoute}${componentName}${exampleIndexParam}`)} 
+                    changeExampleIndexInUrl={exampleIndexParam => this.props.history.push(`${baseRoute}${componentName}${exampleIndexParam}`)}
                     goToUrl={this.goToUrl} />
             </div>
         );
@@ -72,7 +110,8 @@ export default class App extends React.Component {
     render() {
         const { documentations, components, componentsByModule, match, compiler, baseRoute } = this.props;
         const componentName = match.params.componentName;
-        const showSideBarClassName = this.state.showSideBar ? ' show-side-bar' : '';
+        const showSideBar = this.state.showSideBar;
+        const showSideBarClassName = showSideBar ? ' show-side-bar' : '';
 
         const isModule = _.includes(_.keys(componentsByModule), componentName);
         const isComponent = (components[componentName] && !isModule);
@@ -82,7 +121,7 @@ export default class App extends React.Component {
             <div className={`library-_-app${showSideBarClassName}`}>
                 <button
                     className="library-_-toggle-side-bar"
-                    onClick={() => this.setState({ showSideBar: !this.state.showSideBar })} />
+                    onClick={() => this.setShowSideBar(!showSideBar)} />
                 <div className="library-_-side-bar">
                     <ComponentsSideBar
                         components={components}
