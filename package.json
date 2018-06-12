@@ -41,8 +41,6 @@
     "fs-extra": "~4.0.2",
     "latest-version": "~3.1.0",
     "opn": "~5.1.0",
-    "react": "~16.0.0",
-    "react-dom": "~16.0.0",
     "react-router-dom": "~4.2.2",
     "underscore": "~1.8.3"
   },
@@ -64,6 +62,8 @@
     "postcss-cssnext": "~2.9.0",
     "postcss-discard-comments": "~2.0.4",
     "postcss-discard-duplicates": "~2.0.2",
+    "react": "~16.0.0",
+    "react-dom": "~16.0.0",
     "rollup": "~0.50.0",
     "rollup-plugin-buble": "~0.16.0",
     "rollup-plugin-commonjs": "~8.2.1",
@@ -72,5 +72,9 @@
     "rollup-plugin-replace": "~2.0.0",
     "rollup-plugin-scss": "~0.3.0",
     "uglify-js": "~3.1.6"
+  },
+  "peerDependencies": {
+    "react": "~16.0.0",
+    "react-dom": "~16.0.0"
   }
 }
