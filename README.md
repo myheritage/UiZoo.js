@@ -1,3 +1,8 @@
+### *** DEPRECATED *** ###
+UiZoo is currently deprecated and this repository is not actively maintained.
+If you are interested in this library and would like to take the responsibility of maintaining it, please send an email to lior.greenberg@myheritage.com.
+Thanks for supporting us, sorry for the inconvenience! 
+
 # UiZoo.js - Dynamic React components library
 Try our live example [here](https://myheritage.github.io/UiZoo.js/).
 
